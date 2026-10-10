@@ -11,6 +11,8 @@ export interface CartSnapshot {
   price: number;
   image: string | null;
   type: ProductType;
+  /** Línea mayorista (precio wholesale). Solo checkout distribuidor. */
+  wholesale?: boolean;
 }
 
 export interface CartLine extends CartSnapshot {

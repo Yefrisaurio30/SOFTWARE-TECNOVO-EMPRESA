@@ -52,9 +52,15 @@ export default function CheckoutPage() {
       setFieldErrors(errs);
       return;
     }
+    const isWholesale = lines.length > 0 && lines.every((l) => l.wholesale);
+    const isMixed = lines.some((l) => l.wholesale) && !isWholesale;
+    if (isMixed) {
+      setServerError("Separa tu compra: el carrito mayorista va solo, sin productos retail.");
+      return;
+    }
     setSending(true);
     try {
-      const res = await fetch("/api/orders", {
+      const res = await fetch(isWholesale ? "/api/distribuidor/checkout" : "/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(parsed.data),
@@ -181,7 +187,9 @@ export default function CheckoutPage() {
               {sending ? "Creando pedido…" : "Confirmar pedido"}
             </button>
             <p className="mt-2 text-center text-xs text-text-faint">
-              El pago con Wompi se habilita en el siguiente paso.
+              {lines.every((l) => l.wholesale)
+                ? "Compra mayorista: precio y pedido mínimo validados en el servidor."
+                : "El pago con Wompi se habilita en el siguiente paso."}
             </p>
           </aside>
         </form>
