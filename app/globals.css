@@ -17,6 +17,10 @@
   --color-steel-deep: #5c7393;
 }
 
+:root {
+  color-scheme: dark;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -31,6 +35,19 @@ body {
 ::selection {
   background: #b8c2cf;
   color: #000;
+}
+
+/* Desplegables nativos: lista negra con letras blancas en todo el proyecto. */
+select,
+select option,
+select optgroup {
+  background-color: #161618;
+  color: #f5f5f7;
+}
+
+select option:checked {
+  background-color: #2a2a2d;
+  color: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {
