@@ -168,7 +168,7 @@ Seed F2: 12 nuevas, 8 usadas, 20 repuestos, 10 accesorios ficticios realistas.
 ## 6. Env
 
 ```
-DATABASE_URL=postgresql://tecnovо:tecnovо@db:5432/tecnovо?schema=public
+DATABASE_URL=postgresql://tecnovo:tecnovo@db:5432/tecnovo?schema=public
 AUTH_SECRET=...
 AUTH_URL=http://localhost:3000
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -186,3 +186,4 @@ WOMPI_EVENTS_SECRET=stg_...
 - Usadas: stock 1, bloqueo al reservar.
 - Mayorista: blindar API + HTML.
 - Fotos reales pendientes → placeholders grises propios.
+
