@@ -7,7 +7,7 @@ export function WhatsAppWidget() {
   const href = waLink("Hola TECNOVO, quiero más información. ¿Me ayudan?");
 
   const onClick = () => {
-    window.dispatchEvent(new CustomEvent("tecnovо:whatsapp-click", { detail: { href } }));
+    window.dispatchEvent(new CustomEvent("tecnovo:whatsapp-click", { detail: { href } }));
   };
 
   return (
