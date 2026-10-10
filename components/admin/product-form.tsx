@@ -14,7 +14,33 @@ export function ProductForm({ product }: { product?: Product | null }) {
   const router = useRouter();
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
+  const [images, setImages] = useState<string[]>(product?.images ?? []);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
   const specs = product ? getSpecs(product) : {};
+
+  const onFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = [...(e.target.files ?? [])];
+    if (files.length === 0) return;
+    setUploading(true);
+    setUploadError("");
+    try {
+      const fd = new FormData();
+      files.slice(0, 8).forEach((f) => fd.append("files", f));
+      const res = await fetch("/api/admin/products/upload", { method: "POST", body: fd });
+      const json = (await res.json()) as { urls?: string[]; error?: string };
+      if (!res.ok || !json.urls) {
+        setUploadError(json.error ?? "No se pudo subir");
+        return;
+      }
+      setImages((prev) => [...prev, ...json.urls!].slice(0, 8));
+    } catch {
+      setUploadError("Error de red al subir");
+    } finally {
+      setUploading(false);
+      e.target.value = "";
+    }
+  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -90,8 +116,38 @@ export function ProductForm({ product }: { product?: Product | null }) {
           <textarea id="pf-desc" name="description" rows={3} defaultValue={product?.description ?? ""} className={inputCls} />
         </div>
         <div className="sm:col-span-2">
-          <label htmlFor="pf-img" className={labelCls}>Imágenes (una URL por línea)</label>
-          <textarea id="pf-img" name="imagesRaw" rows={2} defaultValue={(product?.images ?? []).join("\n")} className={inputCls} />
+          <span id="pf-img-label" className={labelCls}>Imágenes ({images.length}/8)</span>
+          <input
+            type="file"
+            aria-labelledby="pf-img-label"
+            accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+            multiple
+            onChange={onFiles}
+            disabled={uploading}
+            className="w-full rounded-2xl border border-dashed border-white/20 bg-white/5 px-4 py-3 text-sm text-text-muted file:mr-3 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-black disabled:opacity-60"
+          />
+          {uploading ? <p className="mt-2 text-sm text-text-muted">Subiendo…</p> : null}
+          {uploadError ? <p role="alert" className="mt-2 text-sm text-danger">{uploadError}</p> : null}
+          {images.length > 0 ? (
+            <ul className="mt-3 grid grid-cols-4 gap-3">
+              {images.map((src) => (
+                <li key={src} className="relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={src} alt="" className="aspect-square w-full rounded-2xl border border-white/10 object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => setImages((prev) => prev.filter((x) => x !== src))}
+                    aria-label="Quitar imagen"
+                    className="absolute top-1 right-1 grid size-7 place-items-center rounded-full bg-black/70 text-sm text-white"
+                  >
+                    ×
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <input type="hidden" name="imagesRaw" value={images.join("\n")} />
+          <p className="mt-2 text-xs text-text-faint">JPG, PNG, WebP, GIF o AVIF · máx. 5 MB por imagen.</p>
         </div>
         <div className="sm:col-span-2">
           <label htmlFor="pf-specs" className={labelCls}>Specs (JSON)</label>

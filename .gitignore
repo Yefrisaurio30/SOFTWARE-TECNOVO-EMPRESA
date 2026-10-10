@@ -12,3 +12,5 @@ coverage/
 test-results/
 pgdata/
 tsconfig.tsbuildinfo
+public/uploads/*
+!public/uploads/.gitkeep
