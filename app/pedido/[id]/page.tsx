@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { formatCOP } from "@/lib/money";
 import { Container, SectionHeading } from "@/components/ui/section";
+import { PayButton } from "@/components/payment/pay-button";
 
 const STATUS_LABEL: Record<string, string> = {
   PENDIENTE: "Pendiente de pago",
@@ -64,10 +65,14 @@ export default async function PedidoPage({ params }: { params: Promise<{ id: str
               <div className="sm:col-span-2"><dt className="text-text-faint">Dirección</dt><dd className="text-text">{order.address}</dd></div>
             </dl>
             {order.status === "PENDIENTE" ? (
-              <p className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-text-muted">
-                Tu pedido quedó registrado. El pago en línea se habilita en el siguiente paso del
-                proyecto (Wompi); por ahora te contactamos por WhatsApp para coordinar.
-              </p>
+              <div className="mt-6 rounded-[24px] border border-white/10 bg-white/5 p-5">
+                <p className="text-sm text-text-muted">
+                  Tu pedido quedó registrado y está verificando el pago. Si aún no pagas:
+                </p>
+                <div className="mt-3">
+                  <PayButton orderId={order.id} />
+                </div>
+              </div>
             ) : null}
           </div>
           <aside className="h-fit rounded-[24px] border border-white/10 bg-surface p-6">
