@@ -1,48 +1,36 @@
-import Link from "next/link";
-import { Container, Section } from "@/components/ui/section";
+import type { Metadata } from "next";
+import { getFeaturedProducts, getProductsByType } from "@/lib/products";
+import { Hero } from "@/components/home/hero";
+import { WhyTecnovo } from "@/components/home/why-tecnovo";
+import { ModelGrid } from "@/components/home/model-grid";
+import { SpecsSticky } from "@/components/home/specs-sticky";
+import { Locations } from "@/components/home/locations";
+import { TestRide } from "@/components/home/test-ride";
+import { Reviews } from "@/components/home/reviews";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "TECNOVO — Motos eléctricas, segunda mano y repuestos",
+  description:
+    "Motos eléctricas nuevas, motos de segunda mano, repuestos y accesorios con taller y garantía en Colombia.",
+};
+
+export default async function Home() {
+  const [heroModels, gridModels, nuevas] = await Promise.all([
+    getProductsByType("MOTO_NUEVA", 3),
+    getFeaturedProducts(6),
+    getProductsByType("MOTO_NUEVA", 1),
+  ]);
+  const specsModel = nuevas[0] ?? heroModels[0] ?? gridModels[0];
+
   return (
-    <>
-      <Section>
-        <Container className="text-center">
-          <p className="mx-auto w-fit rounded-full border border-white/10 px-4 py-1 text-sm text-text-muted">
-            TECNOVO · Sistema de diseño F1
-          </p>
-          <h1
-            className="mx-auto mt-6 max-w-4xl font-semibold"
-            style={{ fontSize: "clamp(44px, 8vw, 104px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
-          >
-            Monocromo premium.
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-[17px]/relaxed text-text-muted">
-            Negro y gris, aire generoso y la moto como protagonista. La home
-            completa llega en F3.
-          </p>
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <Link
-              href="/motos-electricas"
-              className="rounded-full bg-white px-6 py-3 text-[15px] font-medium text-black transition hover:scale-[1.02]"
-            >
-              Ver eléctricas
-            </Link>
-            <Link href="/motos-usadas" className="text-[15px] text-text">
-              Segunda mano <span aria-hidden>›</span>
-            </Link>
-          </div>
-        </Container>
-      </Section>
-      <Section tone="light">
-        <Container>
-          <p className="text-sm font-medium tracking-wide text-steel-deep uppercase">F1 · Tokens</p>
-          <h2
-            className="mt-3 font-semibold text-light-text"
-            style={{ fontSize: "clamp(32px, 5vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
-          >
-            Secciones que alternan negro y gris claro.
-          </h2>
-        </Container>
-      </Section>
-    </>
+    <main>
+      <Hero products={heroModels} />
+      <WhyTecnovo />
+      <ModelGrid products={gridModels} />
+      {specsModel ? <SpecsSticky product={specsModel} /> : null}
+      <Locations />
+      <TestRide />
+      <Reviews />
+    </main>
   );
 }
