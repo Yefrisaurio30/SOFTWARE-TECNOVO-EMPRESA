@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPERADMIN
+  DISTRIBUIDOR
+  CLIENTE
+}
+
+enum ProductType {
+  MOTO_NUEVA
+  MOTO_USADA
+  REPUESTO
+  ACCESORIO
+}
+
+enum OrderStatus {
+  PENDIENTE
+  PAGADO
+  RECHAZADO
+  ENVIADO
+  ENTREGADO
+  CANCELADO
+}
+
+enum DistributorStatus {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+}
+
+model User {
+  id          String               @id @default(cuid())
+  name        String?
+  email       String               @unique
+  role        Role                 @default(CLIENTE)
+  distributor DistributorProfile?
+  orders      Order[]
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+}
+
+model Product {
+  id             String      @id @default(cuid())
+  slug           String      @unique
+  name           String
+  type           ProductType
+  brand          String
+  priceRetail    Int
+  priceWholesale Int?
+  stock          Int         @default(0)
+  description    String      @default("")
+  images         String[]    @default([])
+  specs          Json        @default("{}")
+  featured       Boolean     @default(false)
+  active         Boolean     @default(true)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  orderItems     OrderItem[]
+
+  @@index([type, active, featured])
+  @@index([brand])
+}
+
+model Order {
+  id           String      @id @default(cuid())
+  userId       String?
+  user         User?       @relation(fields: [userId], references: [id])
+  status       OrderStatus @default(PENDIENTE)
+  total        Int
+  isWholesale  Boolean     @default(false)
+  paymentRef   String?     @unique
+  contactName  String      @default("")
+  contactPhone String      @default("")
+  contactEmail String?
+  city         String      @default("")
+  address      String      @default("")
+  delivery     String      @default("ENVIO")
+  items        OrderItem[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  qty       Int
+  unitPrice Int
+}
+
+model DistributorProfile {
+  id        String            @id @default(cuid())
+  userId    String            @unique
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company   String
+  nit       String            @unique
+  city      String
+  phone     String
+  status    DistributorStatus @default(PENDIENTE)
+  minUnits  Int               @default(1)
+  createdAt DateTime          @default(now())
+}
+
+model SiteSetting {
+  key   String @id
+  value Json
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?
+  action    String
+  entity    String
+  entityId  String?
+  createdAt DateTime @default(now())
+}
