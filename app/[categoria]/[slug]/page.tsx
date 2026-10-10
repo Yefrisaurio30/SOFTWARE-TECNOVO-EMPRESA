@@ -11,6 +11,7 @@ import {
 } from "@/lib/products";
 import { formatCOP } from "@/lib/money";
 import { waProductLink } from "@/lib/whatsapp";
+import { getWhatsAppNumber } from "@/lib/site-settings";
 import { Container } from "@/components/ui/section";
 import { AddToCartButton } from "@/components/cart/add-button";
 import { Gallery } from "@/components/product/gallery";
@@ -58,7 +59,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
   const related = await getRelatedProducts(product.type, product.id, 4);
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const url = `${siteUrl}${detailHref(product)}`;
-  const wa = waProductLink(product.name, detailHref(product));
+  const wa = waProductLink(product.name, detailHref(product), await getWhatsAppNumber());
   const isUsed = product.type === "MOTO_USADA";
   const available = product.stock > 0;
 

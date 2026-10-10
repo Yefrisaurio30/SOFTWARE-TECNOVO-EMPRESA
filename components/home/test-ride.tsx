@@ -1,7 +1,7 @@
 import { waTestRideLink } from "@/lib/whatsapp";
 import { Container } from "@/components/ui/section";
 
-export function TestRide() {
+export function TestRide({ number }: { number: string }) {
   return (
     <section aria-label="Prueba de manejo" className="bg-light pb-24 text-light-text md:pb-32">
       <Container>
@@ -18,7 +18,7 @@ export function TestRide() {
             </p>
           </div>
           <a
-            href={waTestRideLink()}
+            href={waTestRideLink(number)}
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 rounded-full bg-white px-7 py-3 text-[15px] font-medium text-black transition hover:scale-[1.02]"

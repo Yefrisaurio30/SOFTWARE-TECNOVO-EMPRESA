@@ -1,4 +1,5 @@
 import { PrismaClient, ProductType } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -99,6 +100,19 @@ async function main() {
 
   const counts = await prisma.product.groupBy({ by: ["type"], _count: true });
   console.log("Conteos en BD:", JSON.stringify(counts));
+
+  // Jefe inicial: ADMIN_EMAIL + ADMIN_PASSWORD (solo si vienen en el entorno).
+  const adminEmail = process.env.ADMIN_EMAIL?.toLowerCase();
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (adminEmail && adminPassword) {
+    const passwordHash = await bcrypt.hash(adminPassword, 10);
+    await prisma.user.upsert({
+      where: { email: adminEmail },
+      update: { role: "SUPERADMIN", passwordHash },
+      create: { name: "Jefe TECNOVO", email: adminEmail, role: "SUPERADMIN", passwordHash },
+    });
+    console.log(`Superadmin listo: ${adminEmail}`);
+  }
 }
 
 main()

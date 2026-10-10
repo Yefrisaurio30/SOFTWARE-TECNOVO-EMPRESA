@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/section";
+import { AccountLinks } from "@/components/layout/account-links";
 
 export function Footer() {
   return (
@@ -48,6 +49,7 @@ export function Footer() {
         </div>
         <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-text-faint md:flex-row md:justify-between">
           <span>© {new Date().getFullYear()} TECNOVO. Todos los derechos reservados.</span>
+          <AccountLinks />
           <span>Precios en COP. La confirmación del pago la da la pasarela.</span>
         </div>
       </Container>

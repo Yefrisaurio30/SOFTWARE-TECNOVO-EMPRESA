@@ -4,6 +4,7 @@ import type { Product } from "@prisma/client";
 import { getSpecs } from "@/lib/products";
 import { topSpecs } from "@/lib/specs";
 import { waProductLink } from "@/lib/whatsapp";
+import { getWhatsAppNumber } from "@/lib/site-settings";
 import { AddToCartButton } from "@/components/cart/add-button";
 import { ProductImage } from "./product-image";
 import { Price } from "./price";
@@ -25,9 +26,9 @@ export function detailHref(p: Pick<Product, "slug" | "type">): string {
   return `/${cat}/${p.slug}`;
 }
 
-export function ProductCard({ product }: { product: Product }) {
+export async function ProductCard({ product }: { product: Product }) {
   const specs = topSpecs(getSpecs(product));
-  const wa = waProductLink(product.name, detailHref(product));
+  const wa = waProductLink(product.name, detailHref(product), await getWhatsAppNumber());
 
   return (
     <article

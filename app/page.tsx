@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getFeaturedProducts, getProductsByType } from "@/lib/products";
+import { getWhatsAppNumber } from "@/lib/site-settings";
 import { Hero } from "@/components/home/hero";
 import { WhyTecnovo } from "@/components/home/why-tecnovo";
 import { ModelGrid } from "@/components/home/model-grid";
@@ -15,21 +16,22 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [heroModels, gridModels, nuevas] = await Promise.all([
+  const [heroModels, gridModels, nuevas, whatsapp] = await Promise.all([
     getProductsByType("MOTO_NUEVA", 3),
     getFeaturedProducts(6),
     getProductsByType("MOTO_NUEVA", 1),
+    getWhatsAppNumber(),
   ]);
   const specsModel = nuevas[0] ?? heroModels[0] ?? gridModels[0];
 
   return (
     <main>
-      <Hero products={heroModels} />
+      <Hero products={heroModels} whatsapp={whatsapp} />
       <WhyTecnovo />
       <ModelGrid products={gridModels} />
       {specsModel ? <SpecsSticky product={specsModel} /> : null}
       <Locations />
-      <TestRide />
+      <TestRide number={whatsapp} />
       <Reviews />
     </main>
   );

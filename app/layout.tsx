@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { getWhatsAppNumber } from "@/lib/site-settings";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppWidget } from "@/components/contact/whatsapp-widget";
@@ -21,7 +22,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const whatsapp = await getWhatsAppNumber();
   return (
     <html lang="es-CO">
       <body className={inter.className}>
@@ -36,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </div>
         <Footer />
-        <WhatsAppWidget />
+        <WhatsAppWidget number={whatsapp} />
         <CartDrawer />
       </body>
     </html>

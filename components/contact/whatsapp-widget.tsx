@@ -3,8 +3,8 @@
 import { MessageCircle } from "lucide-react";
 import { waLink } from "@/lib/whatsapp";
 
-export function WhatsAppWidget() {
-  const href = waLink("Hola TECNOVO, quiero más información. ¿Me ayudan?");
+export function WhatsAppWidget({ number }: { number: string }) {
+  const href = waLink("Hola TECNOVO, quiero más información. ¿Me ayudan?", number);
 
   const onClick = () => {
     window.dispatchEvent(new CustomEvent("tecnovo:whatsapp-click", { detail: { href } }));

@@ -59,7 +59,7 @@ export async function priceOrderItems(
   return { lines, total };
 }
 
-export async function createOrder(data: CreateOrderData) {
+export async function createOrder(data: CreateOrderData, userId?: string) {
   const { lines, total } = await priceOrderItems(data.items);
 
   return prisma.$transaction(async (tx) => {
@@ -76,6 +76,7 @@ export async function createOrder(data: CreateOrderData) {
       data: {
         status: "PENDIENTE",
         total,
+        userId: userId ?? null,
         contactName: data.contactName,
         contactPhone: data.contactPhone,
         contactEmail: data.contactEmail || null,

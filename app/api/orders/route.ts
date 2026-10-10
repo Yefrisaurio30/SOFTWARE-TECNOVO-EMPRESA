@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import { CreateOrderInput } from "@/lib/order-validation";
 import { createOrder } from "@/lib/orders";
 
@@ -17,7 +18,8 @@ export async function POST(req: Request) {
     );
   }
   try {
-    const order = await createOrder(parsed.data);
+    const session = await auth();
+    const order = await createOrder(parsed.data, session?.user?.id);
     // TODO(F10): correo de confirmación (falta proveedor de email).
     console.info(`Pedido creado: ${order.id} total=${order.total}`);
     return NextResponse.json({ orderId: order.id }, { status: 201 });

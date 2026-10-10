@@ -13,7 +13,7 @@ import { Price } from "@/components/product/price";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export function Hero({ products }: { products: Product[] }) {
+export function Hero({ products, whatsapp }: { products: Product[]; whatsapp: string }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -79,7 +79,7 @@ export function Hero({ products }: { products: Product[] }) {
                 Ver modelo
               </Link>
               <a
-                href={waTestRideLink()}
+                href={waTestRideLink(whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[15px] text-text"
