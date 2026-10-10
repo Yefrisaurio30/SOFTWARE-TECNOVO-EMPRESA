@@ -6,6 +6,7 @@ import { WhyTecnovo } from "@/components/home/why-tecnovo";
 import { ModelGrid } from "@/components/home/model-grid";
 import { SpecsSticky } from "@/components/home/specs-sticky";
 import { Locations } from "@/components/home/locations";
+import { SavingsCalculator } from "@/components/home/savings-calculator";
 import { TestRide } from "@/components/home/test-ride";
 import { Reviews } from "@/components/home/reviews";
 
@@ -30,6 +31,7 @@ export default async function Home() {
       <WhyTecnovo />
       <ModelGrid products={gridModels} />
       {specsModel ? <SpecsSticky product={specsModel} /> : null}
+      <SavingsCalculator />
       <Locations />
       <TestRide number={whatsapp} />
       <Reviews />

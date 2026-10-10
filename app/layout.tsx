@@ -6,6 +6,8 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppWidget } from "@/components/contact/whatsapp-widget";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import { Splash } from "@/components/layout/splash";
+import { CompareTray } from "@/components/compare/compare-tray";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -40,6 +42,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Footer />
         <WhatsAppWidget number={whatsapp} />
         <CartDrawer />
+        <CompareTray />
+        <Splash />
       </body>
     </html>
   );

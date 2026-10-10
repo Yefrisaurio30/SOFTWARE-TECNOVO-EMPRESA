@@ -6,6 +6,7 @@ import { topSpecs } from "@/lib/specs";
 import { waProductLink } from "@/lib/whatsapp";
 import { getWhatsAppNumber } from "@/lib/site-settings";
 import { AddToCartButton } from "@/components/cart/add-button";
+import { CompareButton } from "@/components/compare/compare-button";
 import { ProductImage } from "./product-image";
 import { Price } from "./price";
 
@@ -64,6 +65,9 @@ export async function ProductCard({ product }: { product: Product }) {
           <Price value={product.priceRetail} className="text-xl font-semibold text-text" />
           <div className="flex items-center gap-2">
             <AddToCartButton product={product} />
+            {(product.type === "MOTO_NUEVA" || product.type === "MOTO_USADA") ? (
+              <CompareButton product={product} />
+            ) : null}
             <a
               href={wa}
               target="_blank"
