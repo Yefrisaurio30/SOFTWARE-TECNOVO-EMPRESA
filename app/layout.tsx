@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppWidget } from "@/components/contact/whatsapp-widget";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
         <Footer />
         <WhatsAppWidget />
+        <CartDrawer />
       </body>
     </html>
   );

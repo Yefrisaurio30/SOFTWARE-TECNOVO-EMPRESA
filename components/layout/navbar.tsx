@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, Search, ShoppingCart, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
+import { CartButton } from "@/components/cart/cart-button";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
@@ -79,13 +80,9 @@ export function Navbar() {
           </div>
         </form>
 
-        <Link
-          href="/carrito"
-          aria-label="Ver carrito"
-          className="ml-auto grid size-9 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5 text-text transition hover:border-white/20 md:ml-0"
-        >
-          <ShoppingCart size={17} aria-hidden />
-        </Link>
+        <div className="ml-auto md:ml-0">
+          <CartButton />
+        </div>
 
         <button
           className="grid size-9 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5 text-text lg:hidden"

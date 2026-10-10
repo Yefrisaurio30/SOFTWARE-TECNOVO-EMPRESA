@@ -12,6 +12,7 @@ import {
 import { formatCOP } from "@/lib/money";
 import { waProductLink } from "@/lib/whatsapp";
 import { Container } from "@/components/ui/section";
+import { AddToCartButton } from "@/components/cart/add-button";
 import { Gallery } from "@/components/product/gallery";
 import { SpecsTable } from "@/components/product/specs-table";
 import { Price } from "@/components/product/price";
@@ -131,6 +132,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               {product.description}
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
+              {available ? <AddToCartButton product={product} /> : null}
               <a
                 href={wa}
                 target="_blank"

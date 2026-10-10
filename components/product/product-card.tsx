@@ -4,6 +4,7 @@ import type { Product } from "@prisma/client";
 import { getSpecs } from "@/lib/products";
 import { topSpecs } from "@/lib/specs";
 import { waProductLink } from "@/lib/whatsapp";
+import { AddToCartButton } from "@/components/cart/add-button";
 import { ProductImage } from "./product-image";
 import { Price } from "./price";
 
@@ -61,12 +62,7 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="mt-auto flex items-center justify-between gap-2 pt-3">
           <Price value={product.priceRetail} className="text-xl font-semibold text-text" />
           <div className="flex items-center gap-2">
-            <Link
-              href={detailHref(product)}
-              className="rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition hover:scale-[1.02]"
-            >
-              Ver
-            </Link>
+            <AddToCartButton product={product} />
             <a
               href={wa}
               target="_blank"
