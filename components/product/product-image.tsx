@@ -25,15 +25,26 @@ export function ProductImage({
 }) {
   if (images.length > 0) {
     return (
-      <div className={cn("relative overflow-hidden", className)}>
+      <div className={cn("relative overflow-hidden bg-white", className)}>
         <Image
           src={images[0]}
           alt={name}
           fill
           sizes={sizes}
-          className="object-cover transition duration-300 group-hover:scale-[1.03]"
+          className="object-contain p-4 transition duration-300 group-hover:scale-[1.03]"
           loading="lazy"
         />
+        {images.length > 1 ? (
+          <Image
+            src={images[1]}
+            alt=""
+            aria-hidden
+            fill
+            sizes={sizes}
+            className="bg-white object-contain p-4 opacity-0 transition duration-300 group-hover:opacity-100"
+            loading="lazy"
+          />
+        ) : null}
       </div>
     );
   }
