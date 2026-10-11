@@ -17,20 +17,19 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [heroModels, gridModels, nuevas, whatsapp] = await Promise.all([
+  const [heroModels, gridModels, stickyModels, whatsapp] = await Promise.all([
     getProductsByType("MOTO_NUEVA", 3),
     getFeaturedProducts(6),
-    getProductsByType("MOTO_NUEVA", 1),
+    getProductsByType("MOTO_NUEVA", 5),
     getWhatsAppNumber(),
   ]);
-  const specsModel = nuevas[0] ?? heroModels[0] ?? gridModels[0];
 
   return (
     <main>
       <Hero products={heroModels} whatsapp={whatsapp} />
       <WhyTecnovo />
       <ModelGrid products={gridModels} />
-      {specsModel ? <SpecsSticky product={specsModel} /> : null}
+      {stickyModels.length > 0 ? <SpecsSticky products={stickyModels} /> : null}
       <SavingsCalculator />
       <Locations />
       <TestRide number={whatsapp} />
