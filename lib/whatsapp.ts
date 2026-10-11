@@ -9,8 +9,8 @@ export function waLink(message: string, number?: string): string {
   return `https://wa.me/${to}?text=${encodeURIComponent(message)}`;
 }
 
-export function waProductLink(productName: string, productUrl: string, number?: string): string {
-  return waLink(`Hola TECNOVO, me interesa ${productName} (${productUrl}). ¿Me cotizan?`, number);
+export function waProductLink(productName: string, number?: string): string {
+  return waLink(`Hola TECNOVO, me interesa la ${productName}. ¿Me cotizan?`, number);
 }
 
 export function waTestRideLink(number?: string): string {
