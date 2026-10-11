@@ -29,7 +29,7 @@ export function detailHref(p: Pick<Product, "slug" | "type">): string {
 
 export async function ProductCard({ product }: { product: Product }) {
   const specs = topSpecs(getSpecs(product));
-  const wa = waProductLink(product.name, detailHref(product), await getWhatsAppNumber());
+  const wa = waProductLink(product.name, await getWhatsAppNumber());
 
   return (
     <article

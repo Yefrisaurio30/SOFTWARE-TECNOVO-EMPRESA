@@ -8,6 +8,21 @@ export interface PricedItem {
   name: string;
 }
 
+export interface OrderViewer {
+  user: { id: string; role: string };
+}
+
+/**
+ * Quién puede ver/pagar un pedido: su dueño o el SUPERADMIN.
+ * Los pedidos legacy sin userId (invitados de antes) siguen públicos.
+ */
+export function canAccessOrder(orderUserId: string | null, session: OrderViewer | null): boolean {
+  if (orderUserId == null) return true;
+  if (!session?.user) return false;
+  if (session.user.role === "SUPERADMIN") return true;
+  return orderUserId === session.user.id;
+}
+
 /**
  * Recalcula totales desde la BD. Nunca usa precios del cliente.
  * Lanza Error con `code` 409 si hay problema de stock o reserva.

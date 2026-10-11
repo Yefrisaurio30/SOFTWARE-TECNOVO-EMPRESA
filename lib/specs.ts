@@ -51,3 +51,27 @@ export function topSpecs(specs: Specs, n = 2): Array<[string, string]> {
 export function allSpecs(specs: Specs): Array<[string, string]> {
   return Object.entries(specs).map(([k, v]) => [specLabel(k), specValue(k, v)]);
 }
+
+/** Claves que en la BD son números (el resto son texto). */
+export const NUMERIC_SPEC_KEYS = ["anio", "kilometraje_km", "estado_1_10"];
+
+/**
+ * Del formulario (todo string) al JSON de la BD: recorta, omite vacíos
+ * y convierte las claves numéricas a Number. Misma forma que el seed.
+ */
+export function serializeSpecs(values: Record<string, string>): Specs {
+  const out: Specs = {};
+  for (const [rawKey, rawValue] of Object.entries(values)) {
+    const key = rawKey.trim();
+    const value = (rawValue ?? "").trim();
+    if (!key || !value) continue;
+    if (NUMERIC_SPEC_KEYS.includes(key)) {
+      const n = Number(value);
+      if (Number.isNaN(n)) continue;
+      out[key] = n;
+    } else {
+      out[key] = value;
+    }
+  }
+  return out;
+}

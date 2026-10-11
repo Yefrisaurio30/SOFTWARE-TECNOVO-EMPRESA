@@ -2,7 +2,7 @@ import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 
-export type Role = "SUPERADMIN" | "DISTRIBUIDOR" | "CLIENTE";
+export type Role = "SUPERADMIN" | "MAYORISTA" | "DISTRIBUIDOR" | "CLIENTE";
 
 declare module "next-auth" {
   interface User {

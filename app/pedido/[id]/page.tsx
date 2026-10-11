@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import { canAccessOrder } from "@/lib/orders";
 import { formatCOP } from "@/lib/money";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { PayButton } from "@/components/payment/pay-button";
@@ -27,6 +29,10 @@ export default async function PedidoPage({ params }: { params: Promise<{ id: str
     include: { items: { include: { product: { select: { name: true, brand: true, slug: true } } } } },
   });
   if (!order) notFound();
+  // El pedido es privado: solo su dueño (o el admin) puede verlo y pagarlo.
+  const session = await auth();
+  if (order.userId && !session?.user) redirect(`/login?next=/pedido/${id}`);
+  if (!canAccessOrder(order.userId, session)) notFound();
 
   return (
     <main className="bg-black py-10 text-text md:py-14">

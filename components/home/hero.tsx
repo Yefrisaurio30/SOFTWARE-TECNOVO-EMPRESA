@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -14,18 +14,28 @@ import { Price } from "@/components/product/price";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-function HeroVisual({ product }: { product: Product }) {
-  const src = product.images[0];
+function HeroVisual({ product, paused }: { product: Product; paused: boolean }) {
+  const images = product.images;
+  const [photo, setPhoto] = useState(0);
+  const single = images.length <= 1;
+
+  useEffect(() => {
+    if (paused || single) return;
+    const timer = setInterval(() => setPhoto((i) => (i + 1) % images.length), 3500);
+    return () => clearInterval(timer);
+  }, [paused, single, images.length]);
+
+  const src = images[photo];
   return (
     <div className="relative mx-auto mt-12 w-full max-w-3xl">
       <motion.div
         animate={{ y: [0, -12, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="relative grid aspect-[16/9] w-full place-items-center overflow-hidden rounded-[24px] border border-white/10 bg-[radial-gradient(ellipse_at_center,#2E3440_0%,#0A0A0B_65%)]"
+        className="relative grid aspect-[4/3] w-full place-items-center overflow-hidden rounded-[24px] border border-white/10 bg-white"
         aria-hidden
       >
         <div
-          className="absolute rounded-full border border-steel/40"
+          className="absolute rounded-full border border-steel/30"
           style={{ width: "62%", aspectRatio: "1" }}
         />
         <AnimatePresence mode="wait">
@@ -43,8 +53,8 @@ function HeroVisual({ product }: { product: Product }) {
                 alt=""
                 fill
                 sizes="(max-width: 768px) 100vw, 768px"
-                className="object-cover"
-                priority
+                className="object-contain p-6 md:p-10"
+                priority={photo === 0}
               />
             ) : (
               <div className="grid h-full w-full place-items-center">
@@ -53,10 +63,42 @@ function HeroVisual({ product }: { product: Product }) {
             )}
           </motion.div>
         </AnimatePresence>
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{ background: "linear-gradient(to top, rgba(0,0,0,.55), transparent 45%)" }}
-        />
+        {!single ? (
+          <>
+            <button
+              type="button"
+              tabIndex={-1}
+              onClick={() => setPhoto((i) => (i - 1 + images.length) % images.length)}
+              aria-label="Foto anterior"
+              className="absolute top-1/2 left-3 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-black/60 text-white backdrop-blur transition hover:scale-[1.05] hover:bg-black/80"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              tabIndex={-1}
+              onClick={() => setPhoto((i) => (i + 1) % images.length)}
+              aria-label="Foto siguiente"
+              className="absolute top-1/2 right-3 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-black/60 text-white backdrop-blur transition hover:scale-[1.05] hover:bg-black/80"
+            >
+              ›
+            </button>
+            <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+              {images.map((s, i) => (
+                <button
+                  key={s}
+                  type="button"
+                  tabIndex={-1}
+                  onClick={() => setPhoto(i)}
+                  aria-label={`Ver foto ${i + 1}`}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === photo ? "w-8 bg-black/70" : "w-3 bg-black/20 hover:bg-black/40"
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        ) : null}
       </motion.div>
     </div>
   );
@@ -146,7 +188,7 @@ export function Hero({ products, whatsapp }: { products: Product[]; whatsapp: st
           </motion.div>
         </AnimatePresence>
 
-        <HeroVisual product={p} />
+        <HeroVisual key={p.id} product={p} paused={paused} />
 
         {products.length > 1 ? (
           <div className="mt-8 flex items-center justify-center gap-3">

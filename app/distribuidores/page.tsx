@@ -35,9 +35,6 @@ export default function DistribuidoresPage() {
             >
               Solicitar acceso
             </Link>
-            <Link href="/distribuidores/catalogo" className="py-3 text-[15px]">
-              Ver catálogo mayorista <span aria-hidden>›</span>
-            </Link>
           </div>
         </Container>
       </section>

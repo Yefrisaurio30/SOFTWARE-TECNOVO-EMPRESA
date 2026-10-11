@@ -1,22 +1,23 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { isWholesaleRole, minUnitsFor } from "@/lib/distributor";
 import type { CreateOrderData } from "@/lib/order-validation";
 
 /**
- * Totales mayoristas: solo MOTO_NUEVA con priceWholesale, solo distribuidor
- * APROBADO, mínimo de unidades del perfil. Nunca expone mayorista sin sesión.
+ * Totales mayoristas: solo MOTO_NUEVA con priceWholesale, solo rol MAYORISTA
+ * (directo) o DISTRIBUIDOR con perfil APROBADO. Nunca expone mayorista sin sesión.
  */
 export async function createWholesaleOrder(data: CreateOrderData) {
   const session = await auth();
-  if (!session?.user || session.user.role !== "DISTRIBUIDOR") {
-    const err = new Error("Solo distribuidores aprobados");
+  if (!session?.user || !isWholesaleRole(session.user.role)) {
+    const err = new Error("Solo mayoristas aprobados");
     (err as Error & { code?: number }).code = 403;
     throw err;
   }
   const profile = await prisma.distributorProfile.findUnique({
     where: { userId: session.user.id },
   });
-  if (!profile || profile.status !== "APROBADO") {
+  if (session.user.role !== "MAYORISTA" && (!profile || profile.status !== "APROBADO")) {
     const err = new Error("Distribuidor no aprobado");
     (err as Error & { code?: number }).code = 403;
     throw err;
@@ -43,8 +44,9 @@ export async function createWholesaleOrder(data: CreateOrderData) {
   }
 
   const totalUnits = lines.reduce((n, l) => n + l.qty, 0);
-  if (totalUnits < profile.minUnits) {
-    const err = new Error(`Pedido mínimo: ${profile.minUnits} unidades`);
+  const minUnits = minUnitsFor(profile);
+  if (totalUnits < minUnits) {
+    const err = new Error(`Pedido mínimo: ${minUnits} unidades`);
     (err as Error & { code?: number }).code = 422;
     throw err;
   }

@@ -89,7 +89,7 @@ export async function setOrderStatus(orderId: string, status: string) {
   return { ok: true as const };
 }
 
-const RoleSchema = z.enum(["SUPERADMIN", "DISTRIBUIDOR", "CLIENTE"]);
+const RoleSchema = z.enum(["SUPERADMIN", "MAYORISTA", "DISTRIBUIDOR", "CLIENTE"]);
 
 export async function setUserRole(userId: string, role: string) {
   const session = await requireAdmin();
@@ -108,7 +108,7 @@ export async function reviewDistributor(profileId: string, decision: "APROBADO" 
   await prisma.$transaction([
     prisma.distributorProfile.update({ where: { id: profileId }, data: { status: decision } }),
     ...(decision === "APROBADO"
-      ? [prisma.user.update({ where: { id: profile.userId }, data: { role: "DISTRIBUIDOR" } })]
+      ? [prisma.user.update({ where: { id: profile.userId }, data: { role: "MAYORISTA" } })]
       : []),
   ]);
   await audit("distributor.review", "DistributorProfile", profileId, session.user.id);

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useSession } from "next-auth/react";
 import { cartSubtotal, useCartStore } from "@/store/cart-store";
 import { CreateOrderInput } from "@/lib/order-validation";
 import { formatCOP } from "@/lib/money";
@@ -26,6 +27,7 @@ type FormValues = {
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const { status } = useSession();
   const lines = useCartStore((s) => s.lines);
   const clear = useCartStore((s) => s.clear);
   const { register, handleSubmit } = useForm<FormValues>({
@@ -66,6 +68,10 @@ export default function CheckoutPage() {
         body: JSON.stringify(parsed.data),
       });
       const json = (await res.json()) as { orderId?: string; error?: string };
+      if (res.status === 401) {
+        router.push("/login?next=/checkout");
+        return;
+      }
       if (!res.ok || !json.orderId) {
         setServerError(json.error ?? "No se pudo crear el pedido");
         return;
@@ -92,6 +98,53 @@ export default function CheckoutPage() {
             >
               Volver al catálogo
             </Link>
+          </div>
+        </Container>
+      </main>
+    );
+  }
+
+  if (status === "loading") {
+    return (
+      <main className="bg-black py-10 text-text md:py-14">
+        <Container>
+          <SectionHeading eyebrow="Compra" title="Checkout." />
+          <div className="mt-8 rounded-[28px] border border-white/10 bg-surface p-10 text-center">
+            <p className="text-text-muted" role="status">Cargando…</p>
+          </div>
+        </Container>
+      </main>
+    );
+  }
+
+  if (status === "unauthenticated") {
+    return (
+      <main className="bg-black py-10 text-text md:py-14">
+        <Container>
+          <SectionHeading
+            eyebrow="Compra"
+            title="Checkout."
+            description="Para crear el pedido y pagar con Wompi necesitas una cuenta."
+          />
+          <div className="mt-8 rounded-[28px] border border-white/10 bg-surface p-10 text-center">
+            <p className="text-lg font-semibold">Inicia sesión para comprar</p>
+            <p className="mx-auto mt-2 max-w-md text-sm text-text-muted">
+              Puedes explorar todo el catálogo sin cuenta, pero el pedido queda a tu nombre.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/login?next=/checkout"
+                className="rounded-full bg-white px-7 py-3 text-[15px] font-medium text-black transition hover:scale-[1.02]"
+              >
+                Entrar
+              </Link>
+              <Link
+                href="/registro"
+                className="rounded-full border border-white/15 px-7 py-3 text-[15px] text-text transition hover:border-white/30"
+              >
+                Crear cuenta
+              </Link>
+            </div>
           </div>
         </Container>
       </main>
@@ -151,7 +204,7 @@ export default function CheckoutPage() {
                   <input type="radio" value="RECOGER" className="accent-white" {...register("delivery")} />
                   <span>
                     <span className="block text-[15px] font-medium">Recoger en tienda</span>
-                    <span className="block text-xs text-text-muted">Bogotá · Medellín · Cali</span>
+                    <span className="block text-xs text-text-muted">Sede Villavicencio</span>
                   </span>
                 </label>
               </div>

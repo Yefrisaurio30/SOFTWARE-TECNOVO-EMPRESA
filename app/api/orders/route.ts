@@ -19,7 +19,10 @@ export async function POST(req: Request) {
   }
   try {
     const session = await auth();
-    const order = await createOrder(parsed.data, session?.user?.id);
+    if (!session?.user) {
+      return NextResponse.json({ error: "Inicia sesión para comprar" }, { status: 401 });
+    }
+    const order = await createOrder(parsed.data, session.user.id);
     // TODO(F10): correo de confirmación (falta proveedor de email).
     console.info(`Pedido creado: ${order.id} total=${order.total}`);
     return NextResponse.json({ orderId: order.id }, { status: 201 });

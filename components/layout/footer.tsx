@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MapPin } from "lucide-react";
 import { Container } from "@/components/ui/section";
 import { AccountLinks } from "@/components/layout/account-links";
+import { TECNOVO_MAPS_URL, TECNOVO_STORE_CITY } from "@/lib/store";
 
 export function Footer() {
   return (
@@ -19,6 +21,15 @@ export function Footer() {
             <p className="mt-4 text-sm leading-relaxed text-text-muted">
               Motos eléctricas nuevas, segunda mano, repuestos y accesorios.
             </p>
+            <a
+              href={TECNOVO_MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 text-sm text-text-muted transition hover:text-text"
+            >
+              <MapPin size={16} aria-hidden />
+              Sede {TECNOVO_STORE_CITY} · Cómo llegar
+            </a>
           </div>
           <nav aria-label="Enlaces de interés" className="grid grid-cols-2 gap-8 text-sm">
             <div className="flex flex-col gap-3">

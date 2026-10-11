@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Product } from "@prisma/client";
+import type { Product, ProductType } from "@prisma/client";
 import { saveProduct } from "@/lib/admin-actions";
 import { getSpecs } from "@/lib/products";
+import { SpecsEditor } from "@/components/admin/specs-editor";
 
 const inputCls =
   "w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-[15px] text-text outline-none placeholder:text-text-faint focus:border-steel/60";
@@ -15,6 +16,7 @@ export function ProductForm({ product }: { product?: Product | null }) {
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const [images, setImages] = useState<string[]>(product?.images ?? []);
+  const [type, setType] = useState<ProductType>(product?.type ?? "MOTO_NUEVA");
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
   const specs = product ? getSpecs(product) : {};
@@ -86,7 +88,13 @@ export function ProductForm({ product }: { product?: Product | null }) {
         </div>
         <div>
           <label htmlFor="pf-type" className={labelCls}>Tipo</label>
-          <select id="pf-type" name="type" defaultValue={product?.type ?? "MOTO_NUEVA"} className={inputCls}>
+          <select
+            id="pf-type"
+            name="type"
+            value={type}
+            onChange={(e) => setType(e.target.value as ProductType)}
+            className={inputCls}
+          >
             <option value="MOTO_NUEVA">Moto nueva</option>
             <option value="MOTO_USADA">Moto usada</option>
             <option value="REPUESTO">Repuesto</option>
@@ -133,7 +141,7 @@ export function ProductForm({ product }: { product?: Product | null }) {
               {images.map((src) => (
                 <li key={src} className="relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={src} alt="" className="aspect-square w-full rounded-2xl border border-white/10 object-cover" />
+                  <img src={src} alt="" className="aspect-square w-full rounded-2xl border border-white/10 bg-white object-contain p-1" />
                   <button
                     type="button"
                     onClick={() => setImages((prev) => prev.filter((x) => x !== src))}
@@ -150,8 +158,11 @@ export function ProductForm({ product }: { product?: Product | null }) {
           <p className="mt-2 text-xs text-text-faint">JPG, PNG, WebP, GIF o AVIF · máx. 5 MB por imagen.</p>
         </div>
         <div className="sm:col-span-2">
-          <label htmlFor="pf-specs" className={labelCls}>Specs (JSON)</label>
-          <textarea id="pf-specs" name="specsRaw" rows={3} defaultValue={JSON.stringify(specs, null, 2)} className={inputCls} dir="ltr" />
+          <span id="pf-specs-label" className={labelCls}>Ficha técnica</span>
+          <div aria-labelledby="pf-specs-label" className="rounded-[24px] border border-white/10 bg-white/[0.02] p-5">
+            <SpecsEditor type={type} initial={specs} />
+          </div>
+          <p className="mt-2 text-xs text-text-faint">Los campos cambian según el tipo. Lo que guardes queda igual que antes.</p>
         </div>
         <label className="flex items-center gap-2 text-sm">
           <input type="checkbox" name="featured" defaultChecked={product?.featured ?? false} className="size-4 accent-white" /> Destacado
