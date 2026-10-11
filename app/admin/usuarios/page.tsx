@@ -18,11 +18,14 @@ export default async function UsuariosPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-semibold tracking-tight">Usuarios y distribuidores</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">Usuarios y mayoristas</h1>
 
       {pending.length > 0 ? (
         <section aria-label="Solicitudes pendientes" className="mt-6 rounded-[24px] border border-steel/40 bg-surface p-6">
-          <h2 className="font-semibold">Solicitudes de distribuidor ({pending.length})</h2>
+          <h2 className="font-semibold">Solicitudes de mayorista ({pending.length})</h2>
+          <p className="mt-1 text-sm text-text-muted">
+            Al aprobar, el usuario recibe el rol MAYORISTA y acceso al catálogo exclusivo.
+          </p>
           <ul className="mt-4 flex flex-col gap-4">
             {pending.map((p) => (
               <li key={p.id} className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 p-4 text-sm">
@@ -42,8 +45,8 @@ export default async function UsuariosPage() {
         </section>
       ) : null}
 
-      <section aria-label="Perfiles de distribuidor" className="mt-6">
-        <h2 className="font-semibold">Distribuidores ({profiles.length})</h2>
+      <section aria-label="Perfiles de empresa" className="mt-6">
+        <h2 className="font-semibold">Empresas mayoristas ({profiles.length})</h2>
         <div className="mt-3 overflow-x-auto rounded-[24px] border border-white/10">
           <table className="w-full min-w-[680px] text-left text-sm">
             <thead>
@@ -89,6 +92,7 @@ export default async function UsuariosPage() {
                     }} className="flex gap-2">
                       <select name="role" defaultValue={u.role} aria-label={`Rol de ${u.email}`} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs">
                         <option value="CLIENTE">CLIENTE</option>
+                        <option value="MAYORISTA">MAYORISTA</option>
                         <option value="DISTRIBUIDOR">DISTRIBUIDOR</option>
                         <option value="SUPERADMIN">SUPERADMIN</option>
                       </select>

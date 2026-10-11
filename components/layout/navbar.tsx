@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, Search, X } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import { CartButton } from "@/components/cart/cart-button";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +19,9 @@ const LINKS = [
 export function Navbar() {
   const [compact, setCompact] = useState(false);
   const [open, setOpen] = useState(false);
+  const { data: session, status } = useSession();
+  const role = session?.user?.role;
+  const firstName = session?.user?.name?.split(" ")[0] ?? session?.user?.email;
 
   useEffect(() => {
     const onScroll = () => setCompact(window.scrollY > 24);
@@ -84,6 +88,41 @@ export function Navbar() {
           <CartButton />
         </div>
 
+        {status === "authenticated" ? (
+          <div className="hidden shrink-0 items-center gap-2 md:flex">
+            {role === "SUPERADMIN" ? (
+              <Link
+                href="/admin"
+                className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black transition hover:scale-[1.02]"
+              >
+                Panel
+              </Link>
+            ) : role === "MAYORISTA" || role === "DISTRIBUIDOR" ? (
+              <Link
+                href="/distribuidores/catalogo"
+                className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black transition hover:scale-[1.02]"
+              >
+                Mayorista
+              </Link>
+            ) : (
+              <span className="max-w-28 truncate text-sm text-text-muted">Hola, {firstName}</span>
+            )}
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="rounded-full px-3 py-1.5 text-sm text-text-muted transition hover:bg-white/5 hover:text-text"
+            >
+              Salir
+            </button>
+          </div>
+        ) : status === "unauthenticated" ? (
+          <Link
+            href="/login"
+            className="hidden shrink-0 rounded-full border border-white/15 px-4 py-1.5 text-sm text-text transition hover:border-white/30 md:block"
+          >
+            Entrar
+          </Link>
+        ) : null}
+
         <button
           className="grid size-9 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5 text-text lg:hidden"
           onClick={() => setOpen((v) => !v)}
@@ -106,6 +145,53 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
+          <div className="mt-2 border-t border-white/10 pt-2">
+            {status === "authenticated" ? (
+              <>
+                {role === "SUPERADMIN" ? (
+                  <Link
+                    href="/admin"
+                    onClick={() => setOpen(false)}
+                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-text hover:bg-white/5"
+                  >
+                    Panel admin
+                  </Link>
+                ) : null}
+                {role === "MAYORISTA" || role === "DISTRIBUIDOR" ? (
+                  <Link
+                    href="/distribuidores/catalogo"
+                    onClick={() => setOpen(false)}
+                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-text hover:bg-white/5"
+                  >
+                    Catálogo mayorista
+                  </Link>
+                ) : null}
+                <button
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="block w-full rounded-2xl px-4 py-3 text-left text-[15px] text-text-muted hover:bg-white/5"
+                >
+                  Salir ({firstName})
+                </button>
+              </>
+            ) : (
+              <div className="flex gap-2 p-1">
+                <Link
+                  href="/login"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 rounded-full bg-white px-4 py-2.5 text-center text-[15px] font-medium text-black"
+                >
+                  Entrar
+                </Link>
+                <Link
+                  href="/registro"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 rounded-full border border-white/15 px-4 py-2.5 text-center text-[15px] text-text"
+                >
+                  Crear cuenta
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       ) : null}
     </header>

@@ -18,7 +18,7 @@ export async function AccountLinks() {
           Admin
         </Link>
       ) : null}
-      {session.user.role === "DISTRIBUIDOR" ? (
+      {session.user.role === "MAYORISTA" || session.user.role === "DISTRIBUIDOR" ? (
         <Link href="/distribuidores/catalogo" className="text-text-muted hover:text-text">
           Mayorista
         </Link>
