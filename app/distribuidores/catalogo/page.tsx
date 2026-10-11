@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { requireApprovedDistributor } from "@/lib/distributor";
+import { requireApprovedDistributor, companyFor, minUnitsFor } from "@/lib/distributor";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { WholesaleCard } from "@/components/distribuidor/wholesale-card";
 
 export const metadata: Metadata = {
   title: "Catálogo mayorista | TECNOVO",
-  description: "Motos nuevas a precio mayorista para distribuidores aprobados.",
+  description: "Motos nuevas a precio mayorista para mayoristas aprobados.",
 };
 
 export default async function CatalogoMayoristaPage() {
-  const { profile } = await requireApprovedDistributor();
+  const { session, profile } = await requireApprovedDistributor();
+  const company = companyFor(profile, session.user.name ?? session.user.email ?? "Mayorista");
+  const minUnits = minUnitsFor(profile);
   const products = await prisma.product.findMany({
     where: { active: true, type: "MOTO_NUEVA" },
     orderBy: [{ featured: "desc" }, { name: "asc" }],
@@ -21,7 +23,7 @@ export default async function CatalogoMayoristaPage() {
     <main className="bg-black py-10 text-text md:py-14">
       <Container>
         <SectionHeading
-          eyebrow={`${profile.company} · Pedido mínimo ${profile.minUnits} uds.`}
+          eyebrow={`${company} · Pedido mínimo ${minUnits} uds.`}
           title="Catálogo mayorista."
           description="Solo motos nuevas a precio de distribuidor. El total se valida en el servidor."
         />

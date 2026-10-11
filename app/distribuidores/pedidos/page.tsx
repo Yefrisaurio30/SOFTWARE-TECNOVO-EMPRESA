@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { auth } from "@/lib/auth";
+import { requireApprovedDistributor } from "@/lib/distributor";
 import { formatCOP } from "@/lib/money";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { PrintButton } from "@/components/distribuidor/print-button";
@@ -12,15 +12,13 @@ export const metadata: Metadata = {
 };
 
 export default async function PedidosMayoristasPage() {
-  const session = await auth();
-  const orders = session?.user
-    ? await prisma.order.findMany({
-        where: { userId: session.user.id },
-        orderBy: { createdAt: "desc" },
-        take: 100,
-        include: { items: { include: { product: { select: { name: true } } } } },
-      })
-    : [];
+  const { session } = await requireApprovedDistributor();
+  const orders = await prisma.order.findMany({
+    where: { userId: session.user.id },
+    orderBy: { createdAt: "desc" },
+    take: 100,
+    include: { items: { include: { product: { select: { name: true } } } } },
+  });
 
   const totalComprado = orders
     .filter((o) => ["PAGADO", "ENVIADO", "ENTREGADO"].includes(o.status))

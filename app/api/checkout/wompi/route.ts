@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import { canAccessOrder } from "@/lib/orders";
 import { buildCheckoutUrl, buildIntegritySignature } from "@/lib/wompi";
 
 const Body = z.object({ orderId: z.string().cuid() });
@@ -24,6 +26,10 @@ export async function POST(req: Request) {
 
   const order = await prisma.order.findUnique({ where: { id: parsed.data.orderId } });
   if (!order) return NextResponse.json({ error: "Pedido no existe" }, { status: 404 });
+  const session = await auth();
+  if (!canAccessOrder(order.userId, session)) {
+    return NextResponse.json({ error: "Inicia sesión para pagar este pedido" }, { status: 401 });
+  }
   if (order.status !== "PENDIENTE") {
     return NextResponse.json({ error: "Pedido no pagable" }, { status: 409 });
   }

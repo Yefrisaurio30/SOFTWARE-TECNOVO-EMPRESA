@@ -76,6 +76,9 @@ export default function RegistroPage() {
           <p className="text-center text-sm text-text-muted">
             ¿Ya tienes? <Link href="/login" className="text-text underline">Entra</Link>
           </p>
+          <p className="text-center text-sm text-text-muted">
+            ¿Tienes negocio? <Link href="/distribuidores/registro" className="text-text underline">Solicita acceso mayorista</Link>
+          </p>
         </form>
       </Container>
     </main>

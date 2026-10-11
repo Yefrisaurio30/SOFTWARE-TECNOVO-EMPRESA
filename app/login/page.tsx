@@ -3,7 +3,7 @@
 import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { Container } from "@/components/ui/section";
 
 const inputCls =
@@ -29,7 +29,9 @@ function LoginForm() {
       setError("Correo o contraseña incorrectos.");
       return;
     }
-    router.push(next);
+    // El admin entra directo a su panel; los demás, a donde iban.
+    const session = await getSession();
+    router.push(session?.user?.role === "SUPERADMIN" ? "/admin" : next);
     router.refresh();
   };
 
