@@ -50,6 +50,31 @@ select option:checked {
   color: #ffffff;
 }
 
+/* Tarjetas: elevación suave + brillo que barre al hover. */
+.lift {
+  transition: transform 0.25s cubic-bezier(.22,1,.36,1), border-color 0.2s;
+}
+.lift:hover {
+  transform: translateY(-5px);
+}
+
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.16) 50%, transparent 58%);
+  transform: translateX(-130%);
+  transition: transform 0.9s ease;
+  pointer-events: none;
+}
+.group:hover .shine::after {
+  transform: translateX(130%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

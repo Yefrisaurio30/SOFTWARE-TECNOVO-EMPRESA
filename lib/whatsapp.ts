@@ -1,6 +1,6 @@
 export function defaultNumber(): string {
   return (
-    process.env.NEXT_PUBLIC_WHATSAPP?.replace(/\D/g, "") || "573001112233"
+    process.env.NEXT_PUBLIC_WHATSAPP?.replace(/\D/g, "") || "573122779324"
   );
 }
 

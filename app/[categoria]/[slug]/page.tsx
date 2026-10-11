@@ -17,6 +17,7 @@ import { AddToCartButton } from "@/components/cart/add-button";
 import { Gallery } from "@/components/product/gallery";
 import { SpecsTable } from "@/components/product/specs-table";
 import { Price } from "@/components/product/price";
+import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { ProductCard, detailHref } from "@/components/product/product-card";
 
 const CATEGORY_LABEL: Record<string, string> = {
@@ -159,11 +160,13 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
                 Ver más <span aria-hidden>›</span>
               </Link>
             </div>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <StaggerGroup className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {related.map((p) => (
-                <ProductCard key={p.id} product={p} />
+                <StaggerItem key={p.id}>
+                  <ProductCard product={p} />
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerGroup>
           </section>
         ) : null}
       </Container>

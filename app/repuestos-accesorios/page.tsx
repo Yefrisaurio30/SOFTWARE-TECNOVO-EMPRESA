@@ -3,6 +3,7 @@ import { getBrandsByType, getCatalog } from "@/lib/products";
 import { pageHref, parseFilters } from "@/lib/catalog-params";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { Filters } from "@/components/catalog/filters";
+import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { Pagination } from "@/components/catalog/pagination";
 import { EmptyState } from "@/components/catalog/empty-state";
 import { ProductCard } from "@/components/product/product-card";
@@ -47,11 +48,13 @@ export default async function RepuestosPage({ searchParams }: { searchParams: Pr
             />
           ) : (
             <>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <StaggerGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {items.map((p) => (
-                  <ProductCard key={p.id} product={p} />
+                  <StaggerItem key={p.id}>
+                    <ProductCard product={p} />
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerGroup>
               <div className="mt-8">
                 <Pagination
                   page={page}

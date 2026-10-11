@@ -1,48 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Bike } from "lucide-react";
 import type { Product } from "@prisma/client";
 import { getSpecs } from "@/lib/products";
-import { specValue } from "@/lib/specs";
+import { allSpecs } from "@/lib/specs";
 import { Container } from "@/components/ui/section";
 
-function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const start = performance.now();
-    const duration = 1200;
-    let frame: number;
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setValue(Math.round(eased * to));
-      if (t < 1) frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [inView, to]);
-
-  return (
-    <span ref={ref} className="tabular-nums">
-      {new Intl.NumberFormat("es-CO").format(value)}
-      {suffix}
-    </span>
-  );
-}
-
 export function SpecsSticky({ product }: { product: Product }) {
-  const specs = getSpecs(product);
-  const stats: Array<[string, number, string]> = [
-    ["Autonomía", Number(specs.autonomia_km ?? 0), " km"],
-    ["Velocidad máx.", Number(specs.velocidad_max_kmh ?? 0), " km/h"],
-    ["Potencia", Number(specs.potencia_w ?? 0), " W"],
-  ];
+  const stats = allSpecs(getSpecs(product)).slice(0, 3);
 
   return (
     <section aria-label={`Cifras de ${product.name}`} className="bg-black py-24 text-text md:py-32">
@@ -68,23 +34,18 @@ export function SpecsSticky({ product }: { product: Product }) {
             </div>
           </div>
           <div className="flex flex-col gap-6">
-            {stats.map(([label, value, suffix], i) => (
+            {stats.map(([label, value], i) => (
               <motion.div
                 key={label}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ x: 6 }}
                 className="rounded-[24px] border border-white/10 bg-surface p-8"
               >
                 <p className="text-sm text-text-muted">{label}</p>
-                <p className="mt-1 text-5xl font-semibold tracking-tight">
-                  <Counter to={value} suffix={suffix} />
-                </p>
-                <p className="mt-2 text-xs text-text-faint">
-                  Ref: {specValue("bateria", specs.bateria ?? "—")} · Carga en{" "}
-                  {specValue("tiempo_carga_h", specs.tiempo_carga_h ?? "—")}
-                </p>
+                <p className="mt-1 text-4xl font-semibold tracking-tight md:text-5xl">{value}</p>
               </motion.div>
             ))}
           </div>

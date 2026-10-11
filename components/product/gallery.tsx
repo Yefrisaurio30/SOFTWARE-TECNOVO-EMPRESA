@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import type { ProductType } from "@prisma/client";
 import { ProductImage } from "@/components/product/product-image";
 import { cn } from "@/lib/utils";
@@ -30,13 +31,19 @@ export function Gallery({
 
   return (
     <div>
-      <div className="overflow-hidden rounded-[24px] border border-white/10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={images[active]}
-          alt={`${name} — foto ${active + 1}`}
-          className="aspect-[4/3] w-full object-cover"
-        />
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[24px] border border-white/10 bg-graphite">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={images[active]}
+            src={images[active]}
+            alt={`${name} — foto ${active + 1}`}
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        </AnimatePresence>
       </div>
       {images.length > 1 ? (
         <div className="mt-3 grid grid-cols-4 gap-3" role="tablist" aria-label="Fotos del producto">
@@ -48,8 +55,10 @@ export function Gallery({
               aria-label={`Ver foto ${i + 1}`}
               onClick={() => setActive(i)}
               className={cn(
-                "overflow-hidden rounded-2xl border transition",
-                i === active ? "border-steel" : "border-white/10 opacity-70 hover:opacity-100",
+                "overflow-hidden rounded-2xl border transition duration-200",
+                i === active
+                  ? "border-steel"
+                  : "border-white/10 opacity-70 hover:scale-[1.03] hover:opacity-100",
               )}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

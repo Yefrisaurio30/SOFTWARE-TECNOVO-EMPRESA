@@ -12,23 +12,17 @@ type SeedProduct = {
   priceWholesale?: number;
   stock: number;
   description: string;
+  images?: string[];
   specs: Record<string, string | number>;
   featured?: boolean;
 };
 
 const NUEVAS: SeedProduct[] = [
-  { slug: "tecnovo-city-s1", name: "TECNOVO City S1", type: "MOTO_NUEVA", brand: "TECNOVO", priceRetail: 5490000, priceWholesale: 4650000, stock: 12, description: "Scooter eléctrica urbana, ideal para el día a día en ciudad. Silenciosa y económica.", specs: { autonomia_km: 90, potencia_w: 2000, velocidad_max_kmh: 65, bateria: "Litio 72V 32Ah extraíble", tiempo_carga_h: 5 }, featured: true },
-  { slug: "tecnovo-city-s2", name: "TECNOVO City S2", type: "MOTO_NUEVA", brand: "TECNOVO", priceRetail: 6890000, priceWholesale: 5850000, stock: 10, description: "Versión mejorada de la City con más autonomía y freno de disco doble.", specs: { autonomia_km: 120, potencia_w: 2500, velocidad_max_kmh: 75, bateria: "Litio 72V 40Ah extraíble", tiempo_carga_h: 6 }, featured: true },
-  { slug: "tecnovo-urban-pro", name: "TECNOVO Urban Pro", type: "MOTO_NUEVA", brand: "TECNOVO", priceRetail: 8290000, priceWholesale: 7050000, stock: 8, description: "Para quienes recorren más de 60 km al día. Comodidad y potencia equilibradas.", specs: { autonomia_km: 140, potencia_w: 3000, velocidad_max_kmh: 85, bateria: "Litio 72V 52Ah", tiempo_carga_h: 6 }, featured: true },
-  { slug: "tecnovo-max-rider", name: "TECNOVO Max Rider", type: "MOTO_NUEVA", brand: "TECNOVO", priceRetail: 9790000, priceWholesale: 8320000, stock: 6, description: "La más potente de la línea urbana, con tablero digital y alarma integrada.", specs: { autonomia_km: 150, potencia_w: 4000, velocidad_max_kmh: 95, bateria: "Litio 72V 60Ah", tiempo_carga_h: 7 } },
-  { slug: "volta-andina-125", name: "Volta Andina 125", type: "MOTO_NUEVA", brand: "Volta", priceRetail: 7490000, priceWholesale: 6360000, stock: 9, description: "Equivalente a 125 cc. Perfecta para subir lomas sin esfuerzo.", specs: { autonomia_km: 110, potencia_w: 3000, velocidad_max_kmh: 80, bateria: "Litio 60V 45Ah extraíble", tiempo_carga_h: 5 } },
-  { slug: "volta-cacique-200", name: "Volta Cacique 200", type: "MOTO_NUEVA", brand: "Volta", priceRetail: 10990000, priceWholesale: 9340000, stock: 5, description: "Tipo street de alto desempeño, equivalente a 200 cc.", specs: { autonomia_km: 160, potencia_w: 5000, velocidad_max_kmh: 105, bateria: "Litio 72V 70Ah", tiempo_carga_h: 7 }, featured: true },
-  { slug: "ekomoto-trabajo-t1", name: "EkoMoto Trabajo T1", type: "MOTO_NUEVA", brand: "EkoMoto", priceRetail: 5990000, priceWholesale: 5090000, stock: 14, description: "Pensada para domicilios y mensajería, con parrilla reforzada y gran autonomía.", specs: { autonomia_km: 130, potencia_w: 2500, velocidad_max_kmh: 70, bateria: "Litio 72V 45Ah extraíble", tiempo_carga_h: 6 } },
-  { slug: "ekomoto-carga-c2", name: "EkoMoto Carga C2", type: "MOTO_NUEVA", brand: "EkoMoto", priceRetail: 8990000, priceWholesale: 7640000, stock: 7, description: "Moto de carga con cajón de 150 litros para reparto pesado.", specs: { autonomia_km: 100, potencia_w: 3500, velocidad_max_kmh: 65, bateria: "Litio 72V 55Ah", tiempo_carga_h: 7 } },
-  { slug: "andina-tourer-a3", name: "Andina Tourer A3", type: "MOTO_NUEVA", brand: "Andina", priceRetail: 11990000, priceWholesale: 10190000, stock: 4, description: "Para viajes entre ciudades: asiento amplio, cúpula y doble batería opcional.", specs: { autonomia_km: 200, potencia_w: 6000, velocidad_max_kmh: 110, bateria: "Doble litio 72V 50Ah", tiempo_carga_h: 8 } },
-  { slug: "tecnovo-mini-p1", name: "TECNOVO Mini P1", type: "MOTO_NUEVA", brand: "TECNOVO", priceRetail: 4490000, priceWholesale: 3810000, stock: 15, description: "Compacta y liviana, la puerta de entrada a la movilidad eléctrica.", specs: { autonomia_km: 70, potencia_w: 1500, velocidad_max_kmh: 55, bateria: "Litio 60V 30Ah extraíble", tiempo_carga_h: 4 } },
-  { slug: "volta-sport-rs", name: "Volta Sport RS", type: "MOTO_NUEVA", brand: "Volta", priceRetail: 9490000, priceWholesale: 8060000, stock: 6, description: "Estilo deportivo, suspensión invertida y frenos CBS.", specs: { autonomia_km: 120, potencia_w: 4000, velocidad_max_kmh: 100, bateria: "Litio 72V 58Ah", tiempo_carga_h: 6 } },
-  { slug: "ekomoto-familiar-f1", name: "EkoMoto Familiar F1", type: "MOTO_NUEVA", brand: "EkoMoto", priceRetail: 6490000, priceWholesale: 5510000, stock: 11, description: "Sillín largo para dos personas y piso plano para mercado.", specs: { autonomia_km: 100, potencia_w: 2000, velocidad_max_kmh: 65, bateria: "Litio 60V 40Ah extraíble", tiempo_carga_h: 5 } },
+  { slug: "tec-force", name: "TEC-FORCE", type: "MOTO_NUEVA", brand: "TECNOVO", priceRetail: 4990000, priceWholesale: 4242000, stock: 8, description: "100% eléctrica. Scooter de 1000 W con batería de grafeno 60/72 V 25 Ah, farolas delanteras, suspensión delantera y freno de disco.", images: ["/motos/tec-force.jpg", "/motos/tec-force-foto.jpg"], specs: { motor: "1000 W full cobre", bateria: "Grafeno 60/72 V 25 Ah", velocidad_max: "60-70 km/h", autonomia: "60-75 km", carga_max: "250 kg", garantia: "5 años" }, featured: true },
+  { slug: "tec-one", name: "TEC-ONE", type: "MOTO_NUEVA", brand: "TECNOVO", priceRetail: 1849900, priceWholesale: 1572000, stock: 12, description: "100% eléctrica. Compacta de 500 W con batería de grafeno 48 V 15 Ah, asiento doble con espaldar, suspensión trasera y delantera, manubrio con canasta.", images: ["/motos/tec-one.jpg", "/motos/tec-one-foto.jpg"], specs: { motor: "500 W full cobre", bateria: "Grafeno 48 V 15 Ah", velocidad_max: "40 km/h", autonomia: "40 km", carga_max: "180 kg", garantia: "5 años" } },
+  { slug: "tec-pro", name: "TEC-PRO", type: "MOTO_NUEVA", brand: "TECNOVO", priceRetail: 1950000, priceWholesale: 1658000, stock: 12, description: "100% eléctrica. De 500 W con batería de grafeno 48 V 15 Ah, asiento doble con espaldar, farola y canasta.", images: ["/motos/tec-pro.jpg", "/motos/tec-pro-foto.jpg"], specs: { motor: "500 W full cobre", bateria: "Grafeno 48 V 15 Ah", velocidad_max: "40 km/h", autonomia: "40 km", carga_max: "200 kg", garantia: "5 años" } },
+  { slug: "tec-cr4-pro", name: "TEC-CR4 PRO", type: "MOTO_NUEVA", brand: "TECNOVO", priceRetail: 4990000, priceWholesale: 4242000, stock: 8, description: "100% eléctrica. Scooter de 1000 W con batería de grafeno 60/72 V 25 Ah, farola delantera, freno de disco, asiento con parrilla y suspensión trasera.", images: ["/motos/tec-cr4-pro.jpg", "/motos/tec-cr4-pro-foto.jpg"], specs: { motor: "1000 W full cobre", bateria: "Grafeno 60/72 V 25 Ah", velocidad_max: "60-70 km/h", autonomia: "60-75 km", carga_max: "250 kg", garantia: "5 años" }, featured: true },
+  { slug: "tec-cr5", name: "TEC-CR5", type: "MOTO_NUEVA", brand: "TECNOVO", priceRetail: 4990000, priceWholesale: 4242000, stock: 8, description: "100% eléctrica. Scooter de 1000 W con batería de grafeno 60/72 V 25 Ah, farolas delanteras, suspensión delantera, freno de disco, asiento y manubrio.", images: ["/motos/tec-cr5.jpg", "/motos/tec-cr5-foto.jpg"], specs: { motor: "1000 W full cobre", bateria: "Grafeno 60/72 V 25 Ah", velocidad_max: "60-70 km/h", autonomia: "60-75 km", carga_max: "250 kg", garantia: "5 años" }, featured: true },
 ];
 
 const USADAS: SeedProduct[] = [
@@ -79,8 +73,14 @@ const ACCESORIOS: SeedProduct[] = [
 ];
 
 async function main() {
+  // Reemplazo de catálogo: borra las motos nuevas anteriores sin pedidos.
+  const removed = await prisma.product.deleteMany({
+    where: { type: "MOTO_NUEVA", orderItems: { none: {} } },
+  });
+  console.log(`Nuevas anteriores eliminadas: ${removed.count}`);
+
   const all: SeedProduct[] = [...NUEVAS, ...USADAS, ...REPUESTOS, ...ACCESORIOS];
-  console.log(`Seed F2: ${NUEVAS.length} nuevas, ${USADAS.length} usadas, ${REPUESTOS.length} repuestos, ${ACCESORIOS.length} accesorios.`);
+  console.log(`Seed: ${NUEVAS.length} nuevas, ${USADAS.length} usadas, ${REPUESTOS.length} repuestos, ${ACCESORIOS.length} accesorios.`);
 
   for (const p of all) {
     await prisma.product.upsert({
@@ -88,12 +88,12 @@ async function main() {
       update: {
         name: p.name, type: p.type, brand: p.brand, priceRetail: p.priceRetail,
         priceWholesale: p.priceWholesale ?? null, stock: p.stock, description: p.description,
-        specs: p.specs, featured: p.featured ?? false, active: true,
+        images: p.images ?? [], specs: p.specs, featured: p.featured ?? false, active: true,
       },
       create: {
         slug: p.slug, name: p.name, type: p.type, brand: p.brand, priceRetail: p.priceRetail,
         priceWholesale: p.priceWholesale ?? null, stock: p.stock, description: p.description,
-        images: [], specs: p.specs, featured: p.featured ?? false, active: true,
+        images: p.images ?? [], specs: p.specs, featured: p.featured ?? false, active: true,
       },
     });
   }

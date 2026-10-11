@@ -1,11 +1,16 @@
 import type { Specs } from "@/lib/products";
 
 const LABELS: Record<string, string> = {
+  autonomia: "Autonomía",
   autonomia_km: "Autonomía",
+  potencia: "Potencia",
   potencia_w: "Potencia",
+  motor: "Motor",
+  velocidad_max: "Velocidad máx.",
   velocidad_max_kmh: "Velocidad máx.",
   bateria: "Batería",
   tiempo_carga_h: "Carga",
+  carga_max: "Carga máxima",
   anio: "Año",
   kilometraje_km: "Kilometraje",
   estado_1_10: "Estado",

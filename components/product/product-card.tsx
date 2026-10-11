@@ -33,7 +33,7 @@ export async function ProductCard({ product }: { product: Product }) {
 
   return (
     <article
-      className="group flex flex-col overflow-hidden rounded-[28px] border border-white/10 bg-surface transition duration-200 hover:border-white/20"
+      className="group lift flex flex-col overflow-hidden rounded-[28px] border border-white/10 bg-surface transition duration-200 hover:border-white/20"
       style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,.06)" }}
     >
       <Link href={detailHref(product)} aria-label={`Ver ${product.name}`}>
@@ -41,7 +41,7 @@ export async function ProductCard({ product }: { product: Product }) {
           images={product.images}
           name={product.name}
           type={product.type}
-          className="aspect-[4/3] w-full rounded-t-[28px]"
+          className="shine aspect-[4/3] w-full rounded-t-[28px]"
         />
       </Link>
       <div className="flex flex-1 flex-col gap-2 p-5">

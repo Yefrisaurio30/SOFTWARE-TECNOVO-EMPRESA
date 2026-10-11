@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppWidget } from "@/components/contact/whatsapp-widget";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import { MotionProvider } from "@/components/motion/motion-provider";
 import { Splash } from "@/components/layout/splash";
 import { CompareTray } from "@/components/compare/compare-tray";
 
@@ -35,6 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         >
           Saltar al contenido
         </a>
+        <MotionProvider>
         <Navbar />
         <div id="contenido" className="pt-24">
           {children}
@@ -44,6 +46,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <CartDrawer />
         <CompareTray />
         <Splash />
+        </MotionProvider>
       </body>
     </html>
   );
