@@ -2,8 +2,8 @@
 name: tecnovo-design-system
 description: Sistema visual de TECNOVO, negro y gris, limpio y premium tipo Apple, nada futurista. Úsalo en cualquier componente, página, estilo o animación de la tienda.
 ---
-# Concepto: "Monocromo premium"
-Una tienda que se siente como una vitrina de producto: mucho negro, mucho aire, tipografía grande y la moto como protagonista. Calma, precisión, cero ruido. NO futurista: sin neón, sin glitch, sin degradados chillones, sin bordes luminosos agresivos.
+# Concepto: "Monocromo con acento neón"
+Una tienda que se siente como una vitrina de producto: mucho negro, mucho aire, tipografía grande y la moto como protagonista. Calma, precisión, cero ruido. Base monocroma con verde neón (#39FF14) como único acento: alto contraste, estilo tech/movilidad.
 Referencia de ESTRUCTURA comercial: oferocol.com. Referencia de ESTÉTICA: tiendas de producto minimalistas tipo Apple. No copiar textos, imágenes, logos ni código de nadie.
 
 # Logo (assets/brand/)
@@ -16,9 +16,14 @@ Referencia de ESTRUCTURA comercial: oferocol.com. Referencia de ESTÉTICA: tiend
 - line rgba(255,255,255,0.10) | line-strong rgba(255,255,255,0.18)
 - text #F5F5F7 | text-muted #A1A1A6 | text-faint #6E6E73
 - light #F5F5F7 | light-surface #FFFFFF | light-text #1D1D1F | light-muted #6E6E73
-- steel (acento tomado del aro del logo) #B8C2CF; steel-deep #5C7393; gradiente de aro: #E9ECF1 → #8A9BB7 → #5C7393
+- steel = ACENTO VERDE NEÓN #39FF14 (autorizado por el cliente el 2026-10-16); steel-deep #157F1B (verde oscuro, legible sobre gris claro)
 - success #30D158 | danger #FF453A (apagados, solo para estados)
-Regla: el acento "steel" se usa SOLO en líneas finas, foco, estado activo y detalles. Nunca como fondo grande.
+
+Regla del acento, sin excepciones:
+- `text-steel` / `bg-steel` / `border-steel` SOLO sobre fondos oscuros (black, ink, graphite, surface, surface-2, white/5).
+- Sobre secciones claras (`bg-light`, `bg-light-surface`) se usa `steel-deep`. El neón es ilegible sobre gris claro.
+- El acento se usa en botones primarios, badges de specs, precios destacados, bordes activos y focus rings. Nunca como fondo grande ni en bloques de texto largos.
+- Para texto negro sobre neón: `bg-steel text-black` (botón primario).
 
 # Tipografía
 Inter (next/font) como alternativa a SF Pro. Titulares 600-700 con letter-spacing -0.03em y line-height 1.05.
@@ -49,7 +54,7 @@ Escala: hero clamp(44px, 8vw, 104px) · h2 clamp(32px, 5vw, 64px) · cuerpo 17px
 - Prueba de manejo: franja clara #F5F5F7 con CTA negro a WhatsApp
 - Reseñas: tarjetas limpias con estrellas en steel
 - Footer: negro, logo grande tenue, enlaces en gris, política de datos y PQRS
-- Widget flotante de contacto: círculo graphite con borde steel e ícono monocromo (nunca verde neón)
+- Widget flotante de contacto: círculo graphite con borde neón e ícono monocromo
 
 # Toques que sorprenden (hacer en F9, son pequeños y de alto impacto)
 1. Comparador: el usuario marca hasta 3 motos y ve una tabla lado a lado en un panel inferior
@@ -57,4 +62,4 @@ Escala: hero clamp(44px, 8vw, 104px) · h2 clamp(32px, 5vw, 64px) · cuerpo 17px
 3. Pantalla de carga de 600ms con el logo apareciendo, solo en la primera visita
 
 # Prohibido
-Verdes o cianes neón, glassmorphism recargado, sombras negras gruesas, animaciones largas, fuentes decorativas, emojis en la interfaz, copiar contenido de otras tiendas. Usar placeholders propios (gradientes grises con silueta) hasta tener fotos reales.
+Verdes o cianes neón distintos al acento autorizado (#39FF14), glassmorphism recargado, sombras negras gruesas, animaciones largas, fuentes decorativas, emojis en la interfaz, copiar contenido de otras tiendas. Usar placeholders propios (gradientes grises con silueta) hasta tener fotos reales.
