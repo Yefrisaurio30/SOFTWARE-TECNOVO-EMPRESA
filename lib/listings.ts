@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { buildConsentData } from "@/lib/consent";
 import {
   DRAFT_TTL_MINUTES,
   ListingDraftInput,
@@ -58,7 +59,12 @@ export type CreateDraftResult =
  * Paso 1 del marketplace. Crea el producto como DRAFT: invisible, sin moderar
  * y sin contar contra la cuota diaria. El usuario lo envía a revisión al final.
  */
-export async function createDraft(userId: string, input: unknown): Promise<CreateDraftResult> {
+export async function createDraft(
+  userId: string,
+  email: string,
+  input: unknown,
+  consent: { ipAddress: string; userAgent?: string | null },
+): Promise<CreateDraftResult> {
   const parsed = ListingDraftInput.safeParse(input);
   if (!parsed.success) return { ok: false, error: parsed.error.issues[0].message };
 
@@ -74,30 +80,44 @@ export async function createDraft(userId: string, input: unknown): Promise<Creat
   const d: ListingDraftData = parsed.data;
   const slug = await uniqueSlug(slugify(`${d.brand}-${d.name}-${d.year}`));
 
-  const product = await prisma.product.create({
-    data: {
-      slug,
-      name: d.name,
-      type: "MOTO_USADA",
-      brand: d.brand,
-      priceRetail: d.price,
-      priceWholesale: null,
-      stock: 1,
-      description: d.description,
-      images: [],
-      specs: {
-        anio: d.year,
-        kilometraje_km: d.km,
-        ciudad: d.city,
-        telefono: d.phone,
+  const product = await prisma.$transaction(async (tx) => {
+    const created = await tx.product.create({
+      data: {
+        slug,
+        name: d.name,
+        type: "MOTO_USADA",
+        brand: d.brand,
+        priceRetail: d.price,
+        priceWholesale: null,
+        stock: 1,
+        description: d.description,
+        images: [],
+        specs: {
+          anio: d.year,
+          kilometraje_km: d.km,
+          ciudad: d.city,
+          telefono: d.phone,
+        },
+        featured: false,
+        active: false,
+        status: "DRAFT",
+        ownerId: userId,
+        draftExpiresAt: new Date(Date.now() + DRAFT_TTL_MINUTES * 60_000),
       },
-      featured: false,
-      active: false,
-      status: "DRAFT",
-      ownerId: userId,
-      draftExpiresAt: new Date(Date.now() + DRAFT_TTL_MINUTES * 60_000),
-    },
-    select: { id: true },
+    });
+    await tx.consent.create({
+      data: buildConsentData({
+        email,
+        userId,
+        source: "PUBLICACION",
+        // Ya validados en la ruta antes de llegar aquí.
+        terms: true,
+        privacy: true,
+        ipAddress: consent.ipAddress,
+        userAgent: consent.userAgent,
+      }),
+    });
+    return created;
   });
 
   return { ok: true, id: product.id };

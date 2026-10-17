@@ -31,7 +31,7 @@ export function Footer() {
               Sede {TECNOVO_STORE_CITY} · Cómo llegar
             </a>
           </div>
-          <nav aria-label="Enlaces de interés" className="grid grid-cols-2 gap-8 text-sm">
+          <nav aria-label="Enlaces de interés" className="grid grid-cols-2 gap-8 text-sm md:grid-cols-4">
             <div className="flex flex-col gap-3">
               <span className="text-text-faint uppercase tracking-wide text-xs">Tienda</span>
               <Link href="/motos-electricas" className="text-text-muted hover:text-text">
@@ -61,11 +61,26 @@ export function Footer() {
               <Link href="/distribuidores" className="text-text-muted hover:text-text">
                 Distribuidores
               </Link>
-              <Link href="/politica-datos" className="text-text-muted hover:text-text">
-                Política de datos
+              <Link href="/publicar" className="text-text-muted hover:text-text">
+                Publica tu moto
               </Link>
               <Link href="/pqrs" className="text-text-muted hover:text-text">
                 PQRS
+              </Link>
+            </div>
+            <div className="flex flex-col gap-3">
+              <span className="text-text-faint uppercase tracking-wide text-xs">Legal</span>
+              <Link href="/legales/terminos-y-condiciones" className="text-text-muted hover:text-text">
+                Términos y condiciones
+              </Link>
+              <Link href="/legales/politica-de-privacidad" className="text-text-muted hover:text-text">
+                Política de privacidad
+              </Link>
+              <Link href="/legales/politica-de-cookies" className="text-text-muted hover:text-text">
+                Política de cookies
+              </Link>
+              <Link href="/legales/derecho-de-retracto-y-reembolsos" className="text-text-muted hover:text-text">
+                Retracto y reembolsos
               </Link>
             </div>
           </nav>

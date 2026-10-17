@@ -9,6 +9,7 @@ import { CartDrawer } from "@/components/cart/cart-drawer";
 import { MotionProvider } from "@/components/motion/motion-provider";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { Splash } from "@/components/layout/splash";
+import { CookieBanner } from "@/components/legal/cookie-banner";
 import { CompareTray } from "@/components/compare/compare-tray";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <CartDrawer />
         <CompareTray />
         <Splash />
+        <CookieBanner />
         </AuthProvider>
         </MotionProvider>
       </body>

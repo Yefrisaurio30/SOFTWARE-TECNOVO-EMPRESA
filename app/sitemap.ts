@@ -12,6 +12,10 @@ const STATIC = [
   "/capacitacion",
   "/calculadora",
   "/comparar",
+  "/legales/terminos-y-condiciones",
+  "/legales/politica-de-privacidad",
+  "/legales/politica-de-cookies",
+  "/legales/derecho-de-retracto-y-reembolsos",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

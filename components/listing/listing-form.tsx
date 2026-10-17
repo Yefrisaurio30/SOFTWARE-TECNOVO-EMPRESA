@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { formatCOP } from "@/lib/money";
+import { ConsentCheckboxes } from "@/components/legal/consent-checkboxes";
 
 const inputCls =
   "w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none placeholder:text-text-faint focus:border-steel/60";
@@ -27,6 +28,7 @@ export function ListingForm({
   const router = useRouter();
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
+  const [consents, setConsents] = useState(false);
   const [price, setPrice] = useState(defaults?.price ?? 0);
   const [year, setYear] = useState(defaults?.year ?? new Date().getFullYear() - 3);
   const [km, setKm] = useState(defaults?.km ?? 0);
@@ -50,6 +52,9 @@ export function ListingForm({
           city: fd.get("city"),
           phone: fd.get("phone"),
           description: fd.get("description"),
+          // Las casillas viven dentro del form, así que llegan por FormData.
+          terms: fd.get("terms") === "on",
+          privacy: fd.get("privacy") === "on",
         }),
       });
       const json = (await res.json()) as { id?: string; error?: string };
@@ -106,6 +111,7 @@ export function ListingForm({
           <p className="mt-1 text-xs text-text-faint tabular-nums">{description.trim().length}/40 mínimo</p>
         </div>
       </div>
+      <ConsentCheckboxes onChange={setConsents} />
       {error ? (
         <p role="alert" className="rounded-2xl border border-danger/40 bg-danger/10 p-4 text-sm text-danger">
           {error}
@@ -114,7 +120,7 @@ export function ListingForm({
       <div className="flex flex-wrap items-center gap-4">
         <button
           type="submit"
-          disabled={saving || remaining <= 0}
+          disabled={saving || remaining <= 0 || !consents}
           className="rounded-full bg-steel px-7 py-3 text-[15px] font-medium text-black disabled:opacity-50"
         >
           {saving ? "Guardando…" : "Continuar a las fotos"}
@@ -123,6 +129,11 @@ export function ListingForm({
           Te quedan <strong>{remaining}</strong> publicaciones hoy.
         </p>
       </div>
+      {!consents ? (
+        <p className="-mt-2 text-xs text-text-faint">
+          Marca las dos casillas para poder continuar.
+        </p>
+      ) : null}
     </form>
   );
 }
