@@ -1,19 +1,17 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { getSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Container } from "@/components/ui/section";
 
 const inputCls =
   "w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none placeholder:text-text-faint focus:border-steel/60";
 const labelCls = "mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase";
 
-function LoginForm() {
+export default function LoginPage() {
   const router = useRouter();
-  const params = useSearchParams();
-  const next = params.get("next") ?? "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -29,9 +27,8 @@ function LoginForm() {
       setError("Correo o contraseña incorrectos.");
       return;
     }
-    // El admin entra directo a su panel; los demás, a donde iban.
-    const session = await getSession();
-    router.push(session?.user?.role === "SUPERADMIN" ? "/admin" : next);
+    // Destino único e incondicional: inicio, sin importar el rol.
+    router.push("/");
     router.refresh();
   };
 
@@ -51,7 +48,7 @@ function LoginForm() {
           </div>
           {error ? <p role="alert" className="text-sm text-danger">{error}</p> : null}
           <button type="submit" disabled={loading} className="rounded-full bg-white py-3 text-[15px] font-medium text-black disabled:opacity-60">
-            {loading ? "Entrando…" : "Entrar"}
+            {loading ? "Entrando…" : "Iniciar sesión"}
           </button>
           <p className="text-center text-sm text-text-muted">
             ¿Sin cuenta? <Link href="/registro" className="text-text underline">Regístrate</Link>
@@ -59,13 +56,5 @@ function LoginForm() {
         </form>
       </Container>
     </main>
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense>
-      <LoginForm />
-    </Suspense>
   );
 }
