@@ -45,6 +45,18 @@ export function Footer() {
               </Link>
             </div>
             <div className="flex flex-col gap-3">
+              <span className="text-text-faint uppercase tracking-wide text-xs">Servicio</span>
+              <Link href="/taller" className="text-text-muted hover:text-text">
+                Taller y garantía
+              </Link>
+              <Link href="/capacitacion" className="text-text-muted hover:text-text">
+                Capacitación
+              </Link>
+              <Link href="/calculadora" className="text-text-muted hover:text-text">
+                Calculadora de ahorro
+              </Link>
+            </div>
+            <div className="flex flex-col gap-3">
               <span className="text-text-faint uppercase tracking-wide text-xs">Empresa</span>
               <Link href="/distribuidores" className="text-text-muted hover:text-text">
                 Distribuidores

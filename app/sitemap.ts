@@ -8,8 +8,10 @@ const STATIC = [
   "/motos-usadas",
   "/repuestos-accesorios",
   "/distribuidores",
-  "/comparar",
+  "/taller",
+  "/capacitacion",
   "/calculadora",
+  "/comparar",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

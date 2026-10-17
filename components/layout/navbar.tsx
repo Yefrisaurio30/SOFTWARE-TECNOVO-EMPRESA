@@ -13,6 +13,8 @@ const LINKS = [
   { href: "/motos-electricas", label: "Eléctricas" },
   { href: "/motos-usadas", label: "Segunda mano" },
   { href: "/repuestos-accesorios", label: "Repuestos" },
+  { href: "/taller", label: "Taller" },
+  { href: "/capacitacion", label: "Cursos" },
   { href: "/distribuidores", label: "Distribuidores" },
 ];
 
@@ -67,7 +69,7 @@ export function Navbar() {
           action="/motos-electricas"
           method="get"
           role="search"
-          className="ml-auto hidden min-w-0 flex-1 max-w-55 items-center md:flex"
+          className="ml-auto hidden min-w-0 flex-1 max-w-40 items-center md:flex"
         >
           <label htmlFor="nav-search" className="sr-only">
             Buscar motos y repuestos
