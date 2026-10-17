@@ -56,6 +56,7 @@ model User {
   distributor   DistributorProfile?
   orders        Order[]
   listings      Product[]
+  consents      Consent[]
   accounts      Account[]
   sessions      Session[]
   createdAt     DateTime             @default(now())
@@ -195,6 +196,32 @@ model Course {
 model SiteSetting {
   key   String @id
   value Json
+}
+
+/// Prueba de consentimiento para atender requerimientos de la SIC.
+/// Se guarda en el mismo momento en que la persona marca las casillas.
+model Consent {
+  id String @id @default(cuid())
+  /// El usuario puede no existir aún si el consentimiento se da antes del registro.
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  email  String
+  /// REGISTRO | PUBLICACION
+  source String
+
+  termsAccepted   Boolean   @default(false)
+  termsAcceptedAt DateTime?
+  privacyAccepted   Boolean   @default(false)
+  privacyAcceptedAt DateTime?
+
+  ipAddress String  @default("")
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([userId])
+  @@index([source])
+  @@index([email])
 }
 
 /// Red de servicio y soporte técnico (/taller).
