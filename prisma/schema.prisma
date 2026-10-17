@@ -150,6 +150,24 @@ model DistributorProfile {
   createdAt DateTime          @default(now())
 }
 
+/// Cursos y guías de capacitación (/capacitacion). Los carga el jefe desde el admin.
+model Course {
+  id           String    @id @default(cuid())
+  title        String
+  summary      String    @default("")
+  youtubeUrl   String?
+  startsAt     DateTime?
+  modality     String?
+  city         String?
+  price        Int?
+  order        Int       @default(0)
+  active       Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([active, order])
+}
+
 model SiteSetting {
   key   String @id
   value Json
