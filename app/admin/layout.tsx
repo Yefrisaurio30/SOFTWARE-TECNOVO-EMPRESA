@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/section";
 
 const NAV = [
   { href: "/admin", label: "Panel" },
+  { href: "/admin/anuncios", label: "Revisión de anuncios" },
   { href: "/admin/productos", label: "Productos" },
   { href: "/admin/pedidos", label: "Pedidos" },
   { href: "/admin/usuarios", label: "Usuarios" },

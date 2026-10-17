@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getBrandsByType, getCatalog } from "@/lib/products";
 import { pageHref, parseFilters } from "@/lib/catalog-params";
 import { Container, SectionHeading } from "@/components/ui/section";
@@ -31,6 +32,12 @@ export default async function UsadasPage({ searchParams }: { searchParams: Promi
           title="Segunda mano revisada."
           description="Cada unidad se inspecciona y se vende con garantía. Cuando se reserva, se bloquea."
         />
+        <Link
+          href="/publicar"
+          className="mt-6 inline-flex items-center gap-2 rounded-full border border-steel/50 px-5 py-2.5 text-sm text-steel hover:bg-steel/10"
+        >
+          ¿Tienes una moto para vender? Publícala aquí
+        </Link>
         <div className="mt-8">
           <Filters variant="usadas" brands={brands} values={values} clearHref="/motos-usadas" />
         </div>

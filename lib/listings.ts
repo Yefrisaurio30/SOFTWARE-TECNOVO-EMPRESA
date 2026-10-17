@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { auth } from "@/lib/auth";
 import {
   DRAFT_TTL_MINUTES,
   ListingDraftInput,
@@ -102,13 +101,4 @@ export async function createDraft(userId: string, input: unknown): Promise<Creat
   });
 
   return { ok: true, id: product.id };
-}
-
-/** Sesión o redirect. Para rutas de usuario. */
-export async function requireUser(nextPath: string) {
-  const session = await auth();
-  if (!session?.user) {
-    return { session: null as null, redirectTo: `/login?next=${encodeURIComponent(nextPath)}` };
-  }
-  return { session, redirectTo: null as string | null };
 }
