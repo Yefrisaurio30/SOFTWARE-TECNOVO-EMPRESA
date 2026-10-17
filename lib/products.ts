@@ -22,7 +22,7 @@ export function isCatalogCategory(v: string): v is keyof typeof CATEGORY_TO_TYPE
 
 export async function getFeaturedProducts(limit = 6): Promise<Product[]> {
   return prisma.product.findMany({
-    where: { active: true, featured: true },
+    where: { active: true, featured: true, status: "APPROVED" },
     orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
     take: limit,
   });
@@ -30,7 +30,7 @@ export async function getFeaturedProducts(limit = 6): Promise<Product[]> {
 
 export async function getProductsByType(type: ProductType, limit = 8): Promise<Product[]> {
   return prisma.product.findMany({
-    where: { active: true, type },
+    where: { active: true, status: "APPROVED", type },
     orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
     take: limit,
   });
@@ -38,7 +38,7 @@ export async function getProductsByType(type: ProductType, limit = 8): Promise<P
 
 export async function getBrandsByType(types: ProductType[]): Promise<string[]> {
   const rows = await prisma.product.findMany({
-    where: { active: true, type: { in: types } },
+    where: { active: true, status: "APPROVED", type: { in: types } },
     select: { brand: true },
     distinct: ["brand"],
     orderBy: { brand: "asc" },
@@ -87,6 +87,7 @@ export async function getCatalog(
   const all = await prisma.product.findMany({
     where: {
       active: true,
+      status: "APPROVED",
       type: { in: types },
       ...(f.brand ? { brand: f.brand } : {}),
       ...(f.minPrice != null || f.maxPrice != null
@@ -131,7 +132,7 @@ export async function getCatalog(
  */
 export async function getWarrantyYears(): Promise<number> {
   const rows = await prisma.product.findMany({
-    where: { active: true, type: { in: ["MOTO_NUEVA", "MOTO_USADA"] } },
+    where: { active: true, status: "APPROVED", type: { in: ["MOTO_NUEVA", "MOTO_USADA"] } },
     select: { specs: true },
   });
   const counts = new Map<number, number>();
@@ -147,7 +148,7 @@ export async function getWarrantyYears(): Promise<number> {
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-  return prisma.product.findFirst({ where: { slug, active: true } });
+  return prisma.product.findFirst({ where: { slug, active: true, status: "APPROVED" } });
 }
 
 export async function getRelatedProducts(
@@ -156,7 +157,7 @@ export async function getRelatedProducts(
   take = 4,
 ): Promise<Product[]> {
   return prisma.product.findMany({
-    where: { active: true, type, id: { not: excludeId } },
+    where: { active: true, status: "APPROVED", type, id: { not: excludeId } },
     orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
     take,
   });

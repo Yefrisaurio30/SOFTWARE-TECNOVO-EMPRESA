@@ -18,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const now = new Date();
   const products = await prisma.product.findMany({
-    where: { active: true },
+    where: { active: true, status: "APPROVED" },
     select: { slug: true, type: true, updatedAt: true },
   });
   return [

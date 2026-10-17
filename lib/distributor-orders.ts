@@ -24,7 +24,9 @@ export async function createWholesaleOrder(data: CreateOrderData) {
   }
 
   const ids = [...new Set(data.items.map((i) => i.productId))];
-  const products = await prisma.product.findMany({ where: { id: { in: ids }, active: true } });
+  const products = await prisma.product.findMany({
+    where: { id: { in: ids }, active: true, status: "APPROVED" },
+  });
   const byId = new Map(products.map((p) => [p.id, p]));
 
   const lines: Array<{ productId: string; qty: number; unitPrice: number }> = [];

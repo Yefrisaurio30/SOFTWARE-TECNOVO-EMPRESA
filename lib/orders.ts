@@ -31,13 +31,16 @@ export async function priceOrderItems(
   items: CreateOrderData["items"],
 ): Promise<{ lines: PricedItem[]; total: number }> {
   const ids = [...new Set(items.map((i) => i.productId))];
-  const products = await prisma.product.findMany({ where: { id: { in: ids }, active: true } });
+  const products = await prisma.product.findMany({
+    where: { id: { in: ids }, active: true, status: "APPROVED" },
+  });
   const byId = new Map(products.map((p) => [p.id, p]));
 
   const lines: PricedItem[] = [];
   for (const item of items) {
     const p = byId.get(item.productId);
     if (!p) {
+      // No existe, está inactivo o no está aprobado para la venta.
       const err = new Error(`Producto no disponible: ${item.productId}`);
       (err as Error & { code?: number }).code = 410;
       throw err;
@@ -78,10 +81,15 @@ export async function createOrder(data: CreateOrderData, userId?: string) {
   const { lines, total } = await priceOrderItems(data.items);
 
   return prisma.$transaction(async (tx) => {
-    // Revalidar stock dentro de la transacción.
+    // Revalidar stock y moderación dentro de la transacción.
     for (const l of lines) {
       const p = await tx.product.findUniqueOrThrow({ where: { id: l.productId } });
-      if (!p.active || p.stock < l.qty) {
+      if (!p.active || p.status !== "APPROVED") {
+        const err = new Error(`Producto no disponible: ${p.name}`);
+        (err as Error & { code?: number }).code = 410;
+        throw err;
+      }
+      if (p.stock < l.qty) {
         const err = new Error(`Sin stock suficiente: ${p.name}`);
         (err as Error & { code?: number }).code = 409;
         throw err;

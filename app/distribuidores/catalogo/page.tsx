@@ -15,7 +15,7 @@ export default async function CatalogoMayoristaPage() {
   const company = companyFor(profile, session.user.name ?? session.user.email ?? "Mayorista");
   const minUnits = minUnitsFor(profile);
   const products = await prisma.product.findMany({
-    where: { active: true, type: "MOTO_NUEVA" },
+    where: { active: true, status: "APPROVED", type: "MOTO_NUEVA" },
     orderBy: [{ featured: "desc" }, { name: "asc" }],
   });
 

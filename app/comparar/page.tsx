@@ -25,7 +25,12 @@ export default async function CompararPage({
   const products =
     ids.length >= 2
       ? await prisma.product.findMany({
-          where: { id: { in: ids }, active: true, type: { in: ["MOTO_NUEVA", "MOTO_USADA"] } },
+          where: {
+            id: { in: ids },
+            active: true,
+            status: "APPROVED",
+            type: { in: ["MOTO_NUEVA", "MOTO_USADA"] },
+          },
         })
       : [];
   const ordered = ids
