@@ -101,6 +101,26 @@ async function main() {
   const counts = await prisma.product.groupBy({ by: ["type"], _count: true });
   console.log("Conteos en BD:", JSON.stringify(counts));
 
+  // Red de servicio: solo la sede real. El resto se carga desde /admin/taller.
+  await prisma.service.upsert({
+    where: { id: "sede-principal-villavicencio" },
+    update: {},
+    create: {
+      id: "sede-principal-villavicencio",
+      name: "TECNOVO Sede Principal",
+      city: "Villavicencio, Meta",
+      address: "Sede principal TECNOVO",
+      phone: "312 277 9324",
+      mapsUrl: "https://maps.app.goo.gl/fCfpvA8viDZwy6nr6",
+      services: ["Mecánica general", "Diagnóstico eléctrico", "Cambio de batería", "Repuestos originales"],
+      warranty: true,
+      isHeadquarter: true,
+      order: 0,
+      active: true,
+    },
+  });
+  console.log("Red de servicio: sede principal de Villavicencio lista.");
+
   // Jefe inicial: ADMIN_EMAIL + ADMIN_PASSWORD (solo si vienen en el entorno).
   const adminEmail = process.env.ADMIN_EMAIL?.toLowerCase();
   const adminPassword = process.env.ADMIN_PASSWORD;

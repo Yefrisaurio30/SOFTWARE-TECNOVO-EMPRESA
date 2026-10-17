@@ -155,6 +155,25 @@ model SiteSetting {
   value Json
 }
 
+/// Red de servicio y soporte técnico (/taller).
+model Service {
+  id        String   @id @default(cuid())
+  name      String
+  city      String
+  address   String   @default("")
+  phone     String   @default("")
+  mapsUrl   String?
+  services  String[] @default([])
+  warranty  Boolean  @default(true)
+  isHeadquarter Boolean @default(false)
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([active, order])
+}
+
 model AuditLog {
   id        String   @id @default(cuid())
   actorId   String?
