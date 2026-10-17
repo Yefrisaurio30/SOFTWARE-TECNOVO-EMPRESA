@@ -36,6 +36,15 @@ enum DistributorStatus {
   RECHAZADO
 }
 
+/// Estado de moderación de una publicación.
+/// DRAFT: el usuario está completando el formulario (no es un anuncio aún).
+enum ListingStatus {
+  DRAFT
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model User {
   id            String               @id @default(cuid())
   name          String?
@@ -46,6 +55,7 @@ model User {
   role          Role                 @default(CLIENTE)
   distributor   DistributorProfile?
   orders        Order[]
+  listings      Product[]
   accounts      Account[]
   sessions      Session[]
   createdAt     DateTime             @default(now())
@@ -87,25 +97,39 @@ model VerificationToken {
 }
 
 model Product {
-  id             String      @id @default(cuid())
-  slug           String      @unique
+  id             String        @id @default(cuid())
+  slug           String        @unique
   name           String
   type           ProductType
   brand          String
   priceRetail    Int
   priceWholesale Int?
-  stock          Int         @default(0)
-  description    String      @default("")
-  images         String[]    @default([])
-  specs          Json        @default("{}")
-  featured       Boolean     @default(false)
-  active         Boolean     @default(true)
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
+  stock          Int           @default(0)
+  description    String        @default("")
+  images         String[]      @default([])
+  specs          Json          @default("{}")
+  featured       Boolean       @default(false)
+  active         Boolean       @default(true)
+  /// Moderación. Default APPROVED: el inventario de la tienda nace visible.
+  status         ListingStatus @default(APPROVED)
+  /// Quien publicó el anuncio. null = inventario de TECNOVO.
+  ownerId        String?
+  owner          User?         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  /// Motivo por el que el admin rechazó el anuncio.
+  reviewNote     String?
+  /// El dueño marcó la moto como vendida. Se sale del catálogo al instante.
+  soldAt         DateTime?
+  /// Borrador que se elimina pasado este tiempo si el usuario no lo termina.
+  draftExpiresAt DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
   orderItems     OrderItem[]
 
   @@index([type, active, featured])
   @@index([brand])
+  @@index([type, status, active])
+  @@index([status, draftExpiresAt])
+  @@index([ownerId])
 }
 
 model Order {
