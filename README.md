@@ -31,7 +31,7 @@ y otro proyecto el 5433. No lo cambies sin revisar `DATABASE_URL`.
 | `npm run start` | Sirve el build de producción |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run lint` | ESLint |
-| `npm run test` | Vitest (43 tests) |
+| `npm run test` | Vitest (75 tests) |
 | `npm run db:migrate` | Crea/aplica migraciones |
 | `npm run db:seed` | Siembra catálogo y sede principal |
 | `npm run db:studio` | Prisma Studio |
@@ -40,11 +40,16 @@ y otro proyecto el 5433. No lo cambies sin revisar `DATABASE_URL`.
 
 **Público:** `/` · `/motos-electricas` · `/motos-usadas` · `/repuestos-accesorios` ·
 `/[categoria]/[slug]` · `/comparar` · `/calculadora` · `/carrito` · `/checkout` ·
-`/pedido/[id]` · `/taller` · `/capacitacion` · `/distribuidores` (+ `/registro`,
-`/catalogo`, `/pedidos`) · `/politica-datos` · `/pqrs` · `/login` · `/registro`
+`/pedido/[id]` · `/taller` · `/capacitacion` · `/publicar` · `/mis-anuncios` ·
+`/distribuidores` (+ `/registro`, `/catalogo`, `/pedidos`) · `/login` · `/registro` ·
+`/pqrs` · `/legales/{terminos-y-condiciones,politica-de-privacidad,politica-de-cookies,derecho-de-retracto-y-reembolsos}`
 
-**Admin (solo SUPERADMIN):** `/admin` · `/admin/productos` · `/admin/pedidos` ·
-`/admin/usuarios` · `/admin/taller` · `/admin/capacitacion` · `/admin/contenido`
+`/politica-datos` redirige a `/legales/politica-de-privacidad`. `/admin/moderacion`
+redirige a `/admin/anuncios`.
+
+**Admin (solo SUPERADMIN):** `/admin` · `/admin/anuncios` · `/admin/auditoria-legales` ·
+`/admin/productos` · `/admin/pedidos` · `/admin/usuarios` · `/admin/taller` ·
+`/admin/capacitacion` · `/admin/contenido`
 
 **API:** `/api/orders` · `/api/checkout/wompi` · `/api/wompi/events` ·
 `/api/auth/[...nextauth]` · `/api/auth/register` · `/api/admin/orders/export` ·
@@ -78,8 +83,14 @@ Catálogo, red de servicio y cursos se administran desde `/admin`.
 
 ## Pendiente
 
+- **Textos legales sin revisión de abogado.** Las cuatro páginas de `/legales/*`
+  están redactadas y funcionan, pero deben pasar por un abogado en Colombia antes
+  de publicarse en producción.
 - **F10 — despliegue:** VPS con Docker + Caddy, dominio .com, backups.
   Ver `.opencode/skills/qa-deploy/SKILL.md`. No iniciado por decisión del cliente.
+- **Wompi Widget/SDK:** usamos Web Checkout. Lo pendiente quedó documentado en
+  `docs/PENDIENTES-WOMPI.md`, incluida la aclaración de que `WOMPI_PRIVATE_KEY`
+  no existe en Wompi.
 - **Correo de confirmación de pedido:** falta proveedor de email.
 - **Subida de imágenes a disco:** `public/uploads` no sirve en Docker standalone.
   Migrar a Cloudinary/S3 antes de desplegar.
