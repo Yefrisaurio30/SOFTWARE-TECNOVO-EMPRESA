@@ -125,6 +125,27 @@ export async function getCatalog(
   return { items, total: sorted.length, pages, page: safePage };
 }
 
+/**
+ * Años de garantía declarados en las fichas (`specs.garantia`, p. ej. "5 años").
+ * Devuelve el valor más frecuente entre las motos activas. Si no hay dato, 5.
+ */
+export async function getWarrantyYears(): Promise<number> {
+  const rows = await prisma.product.findMany({
+    where: { active: true, type: { in: ["MOTO_NUEVA", "MOTO_USADA"] } },
+    select: { specs: true },
+  });
+  const counts = new Map<number, number>();
+  for (const r of rows) {
+    const g = getSpecs(r).garantia;
+    const m = typeof g === "string" ? g.match(/\d+/) : null;
+    if (!m) continue;
+    const n = Number(m[0]);
+    if (n > 0) counts.set(n, (counts.get(n) ?? 0) + 1);
+  }
+  if (counts.size === 0) return 5;
+  return [...counts.entries()].sort((a, b) => b[1] - a[1])[0][0];
+}
+
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   return prisma.product.findFirst({ where: { slug, active: true } });
 }

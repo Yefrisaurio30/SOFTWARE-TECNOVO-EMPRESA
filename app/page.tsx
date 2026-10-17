@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { getFeaturedProducts, getProductsByType } from "@/lib/products";
+import { getFeaturedProducts, getProductsByType, getWarrantyYears } from "@/lib/products";
 import { getWhatsAppNumber } from "@/lib/site-settings";
+import { getEnergySettings } from "@/lib/energy";
 import { Hero } from "@/components/home/hero";
 import { WhyTecnovo } from "@/components/home/why-tecnovo";
 import { ModelGrid } from "@/components/home/model-grid";
@@ -17,12 +18,15 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [heroModels, gridModels, stickyModels, whatsapp] = await Promise.all([
-    getProductsByType("MOTO_NUEVA", 3),
-    getFeaturedProducts(6),
-    getProductsByType("MOTO_NUEVA", 5),
-    getWhatsAppNumber(),
-  ]);
+  const [heroModels, gridModels, stickyModels, whatsapp, energy, warrantyYears] =
+    await Promise.all([
+      getProductsByType("MOTO_NUEVA", 3),
+      getFeaturedProducts(6),
+      getProductsByType("MOTO_NUEVA", 5),
+      getWhatsAppNumber(),
+      getEnergySettings(),
+      getWarrantyYears(),
+    ]);
 
   return (
     <main>
@@ -30,7 +34,7 @@ export default async function Home() {
       <WhyTecnovo />
       <ModelGrid products={gridModels} />
       {stickyModels.length > 0 ? <SpecsSticky products={stickyModels} /> : null}
-      <SavingsCalculator />
+      <SavingsCalculator settings={energy} warrantyYears={warrantyYears} />
       <Locations />
       <TestRide number={whatsapp} />
       <Reviews />
