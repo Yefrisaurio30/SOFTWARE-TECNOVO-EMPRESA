@@ -159,7 +159,31 @@ Seed F2: 12 nuevas, 8 usadas, 20 repuestos, 10 accesorios ficticios realistas.
 - **F7 Auth + admin:** Auth.js roles, middleware /admin solo SUPERADMIN, CRUD, CSV, auditoría. DoD: sin sesión no expone nada privado.
 - **F8 Distribuidor:** registro NIT→PENDIENTE, catálogo mayorista solo MOTO_NUEVA + priceWholesale, checkout separado, PDF. DoD: sin aprobación nunca filtra mayorista en HTML ni API.
 - **F9 WhatsApp/SEO/extras:** wa.me prellenado, metadata/sitemap/robots/OG, comparador 3 motos, calculadora ahorro, splash 600ms primera visita. DoD: A11y ≥95.
-- **F10 QA/deploy:** Vitest+Playwright flujo compra, README, `docs/manual-admin.md`, `docs/deploy-vps.md`, compose prod + Caddy. DoD: `docker compose up` corre todo.
+- **F10 QA/deploy:** Vitest+Playwright flujo compra, README, `docs/manual-admin.md`, `docs/deploy-vps.md`, compose prod + Caddy. DoD: `docker compose up` corre todo. **No iniciado por decisión del cliente (falta dominio y VPS).**
+
+## 4b. Ciclo de ajuste (ejecutado)
+
+Sobreviven a F9, en commits independientes:
+
+- **A0 Documentación:** el neón `#39FF14` queda autorizado en `AGENTS.md` y en el skill de diseño, con la regla "neón solo sobre fondo oscuro, `steel-deep` sobre gris claro".
+- **A1 Color:** `--color-steel` pasa a `#39FF14` y `--color-steel-deep` a `#157F1B`. Sin tocar componentes: las 20 apariciones de `bg-steel`/`border-steel` ya están sobre fondo oscuro.
+- **A2 Login:** destino único e incondicional a inicio, para cualquier rol.
+- **A3 Calculadora:** `lib/energy.ts` con precio del galón configurable en `SiteSetting`, función pura `calcSavings` y badge de garantía leído de las fichas.
+- **A4 Taller:** modelo `Service`, página `/taller` con garantía y red de servicio, CRUD en `/admin/taller`, seed solo con la sede real de Villavicencio.
+- **A5 Capacitación:** modelo `Course`, página `/capacitacion` con banner superior y videos de YouTube bajo demanda (`youtube-nocookie`), CRUD en `/admin/capacitacion`. Sin contenido inventado.
+- **A6 Navegación:** `/taller` y `/capacitacion` en navbar, footer y sitemap.
+- **A7 Legal:** se crean `/politica-datos` y `/pqrs`, que el footer enlazaba sin existir.
+
+Descartado por el cliente: carrusel de fichas técnicas como imagen y su botón de descarga.
+
+## 4c. Deuda conocida
+
+- Clientes sin página de pedidos: el login siempre lleva a inicio, así que quien entra a `/pedido/{id}` no tiene forma de recuperarlo. Sugerencia: `/mis-pedidos`.
+- Roles `MAYORISTA` y `DISTRIBUIDOR` conviven; consolidar.
+- `next lint` obsoleto en Next 16.
+- 13 alertas de `npm audit`, todas de tooling/build. Ninguna del runtime de pagos o auth. Los arreglos exigen saltos mayores (Next 16, Vitest 5).
+- `public/uploads` escribe en disco: no sirve en Docker standalone.
+- `middleware.ts` no filtra por rol en rutas de distribuidor; la validación real está en `requireApprovedDistributor()`.
 
 ## 5. Ítems cotizados → fase
 
@@ -168,16 +192,17 @@ Seed F2: 12 nuevas, 8 usadas, 20 repuestos, 10 accesorios ficticios realistas.
 ## 6. Env
 
 ```
-DATABASE_URL=postgresql://tecnovo:tecnovo@db:5432/tecnovo?schema=public
+DATABASE_URL=postgresql://tecnovo:tecnovo@localhost:5434/tecnovo?schema=public
 AUTH_SECRET=...
 AUTH_URL=http://localhost:3000
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-NEXT_PUBLIC_WHATSAPP=573001112233
+NEXT_PUBLIC_WHATSAPP=573122779324
 WOMPI_ENV=sandbox
 WOMPI_PUBLIC_KEY=pub_test_...
 WOMPI_INTEGRITY_SECRET=prod_integrity_...
 WOMPI_EVENTS_SECRET=stg_...
 # WOMPI_DIST_* solo si cuenta aparte
+# ADMIN_EMAIL / ADMIN_PASSWORD solo para el seed del superadmin
 ```
 
 ## 7. Riesgos
