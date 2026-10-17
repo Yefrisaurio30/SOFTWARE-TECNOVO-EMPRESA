@@ -13,8 +13,9 @@
   --color-light-surface: #ffffff;
   --color-light-text: #1d1d1f;
   --color-light-muted: #6e6e73;
-  --color-steel: #b8c2cf;
-  --color-steel-deep: #5c7393;
+  /* Acento neón. steel solo sobre oscuros; steel-deep sobre gris claro. */
+  --color-steel: #39ff14;
+  --color-steel-deep: #157f1b;
 }
 
 :root {
