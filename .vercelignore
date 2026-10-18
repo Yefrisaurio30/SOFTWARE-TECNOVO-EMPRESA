@@ -1,0 +1,25 @@
+# Material de origen: pesa y no se usa en runtime.
+Imagenes/
+assets/
+
+# Herramientas del agente, no hacen falta en el build.
+.opencode/
+
+# Configuracion local de Vercel (la sube el propio CLI).
+.vercel/
+
+# Secretos. Este archivo NO es .gitignore: las reglas son independientes y
+# Vercel sube el directorio tal cual, con los .env dentro.
+.env
+.env*.local
+
+# Artefactos de la migracion de datos.
+_deploy/
+
+# Salidas de compilacion locales.
+.next/
+*.tsbuildinfo
+
+# Fotos subidas por usuarios. En produccion van al bucket de Supabase
+# Storage, nunca al repositorio.
+public/uploads/*
