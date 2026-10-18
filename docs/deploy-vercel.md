@@ -73,10 +73,23 @@ cambiarla en **Supabase → Project Settings → Database**.
 
 ### 3.2 Crear el bucket
 
-**Storage → New bucket**
+El bucket es parte de la infraestructura, no un clic, así que se crea por SQL
+para que quede versionado y repetible:
 
-- Nombre: `uploads`
-- Public bucket: **activado** (si no, las imágenes dan 400)
+```powershell
+Get-Content scripts\create-bucket.sql | docker run --rm -i `
+  -e PGPASSWORD=<la nueva> postgres:16-alpine `
+  psql -v ON_ERROR_STOP=1 `
+    -h aws-0-us-west-2.pooler.supabase.com -p 5432 `
+    -U postgres.nbexwuloacrpttqibnsb -d postgres
+```
+
+Deja el bucket `uploads` público, con tope de 5 MB y conversión a AVIF
+automática. Es equivalente a hacerlo en **Storage → New bucket** del panel, pero
+repetible.
+
+> El usuario del pooler **no** es `postgres`: es `postgres.nbexwuloacrpttqibnsb`.
+> Con el usuario pelado, Supavisor responde `no tenant identifier provided`.
 
 ### 3.3 Copiar la llave de servicio
 
@@ -189,13 +202,17 @@ contra una base pausada.
 La base local tiene 45 productos, 2 usuarios y 1 pedido. Después del restore hay
 que revisar dos cosas:
 
-1. **Contraseña del admin.** El dump arrastra el hash anterior. Se cambia con:
+1. **Contraseña del admin.** El dump arrastra el hash anterior. Se cambia con
+   el script dedicado, **no** con `npm run db:seed`:
    ```powershell
    $env:ADMIN_EMAIL = "jefe@tecnovo.com"
    $env:ADMIN_PASSWORD = "<la nueva>"
-   npm run db:seed
+   node scripts/set-admin-password.mjs
    ```
-   Las llaves van por variable de entorno, no pegadas en el comando.
+   El script solo hace un UPDATE sobre `User`. El seed borra las motos nuevas
+   sin pedidos (`prisma/seed.ts:77`) y reescribe el catálogo entero, así que
+   usarlo para cambiar una contraseña hace mucho más de lo pedido.
+   Las llaves van por variable de entorno, nunca pegadas en el comando.
 
 2. **Datos de prueba.** El usuario `infantegaleanoyefrisantiago@gmail.com` y el
    pedido #1 son de pruebas. Conviene borrarlos antes del dump si no se quiere
