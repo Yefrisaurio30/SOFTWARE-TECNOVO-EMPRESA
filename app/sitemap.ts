@@ -2,6 +2,13 @@ import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 import { detailHref } from "@/components/product/product-card";
 
+/**
+ * Sin esto Next prerenderiza el sitemap en el build y lo deja congelado: los
+ * productos que el admin cree despues no aparecen hasta el siguiente
+ * despliegue. Una hora de margen alcanza para que los buscadores lo repassen.
+ */
+export const revalidate = 3600;
+
 const STATIC = [
   "",
   "/motos-electricas",
