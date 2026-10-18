@@ -4,12 +4,6 @@
  *   - serverlessFunctionRegion: pdx1 (Portland). La base esta en Supabase
  *     us-west-2, asi que es la region de Vercel con menos latencia hasta ella.
  *     El default es iad1 (Washington), al otro lado del pais.
- *   - commandForIgnoringBuildStep: solo deja desplegar main.
- *
- * Por que lo ultimo: en el plan Hobby las variables de Preview y Production
- * son las MISMAS. Si develop creates un preview, ese preview recibe
- * DATABASE_URL de produccion y cualquier pedido, borrador o foto subida ahi
- * cae en la base real. El script hace que los push a otras ramas no compilen.
  *
  * El token se lee del archivo de autenticacion del CLI y NO se imprime.
  *
@@ -36,7 +30,15 @@ function token() {
   throw new Error("No se encontro el token del CLI. Corre `vercel login`.");
 }
 
-const IGNORE_STEP = "echo \"REF=[$VERCEL_GIT_COMMIT_REF] ENV=[$VERCEL_ENV] SHA=[$VERCEL_GIT_COMMIT_SHA] HEAD=[$VERCEL_GIT_PREVIOUS_SHA]\"; exit 0";
+/**
+ * El Ignored Build Step NO sirve como filtro por rama: cancela el despliegue
+ * tanto si el comando sale con 0 como si sale con 1, asi que no se puede usar
+ * para dejar pasar main y cortar develop. Queda vacio a proposito.
+ *
+ * La proteccion contra previews que escriben en la base de produccion esta en
+ * middleware.ts, que si es un unico lugar y se puede condicionar.
+ */
+const IGNORE_STEP = "";
 
 async function patch(body) {
   const res = await fetch(`https://api.vercel.com/v9/projects/${PROJECT_ID}`, {

@@ -18,6 +18,25 @@ export default auth((req) => {
   const { pathname } = req.nextUrl;
   const role = req.auth?.user?.role;
 
+  /**
+   * Los despliegues de preview no escriben.
+   *
+   * En el plan Hobby las variables de Preview y Production son las mismas, asi
+   * que un preview recibe el DATABASE_URL de la base real. Sin este bloqueo,
+   * probar el checkout o publicar un anuncio desde un preview deja pedidos y
+   * borradores en produccion. Sigue pudiendo LEER, que es lo que sirve para
+   * revisar la interfaz sin consequences.
+   *
+   * En local no hay VERCEL_ENV, asi que `npm run dev` escribe normal.
+   */
+  if (
+    process.env.VERCEL_ENV === "preview" &&
+    req.method !== "GET" &&
+    req.method !== "HEAD"
+  ) {
+    return new Response("Despliegue de prueba: no acepta escrituras.", { status: 503 });
+  }
+
   if (pathname.startsWith("/admin")) {
     if (role !== "SUPERADMIN") {
       const url = new URL("/login", req.url);
@@ -41,6 +60,16 @@ export default auth((req) => {
   }
 });
 
+/**
+ * `/api/:path*` esta incluido para que el bloqueo de escrituras de los
+ * previews cubra TODAS las rutas de la API, no solo las de distribuidor. Sin
+ * eso, un preview podria seguir creando pedidos por /api/orders.
+ */
 export const config = {
-  matcher: ["/admin/:path*", "/distribuidores/catalogo", "/distribuidores/pedidos", "/api/distribuidor/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/distribuidores/catalogo",
+    "/distribuidores/pedidos",
+    "/api/:path*",
+  ],
 };
