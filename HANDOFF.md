@@ -27,9 +27,20 @@ npx next build
 
 ## 2. Estado del repo
 
-- Rama: `main` · Último commit: `87d45d2` (merge develop→main)
-- Sin cambios pendientes salvo `Imagenes/` (untracked, material de origen, **dejarlo así**)
-- Tests: 4 suites en `tests/` → `orders`, `wompi`, `wholesale`, `specs`
+- Rama: `main` · **Desplegado en producción: https://tecnovomotos.vercel.app**
+- Infra temporal: Vercel Hobby + Supabase Free (Oregon, `us-west-2`) + bucket
+  `uploads` de Supabase Storage. La guía completa está en
+  [`docs/deploy-vercel.md`](docs/deploy-vercel.md)
+- RLS activado en las 14 tablas de `public`, sin políticas (negar por defecto).
+  Prisma conecta como `postgres`, que tiene `BYPASSRLS`, así que la app no se
+  entera. Ver `scripts/harden-rls.sql`
+- **Pendiente:** las 3 llaves de Wompi sandbox. Sin ellas `/api/checkout/wompi`
+  responde error. Agregarlas a `.env.production.local` y correr
+  `node scripts/vercel-env-sync.mjs`
+- **Pendiente y urgente:** rotar la contraseña de la base y la del admin. Ambas
+  quedaron escritas en un registro de conversación
+- Tests: 9 suites en `tests/` → `orders`, `wompi`, `wholesale`, `specs`,
+  `image-validation`, `consent`, `energy`, `youtube`, `listing-moderation`
 - Fases F0–F9 completadas. **F10 (hosting VPS + Caddy) Pendiente por decisión del cliente**
 
 ### Stack
@@ -51,7 +62,14 @@ Auth.js v5 (credenciales, JWT) · Zustand · Framer Motion 12 · Zod · Recharts
 | **PowerShell 5.1** | No existe `&&`, ni `head`, ni `-Raw` en `Get-Content` de rutas literales. Usar `;` y `Select-Object -First`. |
 | **`next lint` obsoleto** | Deprecado en Next 16. Migrar al CLI de ESLint cuando se toque. |
 | **`npm audit`** | 13 vulnerabilidades sin tratar (2 moderadas, 9 altas, 2 críticas). Pendiente en F6. |
-| **Uploads a disco** | `POST /api/admin/products/upload` escribe en `public/uploads`. Se rompe en Docker standalone → migrar a Cloudinary/S3 en F10. |
+| **Uploads a disco** | `POST /api/admin/products/upload` escribe en `public/uploads`. Se rompe en Docker standalone → migrar a Cloudinary/S3 en F10. **Resuelto:** ya no escribe a disco; hay un adaptador con dos drivers |
+| **PowerShell 5.1 destruye argumentos con comillas** | `docker run -e FOO=$hash['KEY']` pasa literal y falla. Igual con `--body '{"a":"b"}'`. **Workaround:** asignar a una variable simple primero, o llamar desde Node |
+| **`vercel api` no acepta un archivo** | `--body` espera el JSON en línea. Con rutas de archivo responde `Invalid JSON (400)` |
+| **Ignored Build Step no filtra por rama** | Cancela el despliegue con exit 0 **y** con exit 1. No sirve para dejar pasar `main` |
+| **El pooler de Supabase exige el tenant** | `-U postgres` responde `no tenant identifier provided`. Es `postgres.<referencia>` |
+| **El `id` del bucket debe ser igual al nombre** | La API busca por `id` en `/object/<id>/<clave>`. Con UUID responde `NoSuchBucket` en todo |
+| **Storage lista con carpetas virtuales** | `prefix: ""` devuelve solo la raíz, no los archivos; y con prefijo devuelve nombres **relativos**. Hay que listar carpeta por carpeta |
+| **`hasSome` en `String[]` pide un arreglo** | `hasSome: "texto"` falla. Y solo hace coincidencia exacta, no subcadenas |
 
 ---
 

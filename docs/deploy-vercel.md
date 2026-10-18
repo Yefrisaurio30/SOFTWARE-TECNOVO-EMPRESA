@@ -173,10 +173,29 @@ vercel --prod
 La primera vez, revisá el log del build: la primera compilación en Vercel tarda
 varios minutos.
 
-**No conectes el repositorio de GitHub.** En Hobby las variables de Preview y
-Production son las mismas, así que cualquier push a otra rama crearía un
-despliegue apuntando a la base de datos real. Con el CLI no hay despliegues
-automáticos y eso no puede pasar.
+El repositorio de GitHub **sí está conectado**: un push a `main` despliega solo.
+
+Como en Hobby las variables de Preview y Production son las mismas, un preview
+recibiría el `DATABASE_URL` de la base real. Eso no se resuelve con el *Ignored
+Build Step* —medido en producción, ese comando **cancela el despliegue tanto si
+sale con 0 como si sale con 1**, así que tampoco sirve para dejar pasar `main*.
+
+La protección está en `middleware.ts`: en un despliegue de preview, toda
+petición que no sea `GET` o `HEAD` responde **503**. Los previews siguen leyendo
+—que es lo que sirve para revisar la interfaz— pero no pueden crear pedidos,
+borradores ni subir fotos a producción. En local no hay `VERCEL_ENV`, así que
+`npm run dev` escribe normal.
+
+> Un preview **sí lee la base de producción**. No compartas esas URLs: en un
+> preview se ven pedidos y datos de clientes reales. Si eso molesta, la
+> solución limpia es un segundo proyecto de Supabase solo para previews.
+
+Región y ajustes que no expone el CLI:
+
+```powershell
+node scripts/vercel-project.mjs         # ver region, ignored build step, git
+node scripts/vercel-project.mjs region  # poner pdx1
+```
 
 ---
 
@@ -309,6 +328,31 @@ disco sin tocar código.
 | La web da 500 después de unos días | Supabase pausó el proyecto | Dashboard → Resume. El cron evita la mayoría, pero no es garantía |
 | `413` al subir una foto | La foto pasa de 4 MB | Comprimirla |
 | `Can't reach database server` | Falta `pgbouncer=true` en la URL | Corregir `DATABASE_URL` y redesplegar |
+| `no tenant identifier provided` | Se usó el usuario `postgres` pelado | El pooler exige `postgres.<referencia>` |
+| `NoSuchBucket` en toda subida o descarga | El `id` del bucket no es igual al nombre | `scripts/create-bucket.sql`, que lo deja en `id = name` |
 | Imágenes que no cargan | El bucket no es público | Storage → el bucket `uploads` → Public |
+| `body must have required property 'prefix'` | Se listó sin `prefix` | Pasarlo siempre; con `""` solo sale la raíz, no los archivos |
+| Deploy rechazado: *Edge Function exceeds size limit* | `middleware.ts` volvió a Edge | Dejar `export const runtime = "nodejs"` |
 | `500` en `/api/cron/keep-alive` con 404 | Falta `CRON_SECRET` | Agregarla en Vercel |
 | Sesión se pierde al navegar | `AUTH_SECRET` cambió entre despliegues | No cambiarla; si hay que rotarla, avisar al cliente |
+
+---
+
+## 12. Tres cosas que no hay que deshacer
+
+**1. `export const runtime = "nodejs"` en `middleware.ts`.** En Edge, `NextAuth`
+arrastra `next-auth`, `@auth/core` y `zod` al bundle: 1.03 MB contra el tope de
+1 MB del plan Hobby, y el despliegue se rechaza. En Node el tope es de 250 MB.
+
+**2. El `id` del bucket debe ser igual al nombre.** La API de Storage busca por
+`id` en la ruta `/object/<id>/<clave>`. Con un UUID en el `id` toda subida y toda
+descarga responden `NoSuchBucket`.
+
+**3. RLS activado en `public`, sin políticas.** Es el estado *negar por defecto*
+y no le hace nada a la app: Prisma conecta como `postgres`, que tiene
+`BYPASSRLS`. Lo que evita es que la llave `anon` —que está hecha para ser
+pública— descargue correos, hashes de contraseña y pedidos desde `/rest/v1`.
+
+Si alguna vez hay que dar de alta un bucket o una tabla, que sea por los scripts
+de `scripts/`, no a mano en el panel: los tres dejan lo que hace falta y el
+panel solo deja la mitad.
