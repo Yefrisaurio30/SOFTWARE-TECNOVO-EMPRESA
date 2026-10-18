@@ -54,8 +54,16 @@ foreach ($key in @("SUPABASE_POOLER_HOST", "SUPABASE_DB_PASSWORD")) {
 
 $host_ = $cfg["SUPABASE_POOLER_HOST"]
 $pass = $cfg["SUPABASE_DB_PASSWORD"]
-$user = if ($cfg.ContainsKey("SUPABASE_DB_USER")) { $cfg["SUPABASE_DB_USER"] } else { "postgres" }
+# El pooler de Supabase no acepta el usuario pelado: exige el tenant con el
+# formato postgres.<referencia>. Sin esto responde
+# "no tenant identifier provided (external_id or sni_hostname required)".
+$ref = if ($cfg.ContainsKey("SUPABASE_PROJECT_REF")) { $cfg["SUPABASE_PROJECT_REF"] } else { "" }
+$user = if ($cfg.ContainsKey("SUPABASE_DB_USER") -and $cfg["SUPABASE_DB_USER"]) { $cfg["SUPABASE_DB_USER"] } else { "postgres.$ref" }
 $dbname = if ($cfg.ContainsKey("SUPABASE_DB_NAME")) { $cfg["SUPABASE_DB_NAME"] } else { "postgres" }
+
+if ([string]::IsNullOrWhiteSpace($user) -or $user -eq "postgres.") {
+  throw "Falta SUPABASE_PROJECT_REF en .env.production.local (o SUPABASE_DB_USER completo)."
+}
 
 # El pooler de transicion (6543) cierra la sesion entre transacciones y no
 # sirve para restaurar: para eso el session pooler en 5432.
