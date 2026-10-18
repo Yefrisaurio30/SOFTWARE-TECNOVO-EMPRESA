@@ -13,5 +13,10 @@ coverage/
 test-results/
 pgdata/
 tsconfig.tsbuildinfo
+
+# Artefactos de despliegue: dumps de base de datos (traen hashes de
+# contrasena y correos) y scripts de prueba. No deben entrar al repo.
+_deploy/
+
 public/uploads/*
 !public/uploads/.gitkeep
