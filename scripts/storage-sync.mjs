@@ -198,6 +198,100 @@ async function verify() {
   console.log("\nLas tres capas funcionan: escritura, lectura publica y borrado.");
 }
 
+/**
+ * Reescribe en la base de datos las rutas locales /uploads/... por las URL
+ * publicas del bucket.
+ *
+ * Es el paso que hace falta cuando `public/uploads` esta en .gitignore: las
+ * filas de la base apuntan a /uploads/listing/x.png, ese archivo no viaja al
+ * repo, y en Vercel (sin disco) la foto sale rota.
+ *
+ * Solo reescribe si el objeto EXISTE en el bucket. Si falta, avisa y no toca
+ * la fila: es preferible una URL rota y visible a perder la referencia sin
+ * saberlo. Es idempotente, se puede correr las veces que haga falta.
+ */
+async function relocate() {
+  const { PrismaClient } = await import("@prisma/client");
+  const prisma = new PrismaClient();
+  try {
+    // hasSome exige el arreglo completo y no admite subcadenas, asi que no
+    // sirve para encontrar rutas /uploads/... Se buscan los que tienen imagenes
+    // y se filtra aqui: el catalogo es de decenas de filas, no compensa paginar.
+    const candidates = await prisma.product.findMany({
+      where: { images: { isEmpty: false } },
+      select: { id: true, name: true, images: true },
+    });
+    const products = candidates.filter((p) => p.images.some((u) => u.startsWith("/uploads/")));
+
+    if (products.length === 0) {
+      console.log("Ningun producto apunta a /uploads/. Nada que hacer.");
+      return;
+    }
+
+    // Indice de lo que hay en el bucket. La API lista relativo al prefijo y con
+    // prefix "" solo sale la raiz, asi que hay que listar carpeta por carpeta y
+    // volver a armar la clave completa.
+    const present = new Map();
+    const dirs = new Set([""]);
+    for (const p of products) {
+      for (const url of p.images) {
+        const key = url.startsWith("/uploads/") ? url.slice("/uploads/".length) : null;
+        if (!key) continue;
+        const cut = key.lastIndexOf("/");
+        dirs.add(cut === -1 ? "" : key.slice(0, cut + 1));
+      }
+    }
+    for (const dir of dirs) {
+      for (let offset = 0; ; offset += 1000) {
+        const res = await api(`/object/list/${BUCKET}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prefix: dir, limit: 1000, offset }),
+        });
+        const page = await res.json();
+        if (!Array.isArray(page) || page.length === 0) break;
+        for (const o of page) {
+          if (typeof o?.metadata?.size === "number") present.set(`${dir}${o.name}`, o.metadata.size);
+        }
+        if (page.length < 1000) break;
+      }
+    }
+    console.log(`${present.size} objeto(s) en el bucket.`);
+
+    let changed = 0;
+    let missing = 0;
+    for (const p of products) {
+      const next = [];
+      let dirty = false;
+      for (const url of p.images) {
+        const key = url.startsWith("/uploads/") ? url.slice("/uploads/".length) : null;
+        if (!key) {
+          next.push(url);
+          continue;
+        }
+        if (!present.has(key)) {
+          console.error(`  FALTA en el bucket: ${key}  (lo dejo como esta)`);
+          missing += 1;
+          next.push(url);
+          continue;
+        }
+        next.push(publicUrl(key));
+        dirty = true;
+      }
+      if (dirty) {
+        await prisma.product.update({ where: { id: p.id }, data: { images: next } });
+        changed += 1;
+        console.log(`  ${p.name} [${p.id}]`);
+        for (const u of next) console.log(`    ${u}`);
+      }
+    }
+
+    console.log(`\n${changed} producto(s) reescrito(s), ${missing} imagen(es) sin equivalente en el bucket.`);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
 function parseArgs(argv) {
   const args = argv.slice(2);
   const command = args.shift();
@@ -242,6 +336,8 @@ try {
     console.log(`\nListo. Cambia STORAGE_DRIVER a disk y reescribe las URLs de la base de datos.`);
   } else if (command === "verify") {
     await verify();
+  } else if (command === "relocate") {
+    await relocate();
   } else if (command === "list") {
     console.log(`Contenido de ${BUCKET}/${prefix}/`);
     await list(prefix);
@@ -249,6 +345,7 @@ try {
     console.log("Uso:");
     console.log("  node scripts/storage-sync.mjs verify");
     console.log("  node scripts/storage-sync.mjs upload --prefix listing <archivo...>");
+    console.log("  node scripts/storage-sync.mjs relocate");
     console.log("  node scripts/storage-sync.mjs download --prefix listing");
     console.log("  node scripts/storage-sync.mjs list [--prefix listing]");
     process.exit(1);

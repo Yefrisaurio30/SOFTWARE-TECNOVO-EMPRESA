@@ -11,16 +11,23 @@
 -- La escritura no necesita politica: la app sube con la llave de servicio,
 -- que salta RLS por ser un rol de servidor.
 
+-- El id TIENE que ser igual al nombre. La API de Storage busca por id en la
+-- ruta /object/<bucketId>/<clave>, asi que un id con UUID hace que toda subida
+-- y toda descarga responded NoSuchBucket aunque la fila exista y el nombre
+-- este bien. El panel de Supabase tambien pone id = name.
 insert into storage.buckets (id, name, public, file_size_limit, avif_autodetection, type)
 values (
-  gen_random_uuid(),
+  'uploads',
   'uploads',
   true,
   5242880,   -- 5 MB. La app corta en 4 MB; esto es la segunda red.
   true,      -- Supabase sirve AVIF solo cuando el cliente lo acepta.
   'STANDARD'
 )
-on conflict (name) do nothing;
+on conflict (id) do update
+  set public = excluded.public,
+      file_size_limit = excluded.file_size_limit,
+      avif_autodetection = excluded.avif_autodetection;
 
 -- storage.buckets tambien tiene RLS activo. Sin esta politica, la API de
 -- Storage lee la tabla con un rol que no salta RLS, no encuentra la fila y

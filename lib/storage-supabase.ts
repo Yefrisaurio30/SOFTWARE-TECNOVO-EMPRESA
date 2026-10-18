@@ -57,6 +57,35 @@ function keysOf(urls: string[]): string[] {
   return keys;
 }
 
+/**
+ * Lista una carpeta del bucket y devuelve nombre -> tamano.
+ *
+ * Storage usa carpetas virtuales: el listado recibe un `prefix` y devuelve los
+ * nombres RELATIVOS a ese prefijo. Con `prefix: ""` no salen los archivos, solo
+ * la raiz con las carpetas dentro. Por eso hay que listar carpeta por carpeta y
+ * no una sola vez por todo el bucket.
+ */
+async function listDir(dir: string): Promise<Map<string, number>> {
+  const sizes = new Map<string, number>();
+  for (let offset = 0; ; offset += PAGE) {
+    const res = await call(`/object/list/${BUCKET}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      // `prefix` es obligatorio: sin la propiedad la API responde 400
+      // "body must have required property 'prefix'".
+      body: JSON.stringify({ prefix: dir, limit: PAGE, offset }),
+    });
+    const page = (await res.json()) as StorageObject[];
+    if (!Array.isArray(page) || page.length === 0) break;
+    for (const object of page) {
+      const size = object?.metadata?.size;
+      if (typeof size === "number") sizes.set(object.name, size);
+    }
+    if (page.length < PAGE) break;
+  }
+  return sizes;
+}
+
 export const supabaseDriver = {
   async save(key: string, bytes: Uint8Array, mime: string): Promise<string> {
     await call(`/object/${BUCKET}/${key}`, {
@@ -87,31 +116,33 @@ export const supabaseDriver = {
   /**
    * Suma el tamano de los objetos pedidos.
    *
-   * Va por listado en vez de un HEAD por URL: son una sola llamada de red en
+   * Va por listado en vez de un HEAD por URL: son pocas llamadas de red en
    * lugar de N, y el tamano sale del `metadata.size` que Storage ya devuelve.
+   * Agrupa por carpeta porque la API solo lista lo relativo al prefijo que se
+   * le pase.
    */
   async bytesOf(urls: string[]): Promise<number> {
     const wanted = keysOf(urls);
     if (wanted.length === 0) return 0;
 
-    const sizes = new Map<string, number>();
-    for (let offset = 0; ; offset += PAGE) {
-      const res = await call(`/object/list/${BUCKET}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ limit: PAGE, offset }),
-      });
-      const page = (await res.json()) as StorageObject[];
-      if (!Array.isArray(page) || page.length === 0) break;
-      for (const object of page) {
-        const size = object?.metadata?.size;
-        if (typeof size === "number") sizes.set(object.name, size);
+    const byDir = new Map<string, Set<string>>();
+    for (const key of wanted) {
+      const cut = key.lastIndexOf("/");
+      const dir = cut === -1 ? "" : key.slice(0, cut + 1);
+      const name = cut === -1 ? key : key.slice(cut + 1);
+      let names = byDir.get(dir);
+      if (!names) {
+        names = new Set<string>();
+        byDir.set(dir, names);
       }
-      if (page.length < PAGE) break;
+      names.add(name);
     }
 
     let total = 0;
-    for (const key of wanted) total += sizes.get(key) ?? 0;
+    for (const [dir, names] of byDir) {
+      const sizes = await listDir(dir);
+      for (const name of names) total += sizes.get(name) ?? 0;
+    }
     return total;
   },
 };
