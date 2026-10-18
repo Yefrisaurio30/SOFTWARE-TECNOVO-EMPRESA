@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { MAX_FILES, MAX_TOTAL_BYTES, formatKB } from "@/lib/image-validation";
+import { MAX_FILES, MAX_FILE_BYTES, MAX_TOTAL_BYTES, formatKB } from "@/lib/image-validation";
 import { submitForReview } from "@/lib/listing-actions";
 
 export function PhotoStep({
@@ -56,16 +56,19 @@ export function PhotoStep({
     setError("");
     setBusy(true);
     try {
-      const fd = new FormData();
-      fd.append("listingId", listingId);
-      Array.from(files).forEach((f) => fd.append("files", f));
-      const res = await fetch("/api/listings/images", { method: "POST", body: fd });
-      const json = (await res.json()) as { error?: string; usedBytes?: number };
-      if (!res.ok) {
-        setError(json.error ?? "No se pudieron subir las fotos");
-        return;
+      // Una foto por peticion: Vercel corta el body en 4.5 MB.
+      for (const file of Array.from(files)) {
+        const fd = new FormData();
+        fd.append("listingId", listingId);
+        fd.append("files", file);
+        const res = await fetch("/api/listings/images", { method: "POST", body: fd });
+        const json = (await res.json()) as { error?: string; usedBytes?: number };
+        if (!res.ok) {
+          setError(json.error ?? "No se pudo subir la foto");
+          return;
+        }
+        if (typeof json.usedBytes === "number") setUsedBytes(json.usedBytes);
       }
-      if (typeof json.usedBytes === "number") setUsedBytes(json.usedBytes);
       await fetchUsage();
     } catch {
       setError("Error de red al subir");
@@ -106,7 +109,7 @@ export function PhotoStep({
           </span>
         </p>
         <p className="mt-1 text-sm text-text-muted tabular-nums">
-          {formatKB(usedBytes)} de 8 MB usados. Te queda {formatKB(remaining)}.
+          {formatKB(usedBytes)} de {formatKB(MAX_TOTAL_BYTES)} usados. Te queda {formatKB(remaining)}.
         </p>
 
         {images.length > 0 ? (
@@ -146,7 +149,7 @@ export function PhotoStep({
               onChange={(e) => e.target.files && upload(e.target.files)}
             />
             <p className="mt-2 text-xs text-text-faint">
-              Hasta {MAX_FILES} fotos, 8 MB en total. JPG, PNG, WebP, GIF, AVIF, HEIC o BMP.
+              Hasta {MAX_FILES} fotos, {formatKB(MAX_TOTAL_BYTES)} en total y {formatKB(MAX_FILE_BYTES)} por foto. JPG, PNG, WebP, GIF, AVIF, HEIC o BMP.
             </p>
           </div>
         ) : null}

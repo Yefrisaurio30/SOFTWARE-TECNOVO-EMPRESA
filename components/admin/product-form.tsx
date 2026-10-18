@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { Product, ProductType } from "@prisma/client";
 import { saveProduct } from "@/lib/admin-actions";
 import { getSpecs } from "@/lib/products";
+import { MAX_PRODUCT_FILE_BYTES, MAX_PRODUCT_FILES, formatKB } from "@/lib/image-validation";
 import { SpecsEditor } from "@/components/admin/specs-editor";
 
 const inputCls =
@@ -27,15 +28,19 @@ export function ProductForm({ product }: { product?: Product | null }) {
     setUploading(true);
     setUploadError("");
     try {
-      const fd = new FormData();
-      files.slice(0, 8).forEach((f) => fd.append("files", f));
-      const res = await fetch("/api/admin/products/upload", { method: "POST", body: fd });
-      const json = (await res.json()) as { urls?: string[]; error?: string };
-      if (!res.ok || !json.urls) {
-        setUploadError(json.error ?? "No se pudo subir");
-        return;
+      const room = Math.max(0, MAX_PRODUCT_FILES - images.length);
+      // Una foto por peticion: Vercel corta el body en 4.5 MB.
+      for (const file of files.slice(0, room)) {
+        const fd = new FormData();
+        fd.append("files", file);
+        const res = await fetch("/api/admin/products/upload", { method: "POST", body: fd });
+        const json = (await res.json()) as { urls?: string[]; error?: string };
+        if (!res.ok || !json.urls) {
+          setUploadError(json.error ?? "No se pudo subir");
+          return;
+        }
+        setImages((prev) => [...prev, ...json.urls!].slice(0, MAX_PRODUCT_FILES));
       }
-      setImages((prev) => [...prev, ...json.urls!].slice(0, 8));
     } catch {
       setUploadError("Error de red al subir");
     } finally {
@@ -155,7 +160,7 @@ export function ProductForm({ product }: { product?: Product | null }) {
             </ul>
           ) : null}
           <input type="hidden" name="imagesRaw" value={images.join("\n")} />
-          <p className="mt-2 text-xs text-text-faint">JPG, PNG, WebP, GIF o AVIF · máx. 5 MB por imagen.</p>
+          <p className="mt-2 text-xs text-text-faint">JPG, PNG, WebP, GIF o AVIF · máx. {formatKB(MAX_PRODUCT_FILE_BYTES)} por imagen · hasta {MAX_PRODUCT_FILES} fotos.</p>
         </div>
         <div className="sm:col-span-2">
           <span id="pf-specs-label" className={labelCls}>Ficha técnica</span>

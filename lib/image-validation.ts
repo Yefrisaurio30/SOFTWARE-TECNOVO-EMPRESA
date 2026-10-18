@@ -12,8 +12,23 @@
 export const MAX_TOTAL_BYTES = 8 * 1024 * 1024;
 /** Máximo de archivos por anuncio. */
 export const MAX_FILES = 5;
-/** Tope por archivo: evita que uno solo se coma todo el presupuesto. */
-export const MAX_FILE_BYTES = 8 * 1024 * 1024;
+/**
+ * Tope por archivo: 4 MB.
+ *
+ * Vercel corta el body de una peticion en 4.5 MB y responde 413
+ * `FUNCTION_PAYLOAD_TOO_LARGE`. Un archivo mayor que eso nunca llega a esta
+ * validacion, asi que el limite tiene que quedar por debajo.
+ */
+export const MAX_FILE_BYTES = 4 * 1024 * 1024;
+
+/** Máximo de fotos por producto en el panel de admin. */
+export const MAX_PRODUCT_FILES = 8;
+
+/**
+ * Tope por archivo en el panel de admin. Mismo motivo que
+ * {@link MAX_FILE_BYTES}: el tope de Vercel manda.
+ */
+export const MAX_PRODUCT_FILE_BYTES = 4 * 1024 * 1024;
 
 export interface DetectedImage {
   ext: string;

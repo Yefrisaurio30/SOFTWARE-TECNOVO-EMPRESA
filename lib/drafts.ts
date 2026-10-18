@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { DRAFT_TTL_MINUTES } from "@/lib/listing-validation";
+import { getStorage } from "@/lib/storage";
 
 /**
  * Elimina borradores vencidos (los que el usuario dejó a medias).
@@ -17,15 +18,11 @@ export async function purgeExpiredDrafts(): Promise<number> {
   });
   if (stale.length === 0) return 0;
 
-  // Sus imágenes se borran junto con el anuncio.
-  const { unlink } = await import("node:fs/promises");
-  const path = await import("node:path");
-  const dir = path.join(process.cwd(), "public", "uploads", "listing");
-
+  // Sus imágenes se borran junto con el anuncio. El driver decide si eso es
+  // un archivo local o un objeto en Supabase.
+  const storage = getStorage();
   for (const d of stale) {
-    for (const url of d.images) {
-      await unlink(path.join(dir, path.basename(url))).catch(() => {});
-    }
+    await storage.remove(d.images).catch(() => undefined);
   }
   await prisma.product.deleteMany({ where: { id: { in: stale.map((d) => d.id) } } });
   return stale.length;

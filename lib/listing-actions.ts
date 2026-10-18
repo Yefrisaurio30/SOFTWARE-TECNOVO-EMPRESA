@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { audit } from "@/lib/admin";
-import { bytesOnDisk } from "@/lib/listing-images";
+import { getStorage } from "@/lib/storage";
 import { MAX_TOTAL_BYTES, overLimitMessage } from "@/lib/image-validation";
 import { ListingDraftInput, MAX_LISTINGS_PER_DAY } from "@/lib/listing-validation";
 
@@ -26,7 +26,7 @@ export async function submitForReview(listingId: string) {
   }
 
   // Revalida el peso por si alguien tocó los archivos por fuera.
-  const used = await bytesOnDisk(own.product.images);
+  const used = await getStorage().bytesOf(own.product.images);
   if (used > MAX_TOTAL_BYTES) {
     return { ok: false as const, error: overLimitMessage(used - MAX_TOTAL_BYTES) };
   }
