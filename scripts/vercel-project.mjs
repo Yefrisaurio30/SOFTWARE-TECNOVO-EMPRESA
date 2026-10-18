@@ -36,12 +36,7 @@ function token() {
   throw new Error("No se encontro el token del CLI. Corre `vercel login`.");
 }
 
-const IGNORE_STEP = [
-  'if [ "$VERCEL_GIT_COMMIT_REF" != "main" ]; then',
-  '  echo "Solo main se despliega. Rama: $VERCEL_GIT_COMMIT_REF";',
-  "  exit 1;",
-  "fi",
-].join(" ");
+const IGNORE_STEP = "echo \"REF=[$VERCEL_GIT_COMMIT_REF] ENV=[$VERCEL_ENV] SHA=[$VERCEL_GIT_COMMIT_SHA] HEAD=[$VERCEL_GIT_PREVIOUS_SHA]\"; exit 0";
 
 async function patch(body) {
   const res = await fetch(`https://api.vercel.com/v9/projects/${PROJECT_ID}`, {
