@@ -30,21 +30,44 @@ const REQUIRED = [
   "AUTH_URL",
   "NEXT_PUBLIC_SITE_URL",
   "NEXT_PUBLIC_WHATSAPP",
-  "WOMPI_PUBLIC_KEY",
-  "WOMPI_INTEGRITY_SECRET",
-  "WOMPI_EVENTS_SECRET",
   "NEXT_PUBLIC_SUPABASE_URL",
   "SUPABASE_SERVICE_ROLE_KEY",
+  "STORAGE_DRIVER",
+  "CRON_SECRET",
 ];
+
+/**
+ * Las llaves de Wompi no bloquean el despliegue: sin ellas la tienda navega,
+ * el admin funciona y las fotos se ven, pero el checkout responde error. Se
+ * avisa y se sigue, para poder verificar el resto del despliegue sin esperar a
+ * tener el panel de Wompi abierto.
+ */
+const OPTIONAL = ["WOMPI_PUBLIC_KEY", "WOMPI_INTEGRITY_SECRET", "WOMPI_EVENTS_SECRET"];
 
 /** Esta fase del despliegue depende de los dos. */
 const REQUIRED_FOR_SUPABASE = ["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"];
 
 /**
- * Vercel obliga a guardar como Config (no Secret) lo que lleva prefijo
- * NEXT_PUBLIC_, asi que ahi no se pasa --sensitive.
+ * Lista blanca, no negra: solo se sube lo que esta nombrado aqui.
+ *
+ * El archivo tambien guarda SUPABASE_DB_PASSWORD, SUPABASE_POOLER_HOST y
+ * SUPABASE_PROJECT_REF, que son para scripts/transfer-db.ps1 en local. Si se
+ * subieran a Vercel, cualquier fuga de una variable del proyecto entregaria
+ * tambien la contrasena de la base de datos. Agregar una variable nueva al
+ * archivo no la manda a ninguna parte hasta que se nombre aca.
  */
-const isPublic = (name) => name.startsWith("NEXT_PUBLIC_");
+const UPLOAD = [...REQUIRED, ...OPTIONAL];
+
+/**
+ * Las que no son secreto. Vercel fuerza como Config lo que empieza por
+ * NEXT_PUBLIC_, pero STORAGE_DRIVER tampoco lo es y hay que decirlo.
+ */
+const CONFIG = new Set([
+  "NEXT_PUBLIC_SITE_URL",
+  "NEXT_PUBLIC_WHATSAPP",
+  "NEXT_PUBLIC_SUPABASE_URL",
+  "STORAGE_DRIVER",
+]);
 
 function parseEnv(text) {
   const vars = {};
@@ -103,19 +126,30 @@ if (!existsSync(SOURCE)) {
   console.error(".gitignore, asi que nunca se sube al repo. Plantilla:");
   console.error("");
   for (const name of REQUIRED) console.error(`  ${name}=`);
+  for (const name of OPTIONAL) console.error(`  ${name}=   # opcional`);
   console.error("");
   console.error("Despues corre: node scripts/vercel-env-sync.mjs");
   process.exit(1);
 }
 
 const vars = parseEnv(readFileSync(SOURCE, "utf8"));
-const names = Object.keys(vars);
+for (const name of [...UPLOAD]) if (vars[name] === "") delete vars[name];
+const names = UPLOAD.filter((name) => vars[name]);
 
-const missing = REQUIRED.filter((name) => !vars[name]);
-if (missing.length > 0) {
-  console.error(`Faltan ${missing.length} variable(s) obligatorias en .env.production.local:`);
-  for (const name of missing) console.error(`  - ${name}`);
+const faltando = REQUIRED.filter((name) => !vars[name]);
+const sinWompi = OPTIONAL.filter((name) => !vars[name]);
+
+if (faltando.length > 0) {
+  console.error(`Faltan ${faltando.length} variable(s) obligatorias en .env.production.local:`);
+  for (const name of faltando) console.error(`  - ${name}`);
   process.exit(1);
+}
+
+if (sinWompi.length > 0) {
+  console.error(`AVISO: faltan ${sinWompi.length} variable(s) de Wompi:`);
+  for (const name of sinWompi) console.error(`  - ${name}`);
+  console.error("El sitio va a funcionar, pero /api/checkout/wompi respondera error");
+  console.error("hasta que las pongas y corras otra vez este script.\n");
 }
 
 const dbProblems = checkDatabaseUrl(vars.DATABASE_URL);
@@ -134,11 +168,17 @@ if ((vars.STORAGE_DRIVER ?? "").trim() === "supabase") {
   }
 }
 
-console.log(`${names.length} variable(s) en .env.production.local`);
+const ignoradas = Object.keys(vars).filter((name) => !UPLOAD.includes(name));
+console.log(`${names.length} variable(s) a subir, ${ignoradas.length} solo locales`);
 console.log("");
 for (const name of names) {
-  const type = isPublic(name) ? "config" : "secret";
-  console.log(`  ${name.padEnd(30)} ${type}  ${"x".repeat(vars[name].length)}`);
+  const type = CONFIG.has(name) || name.startsWith("NEXT_PUBLIC_") ? "config" : "secret";
+  console.log(`  ${name.padEnd(30)} ${type}  ${"x".repeat(Math.min(vars[name].length, 12))}`);
+}
+if (ignoradas.length > 0) {
+  console.log("");
+  console.log("No se suben (solo para scripts locales):");
+  for (const name of ignoradas) console.log(`  ${name}`);
 }
 console.log("");
 
@@ -158,7 +198,8 @@ console.log(`Cuenta: ${who.stdout.trim()}`);
 let failed = 0;
 for (const name of names) {
   const args = ["env", "add", name, ENVIRONMENT, "--yes", "--force"];
-  if (!isPublic(name)) args.push("--sensitive");
+  if (CONFIG.has(name) || name.startsWith("NEXT_PUBLIC_")) args.push("--no-sensitive");
+  else args.push("--sensitive");
 
   const result = run(args, vars[name]);
   if (result.status !== 0) {

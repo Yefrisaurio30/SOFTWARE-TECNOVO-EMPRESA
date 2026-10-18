@@ -20,3 +20,10 @@ _deploy/
 
 public/uploads/*
 !public/uploads/.gitkeep
+
+.vercel
+
+# El CLI de Vercel agrega .env* al hacer link. Eso tambien atraparia
+# .env.example, que es la plantilla y si debe estar versionada.
+.env*
+!.env.example
