@@ -144,6 +144,60 @@ async function list(prefix) {
   console.log(`\n  Total: ${total} bytes (${(total / 1024 / 1024).toFixed(2)} MB) en el plan gratis de 1 GB`);
 }
 
+/**
+ * Prueba de extremo a extremo del almacenamiento: sube un PNG de 1x1, lo pide
+ * por la URL publica SIN credencial (como lo haria next/image) y compara.
+ *
+ * Es la unica forma de probar de verdad las tres capas: la escritura con llave
+ * de servicio, la politica de lectura de storage.objects, y que la API de
+ * Storage resuelva el bucket. Un INSERT en storage.buckets no garantiza nada
+ * de eso: si falta la politica de RLS, o la API no refresca el bucket, todo
+ * pasa en silencio y las fotos dan 403.
+ */
+async function verify() {
+  // PNG de 1x1 transparente, minimo valido.
+  const png = Buffer.from(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+    "base64",
+  );
+  const key = `listing/_verificacion-${Date.now()}.png`;
+
+  console.log("1. Subiendo con la llave de servicio...");
+  await api(`/object/${BUCKET}/${key}`, {
+    method: "POST",
+    headers: { "Content-Type": "image/png", "x-upsert": "true" },
+    body: png,
+  });
+  console.log("   ok");
+
+  console.log("2. Pidiendo por la URL publica, sin credencial...");
+  const url = publicUrl(key);
+  const res = await fetch(url);
+  const text = await res.text();
+  if (!res.ok) {
+    console.error(`   FALLA: HTTP ${res.status} ${text}`);
+    console.error("");
+    console.error("   Si dice NoSuchBucket, a la API de Storage no le llega el bucket.");
+    console.error("   Revisa que exista en el dashboard y que este Public.");
+    process.exit(1);
+  }
+  if (text.includes("NoSuchBucket")) {
+    console.error("   FALLA: NoSuchBucket. El bucket existe en la tabla pero la API no lo ve.");
+    process.exit(1);
+  }
+  console.log(`   ok (${res.status}, ${text.length} bytes)`);
+
+  console.log("3. Borrando...");
+  await api(`/object/${BUCKET}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prefixes: [key] }),
+  });
+  console.log("   ok");
+
+  console.log("\nLas tres capas funcionan: escritura, lectura publica y borrado.");
+}
+
 function parseArgs(argv) {
   const args = argv.slice(2);
   const command = args.shift();
@@ -186,11 +240,14 @@ try {
     const page = await res.json();
     for (const o of page) await download(o.name);
     console.log(`\nListo. Cambia STORAGE_DRIVER a disk y reescribe las URLs de la base de datos.`);
+  } else if (command === "verify") {
+    await verify();
   } else if (command === "list") {
     console.log(`Contenido de ${BUCKET}/${prefix}/`);
     await list(prefix);
   } else {
     console.log("Uso:");
+    console.log("  node scripts/storage-sync.mjs verify");
     console.log("  node scripts/storage-sync.mjs upload --prefix listing <archivo...>");
     console.log("  node scripts/storage-sync.mjs download --prefix listing");
     console.log("  node scripts/storage-sync.mjs list [--prefix listing]");
