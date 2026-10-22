@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 import { Container } from "@/components/ui/section";
 
 const inputCls =
-  "w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none placeholder:text-text-faint focus:border-steel/60";
+  "w-full rounded-2xl border border-[#000] bg-white/5 px-4 py-3 text-[15px] text-text outline-none placeholder:text-text-faint focus:border-steel/60";
 const labelCls = "mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase";
 
 export default function LoginPage() {
@@ -37,7 +37,7 @@ export default function LoginPage() {
       <Container className="max-w-md">
         <p className="text-sm font-medium tracking-wide text-steel uppercase">Cuenta</p>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight">Entrar</h1>
-        <form onSubmit={submit} className="mt-8 flex flex-col gap-4 rounded-[28px] border border-white/10 bg-surface p-6">
+        <form onSubmit={submit} className="mt-8 flex flex-col gap-4 rounded-[28px] border border-white/10 bg-surface p-6 shadow-sm">
           <div>
             <label htmlFor="login-email" className={labelCls}>Correo</label>
             <input id="login-email" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} />
@@ -47,7 +47,7 @@ export default function LoginPage() {
             <input id="login-pass" type="password" required autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputCls} />
           </div>
           {error ? <p role="alert" className="text-sm text-danger">{error}</p> : null}
-          <button type="submit" disabled={loading} className="rounded-full bg-white py-3 text-[15px] font-medium text-[#000] disabled:opacity-60">
+          <button type="submit" disabled={loading} className="rounded-full bg-white py-3 text-[15px] font-medium text-[#000] border border-[#8DBF20] disabled:opacity-60">
             {loading ? "Entrando…" : "Iniciar sesión"}
           </button>
           <p className="text-center text-sm text-text-muted">
