@@ -20,7 +20,7 @@ export default async function CatalogoMayoristaPage() {
   });
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <SectionHeading
           eyebrow={`${company} · Pedido mínimo ${minUnits} uds.`}

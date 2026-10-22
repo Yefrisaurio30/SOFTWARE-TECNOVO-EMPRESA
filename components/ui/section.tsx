@@ -23,7 +23,7 @@ export function Section({
     <section
       className={cn(
         "py-24 md:py-32",
-        tone === "dark" ? "bg-black text-text" : "bg-light text-light-text",
+        tone === "dark" ? "bg-white text-text" : "bg-light text-light-text",
         className,
       )}
     >

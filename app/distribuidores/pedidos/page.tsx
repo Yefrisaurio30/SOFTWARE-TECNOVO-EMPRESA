@@ -25,7 +25,7 @@ export default async function PedidosMayoristasPage() {
     .reduce((n, o) => n + o.total, 0);
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-4 print:block">
           <SectionHeading

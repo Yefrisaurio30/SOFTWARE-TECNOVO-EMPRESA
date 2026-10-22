@@ -65,7 +65,7 @@ export default async function TallerPage() {
                 href={waLink(`Hola TECNOVO, ¿cuándo hay servicio técnico cerca de mí?`, whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-block rounded-full bg-black px-6 py-2.5 text-sm font-medium text-white"
+                className="mt-5 inline-block rounded-full bg-white px-6 py-2.5 text-sm font-medium text-white"
               >
                 Consultar por WhatsApp
               </a>
@@ -82,7 +82,7 @@ export default async function TallerPage() {
                       <h3 className="text-xl font-semibold text-light-text">
                         {s.name}
                         {s.isHeadquarter ? (
-                          <span className="ml-2 rounded-full bg-black px-3 py-1 text-xs font-medium text-white">
+                          <span className="ml-2 rounded-full bg-white px-3 py-1 text-xs font-medium text-white">
                             Sede principal
                           </span>
                         ) : null}
@@ -118,7 +118,7 @@ export default async function TallerPage() {
                       href={waLink(`Hola TECNOVO, quiero agendar servicio técnico en ${s.name} (${s.city}).`, whatsapp)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="rounded-full bg-black px-5 py-2 text-sm font-medium text-white"
+                      className="rounded-full bg-white px-5 py-2 text-sm font-medium text-white"
                     >
                       Agendar cita
                     </a>

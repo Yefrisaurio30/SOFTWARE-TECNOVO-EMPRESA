@@ -81,7 +81,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
   };
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

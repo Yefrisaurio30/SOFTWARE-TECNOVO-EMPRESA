@@ -122,7 +122,7 @@ export function PhotoStep({
                   type="button"
                   onClick={() => remove(src)}
                   aria-label="Quitar foto"
-                  className="absolute top-1 right-1 grid size-7 place-items-center rounded-full bg-black/70 text-sm text-white"
+                  className="absolute top-1 right-1 grid size-7 place-items-center rounded-full bg-white/70 text-sm text-white"
                 >
                   ×
                 </button>

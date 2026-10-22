@@ -46,7 +46,7 @@ export default function RegistroDistribuidorPage() {
 
   if (done) {
     return (
-      <main className="bg-black py-16 text-text">
+      <main className="bg-white py-16 text-text">
         <Container className="max-w-lg text-center">
           <h1 className="text-4xl font-semibold tracking-tight">Solicitud enviada</h1>
           <p className="mt-3 text-text-muted">
@@ -61,7 +61,7 @@ export default function RegistroDistribuidorPage() {
   }
 
   return (
-    <main className="bg-black py-16 text-text">
+    <main className="bg-white py-16 text-text">
       <Container className="max-w-lg">
         <p className="text-sm font-medium tracking-wide text-steel uppercase">Distribuidores</p>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight">Registra tu empresa</h1>

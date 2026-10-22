@@ -87,7 +87,7 @@ export default function CheckoutPage() {
 
   if (lines.length === 0) {
     return (
-      <main className="bg-black py-10 text-text md:py-14">
+      <main className="bg-white py-10 text-text md:py-14">
         <Container>
           <SectionHeading eyebrow="Compra" title="Checkout." />
           <div className="mt-8 rounded-[28px] border border-white/10 bg-surface p-10 text-center">
@@ -106,7 +106,7 @@ export default function CheckoutPage() {
 
   if (status === "loading") {
     return (
-      <main className="bg-black py-10 text-text md:py-14">
+      <main className="bg-white py-10 text-text md:py-14">
         <Container>
           <SectionHeading eyebrow="Compra" title="Checkout." />
           <div className="mt-8 rounded-[28px] border border-white/10 bg-surface p-10 text-center">
@@ -119,7 +119,7 @@ export default function CheckoutPage() {
 
   if (status === "unauthenticated") {
     return (
-      <main className="bg-black py-10 text-text md:py-14">
+      <main className="bg-white py-10 text-text md:py-14">
         <Container>
           <SectionHeading
             eyebrow="Compra"
@@ -152,7 +152,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <SectionHeading
           eyebrow="Compra"

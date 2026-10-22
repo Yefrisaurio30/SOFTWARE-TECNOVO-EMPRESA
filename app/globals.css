@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-black: #8dbf20;
-  --color-ink: #7aad1a;
-  --color-graphite: #6a9a15;
-  --color-surface: #9dcc3a;
-  --color-surface-2: #addd55;
-  --color-text: #1a2e0a;
-  --color-text-muted: #2d4a14;
-  --color-text-faint: #4a6b20;
-  --color-light: #b8e56a;
-  --color-light-surface: #d4f08a;
-  --color-light-text: #1a2e0a;
-  --color-light-muted: #3a5a14;
+  --color-black: #1e1e1e;
+  --color-ink: #222222;
+  --color-graphite: #2a2a2a;
+  --color-surface: #f4f5f7;
+  --color-surface-2: #efefef;
+  --color-text: #1e1e1e;
+  --color-text-muted: #555555;
+  --color-text-faint: #888888;
+  --color-light: #ffffff;
+  --color-light-surface: #ffffff;
+  --color-light-text: #1e1e1e;
+  --color-light-muted: #555555;
   /* Acento neón de marca. steel solo sobre oscuros; steel-deep sobre gris claro. */
   --color-steel: #00e640;
   --color-steel-deep: #00a330;
@@ -31,8 +31,8 @@ html {
 }
 
 body {
-  background: #8dbf20;
-  color: #1a2e0a;
+  background: #ffffff;
+  color: #1e1e1e;
   font-feature-settings: "ss01";
   -webkit-font-smoothing: antialiased;
 }
@@ -46,13 +46,13 @@ body {
 select,
 select option,
 select optgroup {
-  background-color: #6a9a15;
-  color: #1a2e0a;
+  background-color: #2a2a2a;
+  color: #ffffff;
 }
 
 select option:checked {
-  background-color: #addd55;
-  color: #1a2e0a;
+  background-color: #efefef;
+  color: #1e1e1e;
 }
 
 /* Tarjetas: elevación suave + brillo que barre al hover. */

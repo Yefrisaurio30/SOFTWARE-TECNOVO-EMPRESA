@@ -39,7 +39,7 @@ export default async function CompararPage({
 
   if (ordered.length < 2) {
     return (
-      <main className="bg-black py-16 text-text">
+      <main className="bg-white py-16 text-text">
         <Container className="max-w-lg text-center">
           <h1 className="text-4xl font-semibold tracking-tight">Elige 2 o 3 motos</h1>
           <p className="mt-3 text-text-muted">
@@ -56,7 +56,7 @@ export default async function CompararPage({
   const labels = [...new Set(ordered.flatMap((p) => allSpecs(getSpecs(p)).map(([k]) => k)))];
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <SectionHeading eyebrow="Comparador" title="Lado a lado." />
         <div className="mt-8 overflow-x-auto rounded-[28px] border border-white/10">

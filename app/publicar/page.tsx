@@ -16,7 +16,7 @@ export default async function PublicarPage() {
   const quota = await getListingQuota(session.user.id);
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <SectionHeading
           eyebrow=" Marketplace"

@@ -19,7 +19,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const session = await auth();
   await requireAdmin();
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm font-medium tracking-wide text-steel uppercase">Superadmin</p>

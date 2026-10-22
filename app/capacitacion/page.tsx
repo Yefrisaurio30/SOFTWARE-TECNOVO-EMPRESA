@@ -29,7 +29,7 @@ export default async function CapacitacionPage() {
   return (
     <main>
       {/* Banner superior */}
-      <section className="relative overflow-hidden bg-black py-20 text-text md:py-28">
+      <section className="relative overflow-hidden bg-white py-20 text-text md:py-28">
         <div
           className="absolute inset-0"
           style={{ background: "radial-gradient(ellipse at 50% -10%, rgba(57,255,20,.14), transparent 60%)" }}

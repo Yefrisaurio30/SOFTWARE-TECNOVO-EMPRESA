@@ -26,7 +26,7 @@ export function SavingsCalculator({
   const r = useMemo(() => calcSavings(Number.isFinite(kmNumber) ? kmNumber : 0, settings), [kmNumber, settings]);
 
   return (
-    <section aria-label="Calculadora de ahorro" className="bg-black py-24 text-text md:py-32">
+    <section aria-label="Calculadora de ahorro" className="bg-white py-24 text-text md:py-32">
       <Container>
         <div className="grid items-start gap-10 lg:grid-cols-2">
           <div>

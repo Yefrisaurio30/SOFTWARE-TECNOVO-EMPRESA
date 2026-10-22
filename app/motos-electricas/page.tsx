@@ -28,7 +28,7 @@ export default async function ElectricasPage({
   ]);
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <SectionHeading
           eyebrow="Catálogo"

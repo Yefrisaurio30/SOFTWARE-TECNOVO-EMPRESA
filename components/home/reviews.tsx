@@ -9,7 +9,7 @@ const REVIEWS = [
 
 export function Reviews() {
   return (
-    <section aria-label="Opiniones" className="bg-black py-24 text-text md:py-32">
+    <section aria-label="Opiniones" className="bg-white py-24 text-text md:py-32">
       <Container>
         <SectionHeading
           eyebrow="Reseñas"

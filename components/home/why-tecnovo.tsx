@@ -12,7 +12,7 @@ const POINTS = [
 
 export function WhyTecnovo() {
   return (
-    <section aria-label="Por qué TECNOVO" className="bg-black py-24 text-text md:py-32">
+    <section aria-label="Por qué TECNOVO" className="bg-white py-24 text-text md:py-32">
       <Container>
         <p className="text-sm font-medium tracking-wide text-steel uppercase">Por qué TECNOVO</p>
         <h2

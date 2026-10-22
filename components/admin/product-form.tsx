@@ -151,7 +151,7 @@ export function ProductForm({ product }: { product?: Product | null }) {
                     type="button"
                     onClick={() => setImages((prev) => prev.filter((x) => x !== src))}
                     aria-label="Quitar imagen"
-                    className="absolute top-1 right-1 grid size-7 place-items-center rounded-full bg-black/70 text-sm text-white"
+                    className="absolute top-1 right-1 grid size-7 place-items-center rounded-full bg-white/70 text-sm text-white"
                   >
                     ×
                   </button>

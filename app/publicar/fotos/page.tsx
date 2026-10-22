@@ -28,7 +28,7 @@ export default async function FotosPage({
   await touchDraft(listing.id, session.user.id);
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <SectionHeading eyebrow="Marketplace" title="Sube las fotos." />
         <div className="mt-8">

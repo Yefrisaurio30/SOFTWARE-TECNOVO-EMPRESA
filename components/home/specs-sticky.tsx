@@ -45,7 +45,7 @@ export function SpecsSticky({ products }: { products: Product[] }) {
     reduceMotion ? { opacity: 0 } : { opacity: 0, x: 48 * dir };
 
   return (
-    <section aria-label="Modelos en cifras" className="bg-black py-24 text-text md:py-32">
+    <section aria-label="Modelos en cifras" className="bg-white py-24 text-text md:py-32">
       <Container>
         <div
           className="grid items-center gap-10 outline-none md:grid-cols-2"
@@ -112,7 +112,7 @@ export function SpecsSticky({ products }: { products: Product[] }) {
                     type="button"
                     onClick={prev}
                     aria-label="Modelo anterior"
-                    className="absolute top-1/2 left-3 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-black/60 text-white backdrop-blur transition hover:scale-[1.05] hover:bg-black/80"
+                    className="absolute top-1/2 left-3 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-white/60 text-white backdrop-blur transition hover:scale-[1.05] hover:bg-white/80"
                   >
                     <ChevronLeft size={20} aria-hidden />
                   </button>
@@ -120,13 +120,13 @@ export function SpecsSticky({ products }: { products: Product[] }) {
                     type="button"
                     onClick={next}
                     aria-label="Modelo siguiente"
-                    className="absolute top-1/2 right-3 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-black/60 text-white backdrop-blur transition hover:scale-[1.05] hover:bg-black/80"
+                    className="absolute top-1/2 right-3 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-white/60 text-white backdrop-blur transition hover:scale-[1.05] hover:bg-white/80"
                   >
                     <ChevronRight size={20} aria-hidden />
                   </button>
                   <p
                     aria-live="polite"
-                    className="absolute right-3 bottom-3 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white tabular-nums backdrop-blur"
+                    className="absolute right-3 bottom-3 rounded-full bg-white/60 px-3 py-1 text-xs font-medium text-white tabular-nums backdrop-blur"
                   >
                     {index + 1} / {products.length}
                   </p>

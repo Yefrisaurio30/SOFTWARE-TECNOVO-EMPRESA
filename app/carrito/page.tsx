@@ -12,7 +12,7 @@ export default function CarritoPage() {
   const remove = useCartStore((s) => s.remove);
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <SectionHeading
           eyebrow="Compra"

@@ -2,7 +2,7 @@ import { Container } from "@/components/ui/section";
 
 export default function Loading() {
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <div className="h-4 w-1/2 animate-pulse rounded-full bg-surface-2" />
         <div className="mt-6 grid gap-10 lg:grid-cols-2">

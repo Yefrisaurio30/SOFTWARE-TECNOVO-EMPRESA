@@ -36,7 +36,7 @@ export default async function PedidoPage({ params }: { params: Promise<{ id: str
   if (!canAccessOrder(order.userId, session)) notFound();
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <SectionHeading eyebrow="Pedido" title="Así va tu pedido." />
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">

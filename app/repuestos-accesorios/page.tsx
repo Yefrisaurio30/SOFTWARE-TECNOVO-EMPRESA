@@ -24,7 +24,7 @@ export default async function RepuestosPage({ searchParams }: { searchParams: Pr
   ]);
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <SectionHeading
           eyebrow="Catálogo"

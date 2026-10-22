@@ -33,7 +33,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="bg-black py-16 text-text">
+    <main className="bg-white py-16 text-text">
       <Container className="max-w-md">
         <p className="text-sm font-medium tracking-wide text-steel uppercase">Cuenta</p>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight">Entrar</h1>

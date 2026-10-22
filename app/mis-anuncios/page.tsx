@@ -58,7 +58,7 @@ export default async function MisAnunciosPage({
   ];
 
   return (
-    <main className="bg-black py-10 text-text md:py-14">
+    <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading

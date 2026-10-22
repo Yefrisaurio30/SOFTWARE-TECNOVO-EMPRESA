@@ -15,7 +15,7 @@ const STEPS = [
 
 export default function DistribuidoresPage() {
   return (
-    <main className="bg-black text-text">
+    <main className="bg-white text-text">
       <section className="py-20 md:py-28">
         <Container>
           <p className="text-sm font-medium tracking-wide text-steel uppercase">Negocios</p>

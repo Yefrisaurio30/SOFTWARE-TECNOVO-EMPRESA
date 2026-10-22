@@ -24,7 +24,7 @@ export function Locations() {
                 href={TECNOVO_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-[15px] font-medium text-white transition hover:scale-[1.02]"
+                className="mt-2 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-medium text-white transition hover:scale-[1.02]"
               >
                 Cómo llegar en Google Maps <span aria-hidden>›</span>
               </a>
