@@ -99,7 +99,7 @@ export default function RegistroPage() {
           </div>
           <ConsentCheckboxes onChange={setConsents} />
           {error ? <p role="alert" className="text-sm text-danger">{error}</p> : null}
-          <button type="submit" disabled={loading || !consents} className="rounded-full bg-white py-3 text-[15px] font-medium text-black disabled:opacity-50">
+          <button type="submit" disabled={loading || !consents} className="rounded-full bg-white py-3 text-[15px] font-medium text-[#000] disabled:opacity-50">
             {loading ? "Creando…" : "Crear cuenta"}
           </button>
           {!consents ? (

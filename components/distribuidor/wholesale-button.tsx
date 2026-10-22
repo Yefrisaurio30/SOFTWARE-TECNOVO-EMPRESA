@@ -34,7 +34,7 @@ export function AddWholesaleButton({ product }: { product: Product }) {
     <button
       onClick={onAdd}
       aria-label={`Agregar ${product.name} al pedido mayorista`}
-      className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition hover:scale-[1.02]"
+      className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-medium text-[#000] transition hover:scale-[1.02]"
     >
       {added ? <Check size={15} aria-hidden /> : <Plus size={15} aria-hidden />}
       {added ? "Listo" : "Agregar"}

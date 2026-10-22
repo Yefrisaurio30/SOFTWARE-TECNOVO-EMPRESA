@@ -137,7 +137,7 @@ export function ProductForm({ product }: { product?: Product | null }) {
             multiple
             onChange={onFiles}
             disabled={uploading}
-            className="w-full rounded-2xl border border-dashed border-white/20 bg-white/5 px-4 py-3 text-sm text-text-muted file:mr-3 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-black disabled:opacity-60"
+            className="w-full rounded-2xl border border-dashed border-white/20 bg-white/5 px-4 py-3 text-sm text-text-muted file:mr-3 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-[#000] disabled:opacity-60"
           />
           {uploading ? <p className="mt-2 text-sm text-text-muted">Subiendo…</p> : null}
           {uploadError ? <p role="alert" className="mt-2 text-sm text-danger">{uploadError}</p> : null}
@@ -178,7 +178,7 @@ export function ProductForm({ product }: { product?: Product | null }) {
       </div>
       {error ? <p role="alert" className="text-sm text-danger">{error}</p> : null}
       <div>
-        <button type="submit" disabled={saving} className="rounded-full bg-white px-7 py-3 text-[15px] font-medium text-black disabled:opacity-60">
+        <button type="submit" disabled={saving} className="rounded-full bg-white px-7 py-3 text-[15px] font-medium text-[#000] disabled:opacity-60">
           {saving ? "Guardando…" : product ? "Guardar cambios" : "Crear producto"}
         </button>
       </div>

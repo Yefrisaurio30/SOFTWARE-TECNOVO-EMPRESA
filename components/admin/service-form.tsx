@@ -88,7 +88,7 @@ export function ServiceForm({ service }: { service?: Service | null }) {
       </div>
       {error ? <p role="alert" className="text-sm text-danger">{error}</p> : null}
       <div>
-        <button type="submit" disabled={saving} className="rounded-full bg-steel px-7 py-3 text-[15px] font-medium text-black disabled:opacity-60">
+        <button type="submit" disabled={saving} className="rounded-full bg-steel px-7 py-3 text-[15px] font-medium text-[#000] disabled:opacity-60">
           {saving ? "Guardando…" : service ? "Guardar cambios" : "Crear punto de servicio"}
         </button>
       </div>

@@ -21,7 +21,7 @@ export default async function AuditoriaLegalesPage() {
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
           href="/api/admin/auditoria-legales/export"
-          className="rounded-full bg-steel px-5 py-2.5 text-sm font-medium text-black"
+          className="rounded-full bg-steel px-5 py-2.5 text-sm font-medium text-[#000]"
         >
           Exportar CSV
         </a>

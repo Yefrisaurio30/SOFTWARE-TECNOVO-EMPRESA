@@ -97,7 +97,7 @@ export function Navbar() {
                 <span className="max-w-28 truncate text-sm text-text-muted">Hola, {firstName}</span>
                 <Link
                   href="/admin"
-                  className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black transition hover:scale-[1.02]"
+                  className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-[#000] transition hover:scale-[1.02]"
                 >
                   Panel
                 </Link>
@@ -105,7 +105,7 @@ export function Navbar() {
             ) : role === "MAYORISTA" || role === "DISTRIBUIDOR" ? (
               <Link
                 href="/distribuidores/catalogo"
-                className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black transition hover:scale-[1.02]"
+                className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-[#000] transition hover:scale-[1.02]"
               >
                 Mayorista
               </Link>
@@ -183,7 +183,7 @@ export function Navbar() {
                 <Link
                   href="/login"
                   onClick={() => setOpen(false)}
-                  className="flex-1 rounded-full bg-white px-4 py-2.5 text-center text-[15px] font-medium text-black"
+                  className="flex-1 rounded-full bg-white px-4 py-2.5 text-center text-[15px] font-medium text-[#000]"
                 >
                   Entrar
                 </Link>

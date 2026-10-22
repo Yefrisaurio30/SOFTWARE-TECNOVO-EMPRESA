@@ -163,7 +163,7 @@ export function PhotoStep({
         <button
           onClick={send}
           disabled={busy || images.length === 0}
-          className="mt-6 w-full rounded-full bg-steel py-3 text-[15px] font-medium text-black disabled:opacity-50"
+          className="mt-6 w-full rounded-full bg-steel py-3 text-[15px] font-medium text-[#000] disabled:opacity-50"
         >
           {busy ? "Enviando…" : "Enviar a revisión"}
         </button>

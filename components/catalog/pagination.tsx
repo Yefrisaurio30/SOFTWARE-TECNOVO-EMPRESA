@@ -33,7 +33,7 @@ export function Pagination({
         {page < pages ? (
           <a
             href={buildHref(page + 1)}
-            className="rounded-full bg-white px-5 py-2 text-sm font-medium text-black transition hover:scale-[1.02]"
+            className="rounded-full bg-white px-5 py-2 text-sm font-medium text-[#000] transition hover:scale-[1.02]"
           >
             Siguiente ›
           </a>

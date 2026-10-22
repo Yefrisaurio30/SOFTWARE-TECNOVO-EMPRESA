@@ -33,14 +33,14 @@ export default async function PedidosPage({
         </a>
       </div>
       <div className="mt-4 flex flex-wrap gap-2" role="navigation" aria-label="Filtrar por estado">
-        <Link href="/admin/pedidos" className={`rounded-full px-4 py-1.5 text-sm ${!status ? "bg-white text-black" : "border border-white/10 text-text-muted"}`}>
+        <Link href="/admin/pedidos" className={`rounded-full px-4 py-1.5 text-sm ${!status ? "bg-white text-[#000]" : "border border-white/10 text-text-muted"}`}>
           Todos
         </Link>
         {STATUSES.map((s) => (
           <Link
             key={s}
             href={`/admin/pedidos?status=${s}`}
-            className={`rounded-full px-4 py-1.5 text-sm ${status === s ? "bg-white text-black" : "border border-white/10 text-text-muted"}`}
+            className={`rounded-full px-4 py-1.5 text-sm ${status === s ? "bg-white text-[#000]" : "border border-white/10 text-text-muted"}`}
           >
             {s}
           </Link>

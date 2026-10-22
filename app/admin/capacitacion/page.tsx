@@ -17,7 +17,7 @@ export default async function AdminCapacitacionPage() {
           <Link href="/capacitacion" className="rounded-full border border-white/15 px-5 py-2.5 text-sm">
             Ver /capacitacion
           </Link>
-          <Link href="/admin/capacitacion/nuevo" className="rounded-full bg-steel px-5 py-2.5 text-sm font-medium text-black">
+          <Link href="/admin/capacitacion/nuevo" className="rounded-full bg-steel px-5 py-2.5 text-sm font-medium text-[#000]">
             + Nuevo curso
           </Link>
         </div>

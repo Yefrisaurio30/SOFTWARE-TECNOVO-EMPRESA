@@ -8,7 +8,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         // Primario en fondo oscuro: píldora blanca, texto negro
-        primaryDark: "bg-white text-black hover:brightness-95",
+        primaryDark: "bg-white text-[#000] hover:brightness-95",
         // Primario en fondo claro: píldora negra, texto blanco
         primaryLight: "bg-black text-white hover:bg-ink",
         // Secundario: enlace con flecha, sin caja
@@ -16,7 +16,7 @@ const buttonVariants = cva(
         // Fantasma oscuro: borde sutil para navbar / superficies oscuras
         ghostDark:
           "border border-white/10 bg-white/5 text-text hover:border-white/20 hover:bg-white/10",
-        outlineLight: "border border-black/15 bg-transparent text-black hover:bg-black/5",
+        outlineLight: "border border-black/15 bg-transparent text-[#000] hover:bg-black/5",
       },
       size: {
         sm: "h-9 px-4 text-sm",

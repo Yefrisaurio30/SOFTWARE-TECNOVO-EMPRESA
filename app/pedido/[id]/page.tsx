@@ -89,7 +89,7 @@ export default async function PedidoPage({ params }: { params: Promise<{ id: str
                href={waLink(`Hola TECNOVO, tengo una consulta sobre mi pedido N.º ${order.id.slice(-8).toUpperCase()}.`, await getWhatsAppNumber())}
                target="_blank"
                rel="noopener noreferrer"
-               className="mt-4 flex items-center justify-center gap-2 rounded-full bg-cta px-5 py-2.5 text-sm font-medium text-black transition hover:scale-[1.02]"
+               className="mt-4 flex items-center justify-center gap-2 rounded-full bg-cta px-5 py-2.5 text-sm font-medium text-[#000] transition hover:scale-[1.02]"
              >
                Hablar por WhatsApp
              </a>

@@ -28,7 +28,7 @@ export default async function ContenidoPage() {
         <p className="mt-2 text-xs text-text-faint">
           Actualiza el botón flotante, el CTA de prueba de manejo y los botones de producto.
         </p>
-        <button type="submit" className="mt-4 rounded-full bg-white px-6 py-2.5 text-sm font-medium text-black">
+        <button type="submit" className="mt-4 rounded-full bg-white px-6 py-2.5 text-sm font-medium text-[#000]">
           Guardar
         </button>
       </form>

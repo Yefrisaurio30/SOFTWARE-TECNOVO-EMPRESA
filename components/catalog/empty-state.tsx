@@ -17,7 +17,7 @@ export function EmptyState({
       <p className="mt-1 max-w-sm text-[15px] text-text-muted">{text}</p>
       <Link
         href={clearHref}
-        className="mt-6 rounded-full bg-white px-6 py-2.5 text-sm font-medium text-black transition hover:scale-[1.02]"
+        className="mt-6 rounded-full bg-white px-6 py-2.5 text-sm font-medium text-[#000] transition hover:scale-[1.02]"
       >
         Limpiar filtros
       </Link>

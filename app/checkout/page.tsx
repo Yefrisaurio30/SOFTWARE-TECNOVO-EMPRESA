@@ -94,7 +94,7 @@ export default function CheckoutPage() {
             <p className="text-lg font-semibold">No hay nada para pagar</p>
             <Link
               href="/motos-electricas"
-              className="mt-5 inline-block rounded-full bg-white px-6 py-2.5 text-sm font-medium text-black"
+              className="mt-5 inline-block rounded-full bg-white px-6 py-2.5 text-sm font-medium text-[#000]"
             >
               Volver al catálogo
             </Link>
@@ -134,7 +134,7 @@ export default function CheckoutPage() {
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <Link
                 href="/login?next=/checkout"
-                className="rounded-full bg-white px-7 py-3 text-[15px] font-medium text-black transition hover:scale-[1.02]"
+                className="rounded-full bg-white px-7 py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.02]"
               >
                 Entrar
               </Link>
@@ -235,7 +235,7 @@ export default function CheckoutPage() {
             <button
               type="submit"
               disabled={sending}
-              className="mt-5 w-full rounded-full bg-cta py-3 text-[15px] font-medium text-black transition hover:scale-[1.01] disabled:opacity-60"
+              className="mt-5 w-full rounded-full bg-cta py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.01] disabled:opacity-60"
             >
               {sending ? "Creando pedido…" : "Confirmar pedido"}
             </button>

@@ -69,7 +69,7 @@ export default async function MisAnunciosPage({
           <div className="text-right">
             <Link
               href="/publicar"
-              className="inline-flex items-center gap-2 rounded-full bg-steel px-5 py-2.5 text-sm font-medium text-black"
+              className="inline-flex items-center gap-2 rounded-full bg-steel px-5 py-2.5 text-sm font-medium text-[#000]"
             >
               <Plus size={15} aria-hidden /> Publicar otra
             </Link>

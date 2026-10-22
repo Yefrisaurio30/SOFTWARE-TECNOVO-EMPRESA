@@ -15,7 +15,7 @@ export default async function ProductosPage() {
         <h1 className="text-3xl font-semibold tracking-tight">Productos ({products.length})</h1>
         <Link
           href="/admin/productos/nuevo"
-          className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black"
+          className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-[#000]"
         >
           + Nuevo
         </Link>

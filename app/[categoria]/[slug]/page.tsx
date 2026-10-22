@@ -139,7 +139,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
                 href={wa}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-[15px] font-medium text-black transition hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.02]"
               >
                 <MessageCircle size={18} aria-hidden />
                 Cotizar por WhatsApp

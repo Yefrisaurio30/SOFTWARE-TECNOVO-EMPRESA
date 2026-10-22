@@ -46,7 +46,7 @@ export default async function PqrsPage() {
               href={waLink("Hola TECNOVO, quiero radicar una PQRS.", whatsapp)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-block rounded-full bg-steel px-6 py-3 text-[15px] font-medium text-black"
+              className="mt-6 inline-block rounded-full bg-steel px-6 py-3 text-[15px] font-medium text-[#000]"
             >
               Radicar por WhatsApp
             </a>

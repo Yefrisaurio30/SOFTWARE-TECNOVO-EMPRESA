@@ -45,7 +45,7 @@ export default async function CompararPage({
           <p className="mt-3 text-text-muted">
             Marca el ícono de comparar en las tarjetas del catálogo y vuelve aquí.
           </p>
-          <Link href="/motos-electricas" className="mt-6 inline-block rounded-full bg-white px-6 py-3 text-sm font-medium text-black">
+          <Link href="/motos-electricas" className="mt-6 inline-block rounded-full bg-white px-6 py-3 text-sm font-medium text-[#000]">
             Ir al catálogo
           </Link>
         </Container>

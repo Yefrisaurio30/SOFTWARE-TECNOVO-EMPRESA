@@ -140,7 +140,7 @@ export function Filters({
       <div className="mt-4 flex items-center gap-4">
         <button
           type="submit"
-          className="rounded-full bg-white px-6 py-2.5 text-sm font-medium text-black transition hover:scale-[1.02]"
+          className="rounded-full bg-white px-6 py-2.5 text-sm font-medium text-[#000] transition hover:scale-[1.02]"
         >
           Filtrar
         </button>

@@ -61,7 +61,7 @@ export function CookieBanner() {
           <div className="mt-4 flex justify-end">
             <button
               onClick={cerrar}
-              className="rounded-full bg-steel px-6 py-2.5 text-sm font-medium text-black"
+              className="rounded-full bg-steel px-6 py-2.5 text-sm font-medium text-[#000]"
             >
               Entendido
             </button>

@@ -31,7 +31,7 @@ export default function DistribuidoresPage() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/distribuidores/registro"
-              className="rounded-full bg-white px-7 py-3 text-[15px] font-medium text-black transition hover:scale-[1.02]"
+              className="rounded-full bg-white px-7 py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.02]"
             >
               Solicitar acceso
             </Link>

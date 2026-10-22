@@ -21,7 +21,7 @@ export function TestRide({ number }: { number: string }) {
             href={waTestRideLink(number)}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 rounded-full bg-white px-7 py-3 text-[15px] font-medium text-black transition hover:scale-[1.02]"
+            className="shrink-0 rounded-full bg-white px-7 py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.02]"
           >
             Agendar por WhatsApp
           </a>

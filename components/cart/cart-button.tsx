@@ -15,7 +15,7 @@ export function CartButton() {
     >
       <ShoppingCart size={17} aria-hidden />
       {count > 0 ? (
-        <span className="absolute -top-1 -right-1 grid min-size-5 place-items-center rounded-full bg-white px-1 text-[11px] font-semibold text-black tabular-nums" style={{ minWidth: 20, minHeight: 20 }}>
+        <span className="absolute -top-1 -right-1 grid min-size-5 place-items-center rounded-full bg-white px-1 text-[11px] font-semibold text-[#000] tabular-nums" style={{ minWidth: 20, minHeight: 20 }}>
           {count}
         </span>
       ) : null}

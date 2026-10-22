@@ -121,7 +121,7 @@ export function ListingForm({
         <button
           type="submit"
           disabled={saving || remaining <= 0 || !consents}
-          className="rounded-full bg-steel px-7 py-3 text-[15px] font-medium text-black disabled:opacity-50"
+          className="rounded-full bg-steel px-7 py-3 text-[15px] font-medium text-[#000] disabled:opacity-50"
         >
           {saving ? "Guardando…" : "Continuar a las fotos"}
         </button>

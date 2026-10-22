@@ -64,7 +64,7 @@ function Acciones({ row }: { row: Row }) {
       <div className="mt-4">
         <a
           href={`/publicar/fotos?id=${row.id}`}
-          className="inline-block rounded-full bg-steel px-5 py-2 text-sm font-medium text-black"
+          className="inline-block rounded-full bg-steel px-5 py-2 text-sm font-medium text-[#000]"
         >
           Continuar y enviar a revisión
         </a>
@@ -114,7 +114,7 @@ function Acciones({ row }: { row: Row }) {
             <input name="city" defaultValue="" required aria-label="Ciudad" placeholder="Ciudad" className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm" />
             <input name="phone" required aria-label="Celular" placeholder="Celular" className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm" />
             <textarea name="description" rows={3} required minLength={40} placeholder="Descripción" className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm" />
-            <button disabled={pending} className="justify-self-start rounded-full bg-steel px-5 py-2 text-sm font-medium text-black">
+            <button disabled={pending} className="justify-self-start rounded-full bg-steel px-5 py-2 text-sm font-medium text-[#000]">
               {pending ? "Enviando…" : "Reenviar a revisión"}
             </button>
             {error ? <p className="text-sm text-danger">{error}</p> : null}

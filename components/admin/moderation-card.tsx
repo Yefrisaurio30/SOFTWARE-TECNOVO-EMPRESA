@@ -89,7 +89,7 @@ export function ModerationCard({ listing }: { listing: Pending }) {
             <button
               onClick={() => decide("APPROVED")}
               disabled={busy}
-              className="inline-flex items-center gap-2 rounded-full bg-steel px-5 py-2 text-sm font-medium text-black disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-full bg-steel px-5 py-2 text-sm font-medium text-[#000] disabled:opacity-50"
             >
               <Check size={15} aria-hidden /> Aprobar
             </button>

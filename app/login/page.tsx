@@ -47,7 +47,7 @@ export default function LoginPage() {
             <input id="login-pass" type="password" required autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputCls} />
           </div>
           {error ? <p role="alert" className="text-sm text-danger">{error}</p> : null}
-          <button type="submit" disabled={loading} className="rounded-full bg-white py-3 text-[15px] font-medium text-black disabled:opacity-60">
+          <button type="submit" disabled={loading} className="rounded-full bg-white py-3 text-[15px] font-medium text-[#000] disabled:opacity-60">
             {loading ? "Entrando…" : "Iniciar sesión"}
           </button>
           <p className="text-center text-sm text-text-muted">

@@ -35,7 +35,7 @@ export function CompareTray() {
             </button>
             <Link
               href={`/comparar?ids=${ids.join(",")}`}
-              className="rounded-full bg-white px-5 py-2 text-sm font-medium text-black"
+              className="rounded-full bg-white px-5 py-2 text-sm font-medium text-[#000]"
             >
               Comparar
             </Link>

@@ -33,7 +33,7 @@ export function PayButton({ orderId }: { orderId: string }) {
       <button
         onClick={pay}
         disabled={loading}
-        className="w-full rounded-full bg-cta py-3 text-[15px] font-medium text-black transition hover:scale-[1.01] disabled:opacity-60"
+        className="w-full rounded-full bg-cta py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.01] disabled:opacity-60"
       >
         {loading ? "Conectando con Wompi…" : "Pagar en línea"}
       </button>

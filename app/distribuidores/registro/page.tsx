@@ -52,7 +52,7 @@ export default function RegistroDistribuidorPage() {
           <p className="mt-3 text-text-muted">
             Revisamos tu empresa en máximo 48 horas y te avisamos. Puedes seguir explorando mientras tanto.
           </p>
-          <Link href="/" className="mt-6 inline-block rounded-full bg-white px-6 py-3 text-sm font-medium text-black">
+          <Link href="/" className="mt-6 inline-block rounded-full bg-white px-6 py-3 text-sm font-medium text-[#000]">
             Volver al inicio
           </Link>
         </Container>
@@ -88,7 +88,7 @@ export default function RegistroDistribuidorPage() {
             <input id="dist-phone" required value={phone} onChange={(e) => setPhone(e.target.value)} className={inputCls} />
           </div>
           {error ? <p role="alert" className="text-sm text-danger">{error}</p> : null}
-          <button type="submit" disabled={loading} className="rounded-full bg-white py-3 text-[15px] font-medium text-black disabled:opacity-60">
+          <button type="submit" disabled={loading} className="rounded-full bg-white py-3 text-[15px] font-medium text-[#000] disabled:opacity-60">
             {loading ? "Enviando…" : "Enviar solicitud"}
           </button>
         </form>

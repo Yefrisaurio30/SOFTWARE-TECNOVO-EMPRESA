@@ -67,7 +67,7 @@ export function CartDrawer() {
                   <Link
                     href="/motos-electricas"
                     onClick={() => setOpen(false)}
-                    className="mt-5 rounded-full bg-white px-6 py-2.5 text-sm font-medium text-black"
+                    className="mt-5 rounded-full bg-white px-6 py-2.5 text-sm font-medium text-[#000]"
                   >
                     Ver catálogo
                   </Link>
@@ -135,7 +135,7 @@ export function CartDrawer() {
                   <Link
                     href="/checkout"
                     onClick={() => setOpen(false)}
-                    className="rounded-full bg-white py-3 text-center text-sm font-medium text-black"
+                    className="rounded-full bg-white py-3 text-center text-sm font-medium text-[#000]"
                   >
                     Finalizar compra
                   </Link>

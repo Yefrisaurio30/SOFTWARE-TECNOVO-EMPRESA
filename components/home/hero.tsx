@@ -172,7 +172,7 @@ export function Hero({ products, whatsapp }: { products: Product[]; whatsapp: st
             <div className="mt-6 flex items-center justify-center gap-5">
               <Link
                 href={detailHref(p)}
-                className="rounded-full bg-white px-7 py-3 text-[15px] font-medium text-black transition hover:scale-[1.02] active:scale-[0.98]"
+                className="rounded-full bg-white px-7 py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.02] active:scale-[0.98]"
               >
                 Ver modelo
               </Link>

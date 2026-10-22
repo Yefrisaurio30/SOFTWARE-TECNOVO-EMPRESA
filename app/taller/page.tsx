@@ -159,7 +159,7 @@ export default async function TallerPage() {
                 href={waLink("Hola TECNOVO, quiero agendar mantenimiento de mi moto eléctrica.", whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-steel px-6 py-3 text-[15px] font-medium text-black"
+                className="rounded-full bg-steel px-6 py-3 text-[15px] font-medium text-[#000]"
               >
                 Agendar por WhatsApp
               </a>

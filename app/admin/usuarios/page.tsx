@@ -34,7 +34,7 @@ export default async function UsuariosPage() {
                   <p className="text-text-muted">{p.user.name} · {p.user.email} · {p.city} · {p.phone}</p>
                 </div>
                 <form action={async () => { "use server"; await reviewDistributor(p.id, "APROBADO"); }}>
-                  <button className="rounded-full bg-white px-4 py-1.5 text-xs font-medium text-black">Aprobar</button>
+                  <button className="rounded-full bg-white px-4 py-1.5 text-xs font-medium text-[#000]">Aprobar</button>
                 </form>
                 <form action={async () => { "use server"; await reviewDistributor(p.id, "RECHAZADO"); }}>
                   <button className="rounded-full border border-danger/40 px-4 py-1.5 text-xs text-danger">Rechazar</button>

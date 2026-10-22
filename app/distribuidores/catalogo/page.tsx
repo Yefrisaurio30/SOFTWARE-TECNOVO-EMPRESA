@@ -28,7 +28,7 @@ export default async function CatalogoMayoristaPage() {
           description="Solo motos nuevas a precio de distribuidor. El total se valida en el servidor."
         />
         <div className="mt-4 flex gap-4 text-sm">
-          <Link href="/checkout" className="rounded-full bg-white px-5 py-2 font-medium text-black">
+          <Link href="/checkout" className="rounded-full bg-white px-5 py-2 font-medium text-[#000]">
             Ir al checkout mayorista
           </Link>
           <Link href="/distribuidores/pedidos" className="py-2 text-text-muted hover:text-text">

@@ -12,7 +12,7 @@ export default function Error({
       <p className="mt-2 text-text-muted">Inténtalo de nuevo en un momento.</p>
       <button
         onClick={reset}
-        className="mt-6 rounded-full bg-white px-6 py-3 text-black transition hover:scale-[1.02]"
+        className="mt-6 rounded-full bg-white px-6 py-3 text-[#000] transition hover:scale-[1.02]"
       >
         Reintentar
       </button>

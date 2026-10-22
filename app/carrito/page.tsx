@@ -25,7 +25,7 @@ export default function CarritoPage() {
             <p className="mt-1 text-[15px] text-text-muted">Agrega motos, repuestos o accesorios.</p>
             <Link
               href="/motos-electricas"
-              className="mt-6 rounded-full bg-white px-6 py-2.5 text-sm font-medium text-black"
+              className="mt-6 rounded-full bg-white px-6 py-2.5 text-sm font-medium text-[#000]"
             >
               Explorar catálogo
             </Link>
@@ -87,7 +87,7 @@ export default function CarritoPage() {
               </p>
               <Link
                 href="/checkout"
-                className="mt-5 block rounded-full bg-cta py-3 text-center text-[15px] font-medium text-black transition hover:scale-[1.01]"
+                className="mt-5 block rounded-full bg-cta py-3 text-center text-[15px] font-medium text-[#000] transition hover:scale-[1.01]"
               >
                 Finalizar compra
               </Link>
