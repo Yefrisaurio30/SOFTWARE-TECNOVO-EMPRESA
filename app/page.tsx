@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getFeaturedProducts, getProductsByType, getWarrantyYears } from "@/lib/products";
 import { getWhatsAppNumber } from "@/lib/site-settings";
 import { getEnergySettings } from "@/lib/energy";
-import { Hero } from "@/components/home/hero";
+import { HeroBanner } from "@/components/home/hero-banner";
 import { WhyTecnovo } from "@/components/home/why-tecnovo";
 import { ModelGrid } from "@/components/home/model-grid";
 import { SpecsSticky } from "@/components/home/specs-sticky";
@@ -18,9 +18,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [heroModels, gridModels, stickyModels, whatsapp, energy, warrantyYears] =
+  const [gridModels, stickyModels, whatsapp, energy, warrantyYears] =
     await Promise.all([
-      getProductsByType("MOTO_NUEVA", 3),
       getFeaturedProducts(6),
       getProductsByType("MOTO_NUEVA", 5),
       getWhatsAppNumber(),
@@ -30,7 +29,7 @@ export default async function Home() {
 
   return (
     <main>
-      <Hero products={heroModels} whatsapp={whatsapp} />
+      <HeroBanner />
       <WhyTecnovo />
       <ModelGrid products={gridModels} />
       {stickyModels.length > 0 ? <SpecsSticky products={stickyModels} /> : null}

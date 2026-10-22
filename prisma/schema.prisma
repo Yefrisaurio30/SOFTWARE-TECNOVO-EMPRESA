@@ -258,3 +258,20 @@ model AuditLog {
   entityId  String?
   createdAt DateTime @default(now())
 }
+
+model HeroSlide {
+  id        String   @id @default(cuid())
+  title     String?
+  subtitle  String?
+  image     String
+  imageMobile String?
+  ctaText   String?
+  ctaUrl    String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive, order])
+}
+
