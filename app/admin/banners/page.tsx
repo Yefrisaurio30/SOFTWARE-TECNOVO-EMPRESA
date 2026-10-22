@@ -4,7 +4,12 @@ import { revalidatePath } from "next/cache";
 export const dynamic = "force-dynamic";
 
 export default async function BannersPage() {
-  const slides = await prisma.heroSlide.findMany({ orderBy: { order: "asc" } });
+  let slides: Awaited<ReturnType<typeof prisma.heroSlide.findMany>> = [];
+  try {
+    slides = await prisma.heroSlide.findMany({ orderBy: { order: "asc" } });
+  } catch {
+    slides = [];
+  }
 
   async function createSlide(formData: FormData) {
     "use server";
