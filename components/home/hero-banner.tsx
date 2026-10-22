@@ -46,7 +46,6 @@ export function HeroBanner() {
                 className="h-full w-full object-contain"
                 loading={i === 0 ? "eager" : "lazy"}
               />
-              null
             </div>
           </SwiperSlide>
         ))}
