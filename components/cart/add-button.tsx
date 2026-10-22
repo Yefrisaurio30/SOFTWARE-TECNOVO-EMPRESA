@@ -38,7 +38,7 @@ export function AddToCartButton({ product }: { product: Product }) {
         onClick={onAdd}
         disabled={atLimit}
         aria-label={`Agregar ${product.name} al carrito`}
-        className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-40"
+        className="inline-flex items-center gap-1.5 rounded-full bg-cta px-4 py-2 text-sm font-medium text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-40"
       >
         {added ? <Check size={15} aria-hidden /> : <Plus size={15} aria-hidden />}
         {added ? "Listo" : atLimit ? "Agotado" : "Agregar"}

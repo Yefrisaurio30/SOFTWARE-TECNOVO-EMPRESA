@@ -87,13 +87,13 @@ export default function CarritoPage() {
               </p>
               <Link
                 href="/checkout"
-                className="mt-5 block rounded-full bg-white py-3 text-center text-[15px] font-medium text-black transition hover:scale-[1.01]"
+                className="mt-5 block rounded-full bg-cta py-3 text-center text-[15px] font-medium text-black transition hover:scale-[1.01]"
               >
                 Finalizar compra
               </Link>
               <Link
                 href="/motos-electricas"
-                className="mt-3 block text-center text-sm text-text-muted hover:text-text"
+                className="mt-3 block text-center text-sm text-text-muted hover:text-electric"
               >
                 Seguir explorando
               </Link>

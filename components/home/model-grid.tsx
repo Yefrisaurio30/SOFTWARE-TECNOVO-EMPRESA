@@ -16,7 +16,7 @@ export function ModelGrid({ products }: { products: Product[] }) {
             title="Modelos eléctricos para moverse mejor."
             description="Una selección de nuestras eléctricas nuevas más pedidas."
           />
-          <Link href="/motos-electricas" className="text-[15px] font-medium">
+          <Link href="/motos-electricas" className="text-[15px] font-medium text-electric">
             Ver todas <span aria-hidden>›</span>
           </Link>
         </div>

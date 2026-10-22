@@ -235,7 +235,7 @@ export default function CheckoutPage() {
             <button
               type="submit"
               disabled={sending}
-              className="mt-5 w-full rounded-full bg-white py-3 text-[15px] font-medium text-black transition hover:scale-[1.01] disabled:opacity-60"
+              className="mt-5 w-full rounded-full bg-cta py-3 text-[15px] font-medium text-black transition hover:scale-[1.01] disabled:opacity-60"
             >
               {sending ? "Creando pedido…" : "Confirmar pedido"}
             </button>

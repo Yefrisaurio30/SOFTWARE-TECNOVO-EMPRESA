@@ -126,7 +126,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
                 </span>
               </div>
             ) : null}
-            <Price value={product.priceRetail} className="mt-4 block text-3xl font-semibold" />
+            <Price value={product.priceRetail} className="mt-4 block text-3xl font-semibold text-cta" />
             <p className="mt-1 text-sm text-text-muted" role="status">
               {available ? null : "Agotado temporalmente"}
             </p>

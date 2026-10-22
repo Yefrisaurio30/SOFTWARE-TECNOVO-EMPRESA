@@ -62,7 +62,7 @@ export async function ProductCard({ product }: { product: Product }) {
           ))}
         </dl>
         <div className="mt-auto flex items-center justify-between gap-2 pt-3">
-          <Price value={product.priceRetail} className="text-xl font-semibold text-text" />
+          <Price value={product.priceRetail} className="text-xl font-semibold text-cta" />
           <div className="flex items-center gap-2">
             <AddToCartButton product={product} />
             {(product.type === "MOTO_NUEVA" || product.type === "MOTO_USADA") ? (
