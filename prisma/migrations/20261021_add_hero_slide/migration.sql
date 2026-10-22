@@ -1,4 +1,4 @@
-﻿-- CreateTable
+-- CreateTable
 CREATE TABLE "HeroSlide" (
     "id" TEXT NOT NULL,
     "title" TEXT,
