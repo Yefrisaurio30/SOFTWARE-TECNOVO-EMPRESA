@@ -15,12 +15,8 @@ export default async function BannersPage() {
     "use server";
     await prisma.heroSlide.create({
       data: {
-        title: String(formData.get("title") || "") || null,
-        subtitle: String(formData.get("subtitle") || "") || null,
         image: String(formData.get("image") || ""),
         imageMobile: String(formData.get("imageMobile") || "") || null,
-        ctaText: String(formData.get("ctaText") || "") || null,
-        ctaUrl: String(formData.get("ctaUrl") || "") || null,
         order: Number(formData.get("order") || 0),
         isActive: formData.get("isActive") === "on",
       },
@@ -52,28 +48,12 @@ export default async function BannersPage() {
 
       <form action={createSlide} className="mt-6 grid gap-4 rounded-[24px] border border-white/10 bg-surface p-6 md:grid-cols-2">
         <div className="md:col-span-2">
-          <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Título</label>
-          <input name="title" className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none" />
-        </div>
-        <div className="md:col-span-2">
-          <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Subtítulo</label>
-          <input name="subtitle" className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none" />
-        </div>
-        <div>
           <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Imagen (URL, desktop)</label>
           <input name="image" required className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none" />
         </div>
-        <div>
-          <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Imagen mobile (URL)</label>
+        <div className="md:col-span-2">
+          <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Imagen mobile (URL, opcional)</label>
           <input name="imageMobile" className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none" />
-        </div>
-        <div>
-          <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Texto CTA</label>
-          <input name="ctaText" className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none" />
-        </div>
-        <div>
-          <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">URL CTA</label>
-          <input name="ctaUrl" className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none" />
         </div>
         <div>
           <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Orden</label>
@@ -95,7 +75,6 @@ export default async function BannersPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={s.image} alt={s.title ?? ""} className="h-16 w-28 rounded-xl object-cover" />
             <div className="min-w-0 flex-1">
-              <p className="font-medium">{s.title ?? "(sin título)"}</p>
               <p className="text-xs text-text-faint">orden {s.order} · {s.isActive ? "activo" : "inactivo"}</p>
             </div>
             <form action={toggleSlide}>

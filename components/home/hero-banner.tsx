@@ -6,17 +6,12 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Link from "next/link";
 import Image from "next/image";
 
 type Slide = {
   id: string;
-  title: string | null;
-  subtitle: string | null;
   image: string;
   imageMobile: string | null;
-  ctaText: string | null;
-  ctaUrl: string | null;
 };
 
 export function HeroBanner() {
@@ -46,33 +41,14 @@ export function HeroBanner() {
             <div className="relative w-full aspect-[16/6] sm:aspect-[16/5]">
               <Image
                 src={s.image}
-                alt={s.title ?? "Banner TECNOVO"}
+                alt="Banner TECNOVO"
                 fill
                 priority={i === 0}
                 loading={i === 0 ? "eager" : "lazy"}
                 sizes="100vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 flex flex-col items-start justify-center gap-3 px-6 md:px-16">
-                {s.title ? (
-                  <h2 className="text-2xl md:text-5xl font-bold text-white drop-shadow">
-                    {s.title}
-                  </h2>
-                ) : null}
-                {s.subtitle ? (
-                  <p className="text-sm md:text-xl text-white/90 drop-shadow">
-                    {s.subtitle}
-                  </p>
-                ) : null}
-                {s.ctaText && s.ctaUrl ? (
-                  <Link
-                    href={s.ctaUrl}
-                    className="mt-2 rounded-full bg-cta px-6 py-3 text-sm font-medium text-[#000] transition hover:scale-[1.02]"
-                  >
-                    {s.ctaText}
-                  </Link>
-                ) : null}
-              </div>
+              null
             </div>
           </SwiperSlide>
         ))}
