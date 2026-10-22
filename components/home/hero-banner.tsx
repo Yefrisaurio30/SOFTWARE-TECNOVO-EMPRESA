@@ -6,7 +6,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Image from "next/image";
+
 
 type Slide = {
   id: string;
@@ -39,14 +39,12 @@ export function HeroBanner() {
         {slides.map((s, i) => (
           <SwiperSlide key={s.id}>
             <div className="relative w-full aspect-[16/6] sm:aspect-[16/5]">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={s.image}
                 alt="Banner TECNOVO"
-                fill
-                priority={i === 0}
+                className="h-full w-full object-cover"
                 loading={i === 0 ? "eager" : "lazy"}
-                sizes="100vw"
-                className="object-cover"
               />
               null
             </div>
