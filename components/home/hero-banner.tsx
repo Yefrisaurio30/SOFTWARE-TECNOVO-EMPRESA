@@ -38,12 +38,12 @@ export function HeroBanner() {
       >
         {slides.map((s, i) => (
           <SwiperSlide key={s.id}>
-            <div className="relative w-full aspect-[16/6] sm:aspect-[16/5]">
+            <div className="relative w-full aspect-[16/9]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={s.image}
                 alt="Banner TECNOVO"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
                 loading={i === 0 ? "eager" : "lazy"}
               />
               null
