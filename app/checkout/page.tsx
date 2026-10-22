@@ -169,7 +169,7 @@ export default function CheckoutPage() {
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="co-phone" className={labelCls}>Celular</label>
-                <input id="co-phone" autoComplete="tel" placeholder="300 123 4567" className={inputCls} {...register("contactPhone")} />
+                <input id="co-phone" autoComplete="tel" placeholder="300 123 4567" maxLength={15} className={inputCls} {...register("contactPhone")} />
                 {fieldErrors.contactPhone ? <p className={errCls}>{fieldErrors.contactPhone}</p> : null}
               </div>
               <div>

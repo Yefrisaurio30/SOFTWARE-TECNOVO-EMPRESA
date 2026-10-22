@@ -29,7 +29,7 @@ export default async function UsadasPage({ searchParams }: { searchParams: Promi
       <Container>
         <SectionHeading
           eyebrow="Catálogo"
-          title="Segunda mano revisada."
+          title="Segunda mano."
           description="Cada unidad se inspecciona y se vende con garantía. Cuando se reserva, se bloquea."
         />
         <Link

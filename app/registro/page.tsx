@@ -72,7 +72,19 @@ export default function RegistroPage() {
         <form onSubmit={submit} className="mt-8 flex flex-col gap-4 rounded-[28px] border border-white/10 bg-surface p-6">
           <div>
             <label htmlFor="reg-name" className={labelCls}>Nombre</label>
-            <input id="reg-name" name="name" required minLength={3} autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} className={inputCls} />
+            <input
+              id="reg-name"
+              name="name"
+              required
+              minLength={3}
+              maxLength={100}
+              autoComplete="name"
+              pattern="[A-Za-zÁÉÍÓÚáéíóúñÑüÜ ]+"
+              title="Solo letras y espacios"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={inputCls}
+            />
           </div>
           <div>
             <label htmlFor="reg-email" className={labelCls}>Correo</label>
@@ -81,6 +93,9 @@ export default function RegistroPage() {
           <div>
             <label htmlFor="reg-pass" className={labelCls}>Contraseña (mín. 8)</label>
             <input id="reg-pass" type="password" required autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputCls} />
+            {password.length > 0 && password.length < 8 ? (
+              <p className="mt-1 text-xs text-danger">La contraseña debe tener al menos 8 caracteres.</p>
+            ) : null}
           </div>
           <ConsentCheckboxes onChange={setConsents} />
           {error ? <p role="alert" className="text-sm text-danger">{error}</p> : null}

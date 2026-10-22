@@ -128,7 +128,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             ) : null}
             <Price value={product.priceRetail} className="mt-4 block text-3xl font-semibold" />
             <p className="mt-1 text-sm text-text-muted" role="status">
-              {available ? `Disponible (${product.stock} en stock)` : "Agotado temporalmente"}
+              {available ? null : "Agotado temporalmente"}
             </p>
             <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-text-muted">
               {product.description}

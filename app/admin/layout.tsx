@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/admin";
+import { auth, signOut } from "@/lib/auth";
 import { Container } from "@/components/ui/section";
 
 const NAV = [
@@ -15,11 +16,29 @@ const NAV = [
 ];
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
   await requireAdmin();
   return (
     <main className="bg-black py-10 text-text md:py-14">
       <Container>
-        <p className="text-sm font-medium tracking-wide text-steel uppercase">Superadmin</p>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm font-medium tracking-wide text-steel uppercase">Superadmin</p>
+          {session?.user ? (
+            <div className="flex items-center gap-3 text-sm text-text-muted">
+              <span>Hola, {session.user.name ?? session.user.email}</span>
+              <form
+                action={async () => {
+                  "use server";
+                  await signOut({ redirectTo: "/" });
+                }}
+              >
+                <button type="submit" className="rounded-full border border-white/15 px-4 py-1.5 text-sm text-text transition hover:border-white/30">
+                  Cerrar sesión
+                </button>
+              </form>
+            </div>
+          ) : null}
+        </div>
         <nav aria-label="Administración" className="mt-4 flex flex-wrap gap-2">
           {NAV.map((l) => (
             <Link

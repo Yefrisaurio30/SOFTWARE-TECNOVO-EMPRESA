@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { Container } from "@/components/ui/section";
-import { AccountLinks } from "@/components/layout/account-links";
+
 import { TECNOVO_MAPS_URL, TECNOVO_STORE_CITY } from "@/lib/store";
 
 export function Footer() {
@@ -85,10 +85,8 @@ export function Footer() {
             </div>
           </nav>
         </div>
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-text-faint md:flex-row md:justify-between">
-          <span>© {new Date().getFullYear()} TECNOVO. Todos los derechos reservados.</span>
-          <AccountLinks />
-          <span>Precios en COP. La confirmación del pago la da la pasarela.</span>
+        <div className="mt-12 border-t border-white/10 pt-6 text-xs text-text-faint">
+          <span>© 2026 TECNOVO. Todos los derechos reservados.</span>
         </div>
       </Container>
     </footer>

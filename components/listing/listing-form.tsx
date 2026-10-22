@@ -29,9 +29,9 @@ export function ListingForm({
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const [consents, setConsents] = useState(false);
-  const [price, setPrice] = useState(defaults?.price ?? 0);
+  const [price, setPrice] = useState(String(defaults?.price ?? 0));
   const [year, setYear] = useState(defaults?.year ?? new Date().getFullYear() - 3);
-  const [km, setKm] = useState(defaults?.km ?? 0);
+  const [km, setKm] = useState(String(defaults?.km ?? 0));
   const [description, setDescription] = useState(defaults?.description ?? "");
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -87,13 +87,13 @@ export function ListingForm({
         </div>
         <div>
           <label htmlFor="li-km" className={labelCls}>Kilometraje</label>
-          <input id="li-km" name="km" type="number" min={0} required value={km} onChange={(e) => setKm(Number(e.target.value))} className={inputCls} />
+          <input id="li-km" name="km" type="number" min={0} required value={km} onChange={(e) => setKm(e.target.value)} className={inputCls} />
         </div>
         <div>
           <label htmlFor="li-price" className={labelCls}>Precio de venta (COP)</label>
-          <input id="li-price" name="price" type="number" min={100000} step={50000} required value={price} onChange={(e) => setPrice(Number(e.target.value))} className={inputCls} />
-          {price > 0 ? (
-            <p className="mt-1 text-xs text-steel tabular-nums">Lo verá el comprador: {formatCOP(price)}</p>
+          <input id="li-price" name="price" type="number" min={0} step={1000} required value={price} onChange={(e) => setPrice(e.target.value)} className={inputCls} />
+          {Number(price) > 0 ? (
+            <p className="mt-1 text-xs text-steel tabular-nums">Lo verá el comprador: {formatCOP(Number(price))}</p>
           ) : null}
         </div>
         <div>

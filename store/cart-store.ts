@@ -13,6 +13,8 @@ export interface CartSnapshot {
   type: ProductType;
   /** Línea mayorista (precio wholesale). Solo checkout distribuidor. */
   wholesale?: boolean;
+  /** Stock disponible al agregar (informativo, el servidor valida). */
+  stock?: number;
 }
 
 export interface CartLine extends CartSnapshot {
@@ -45,11 +47,14 @@ export const useCartStore = create<CartState>()(
         }),
       remove: (productId) => set((s) => ({ lines: s.lines.filter((l) => l.productId !== productId) })),
       setQty: (productId, qty) =>
-        set((s) =>
-          qty <= 0
-            ? { lines: s.lines.filter((l) => l.productId !== productId) }
-            : { lines: s.lines.map((l) => (l.productId === productId ? { ...l, qty } : l)) },
-        ),
+        set((s) => {
+          if (qty <= 0) return { lines: s.lines.filter((l) => l.productId !== productId) };
+          const line = s.lines.find((l) => l.productId === productId);
+          const cap = line?.stock;
+          const finalQty = cap != null ? Math.min(qty, cap) : qty;
+          if (finalQty <= 0) return { lines: s.lines.filter((l) => l.productId !== productId) };
+          return { lines: s.lines.map((l) => (l.productId === productId ? { ...l, qty: finalQty } : l)) };
+        }),
       clear: () => set({ lines: [] }),
     }),
     { name: "cart-v1" },

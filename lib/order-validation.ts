@@ -12,7 +12,7 @@ export const CreateOrderInput = z.object({
     .string()
     .trim()
     .transform((v) => v.replace(/[\s-]/g, ""))
-    .pipe(z.string().regex(/^\+?\d{7,15}$/, "Teléfono inválido")),
+    .pipe(z.string().regex(/^\+?\d{10,15}$/, "Teléfono inválido (10 a 15 dígitos)")),
   contactEmail: z.string().trim().email().max(160).optional().or(z.literal("")),
   city: z.string().trim().min(2).max(80),
   address: z.string().trim().min(5).max(200),

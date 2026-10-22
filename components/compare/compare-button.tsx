@@ -19,7 +19,7 @@ export function CompareButton({ product }: { product: Product }) {
       aria-label={active ? `Quitar ${product.name} del comparador` : `Comparar ${product.name}`}
       title={full ? `Máximo ${COMPARE_MAX} motos` : "Comparar"}
       className={cn(
-        "grid size-9 place-items-center rounded-full border transition",
+        "inline-flex size-9 items-center justify-center gap-1.5 rounded-full border transition sm:w-auto sm:px-3",
         active
           ? "border-steel bg-steel/15 text-steel"
           : "border-white/10 text-text-muted hover:border-white/25 hover:text-text",
@@ -27,6 +27,7 @@ export function CompareButton({ product }: { product: Product }) {
       )}
     >
       <GitCompare size={16} aria-hidden />
+      <span className="hidden text-xs font-medium sm:inline">{active ? "Quitar" : "Comparar"}</span>
     </button>
   );
 }

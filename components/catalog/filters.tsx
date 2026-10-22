@@ -128,7 +128,7 @@ export function Filters({
                 name="maxKm"
                 type="number"
                 min={0}
-                step={1000}
+                step={1}
                 defaultValue={values.maxKm}
                 placeholder="Sin tope"
                 className={inputCls}

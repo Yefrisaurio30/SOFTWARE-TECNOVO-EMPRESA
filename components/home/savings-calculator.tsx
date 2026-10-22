@@ -20,9 +20,10 @@ export function SavingsCalculator({
   settings: EnergySettings;
   warrantyYears: number;
 }) {
-  const [kmDay, setKmDay] = useState(40);
+  const [kmDay, setKmDay] = useState<string>("40");
 
-  const r = useMemo(() => calcSavings(kmDay, settings), [kmDay, settings]);
+  const kmNumber = kmDay.trim() === "" ? 0 : Number(kmDay);
+  const r = useMemo(() => calcSavings(Number.isFinite(kmNumber) ? kmNumber : 0, settings), [kmNumber, settings]);
 
   return (
     <section aria-label="Calculadora de ahorro" className="bg-black py-24 text-text md:py-32">
@@ -42,10 +43,11 @@ export function SavingsCalculator({
                 <input
                   id="calc-km"
                   type="number"
-                  min={0}
-                  max={500}
-                  value={kmDay}
-                  onChange={(e) => setKmDay(Number(e.target.value))}
+                   min={0}
+                   max={500}
+                   value={kmDay}
+                   onChange={(e) => setKmDay(e.target.value)}
+                   placeholder="0"
                   className={inputCls}
                 />
               </div>

@@ -117,7 +117,7 @@ export function Hero({ products, whatsapp }: { products: Product[]; whatsapp: st
     if (paused || products.length < 2) return;
     const timer = setInterval(() => go(1), 6000);
     return () => clearInterval(timer);
-  }, [paused, go, products.length]);
+  }, [paused, go, products.length, index]);
 
   if (products.length === 0) return null;
   const p = products[index];

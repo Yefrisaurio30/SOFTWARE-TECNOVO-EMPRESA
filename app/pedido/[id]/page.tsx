@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { canAccessOrder } from "@/lib/orders";
 import { formatCOP } from "@/lib/money";
+import { waLink, getWhatsAppNumber } from "@/lib/whatsapp";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { PayButton } from "@/components/payment/pay-button";
 
@@ -81,16 +82,24 @@ export default async function PedidoPage({ params }: { params: Promise<{ id: str
               </div>
             ) : null}
           </div>
-          <aside className="h-fit rounded-[24px] border border-white/10 bg-surface p-6">
-            <h2 className="font-semibold">¿Necesitas ayuda?</h2>
-            <p className="mt-1 text-sm text-text-muted">Escríbenos con el número de pedido.</p>
-            <Link
-              href="/motos-electricas"
-              className="mt-4 block rounded-full border border-white/15 py-2.5 text-center text-sm"
-            >
-              Seguir explorando
-            </Link>
-          </aside>
+           <aside className="h-fit rounded-[24px] border border-white/10 bg-surface p-6">
+             <h2 className="font-semibold">¿Necesitas ayuda?</h2>
+             <p className="mt-1 text-sm text-text-muted">Escríbenos con el número de pedido.</p>
+             <a
+               href={waLink(`Hola TECNOVO, tengo una consulta sobre mi pedido N.º ${order.id.slice(-8).toUpperCase()}.`, await getWhatsAppNumber())}
+               target="_blank"
+               rel="noopener noreferrer"
+               className="mt-4 flex items-center justify-center gap-2 rounded-full bg-cta px-5 py-2.5 text-sm font-medium text-black transition hover:scale-[1.02]"
+             >
+               Hablar por WhatsApp
+             </a>
+             <Link
+               href="/motos-electricas"
+               className="mt-3 block rounded-full border border-white/15 py-2.5 text-center text-sm"
+             >
+               Seguir explorando
+             </Link>
+           </aside>
         </div>
       </Container>
     </main>

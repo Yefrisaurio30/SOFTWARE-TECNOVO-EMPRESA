@@ -34,6 +34,7 @@ export function specLabel(key: string): string {
 
 export function specValue(key: string, value: string | number): string {
   if (typeof value === "number") {
+    if (key === "anio") return String(value);
     const formatted = new Intl.NumberFormat("es-CO").format(value);
     return `${formatted}${UNITS[key] ?? ""}`;
   }

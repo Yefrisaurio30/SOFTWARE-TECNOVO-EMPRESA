@@ -57,8 +57,9 @@ export default function CarritoPage() {
                       </span>
                       <button
                         onClick={() => setQty(l.productId, l.qty + 1)}
+                        disabled={l.stock != null && l.qty >= l.stock}
                         aria-label={`Agregar uno de ${l.name}`}
-                        className="grid size-8 place-items-center rounded-full border border-white/10 text-text-muted hover:text-text"
+                        className="grid size-8 place-items-center rounded-full border border-white/10 text-text-muted hover:text-text disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         <Plus size={15} />
                       </button>

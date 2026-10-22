@@ -4,7 +4,7 @@ Reglas permanentes (OpenCode lee este archivo automáticamente):
 - Español de Colombia, precios en COP con Intl.NumberFormat('es-CO').
 - Stack fijo: Next.js 15 (App Router) + TypeScript estricto + Tailwind + shadcn/ui + Prisma + PostgreSQL + Auth.js + Zod + Wompi.
 - Antes de cada fase, lee los skills relevantes de .opencode/skills/ (propios y de ECC).
-- Diseño: negro y gris con acento verde neón, limpio y premium. Sigue el skill tecnovo-design-system. Logo en assets/brand/.
+- Diseño: negro y gris, limpio y premium. Paleta QA: verde neón #00E640 (marca), azul #0088FF (enlaces/secundario), naranja #FF6600 (CTA compra). Sigue el skill tecnovo-design-system. Logo en assets/brand/.
 - Pagos: sigue el skill wompi-payments y su reference.md al pie de la letra. La verdad del pago es el webhook.
 - Nunca confiar en precios del cliente: el servidor recalcula desde la BD.
 - Secretos solo en variables de entorno. Commits pequeños (feat:, fix:, chore:).

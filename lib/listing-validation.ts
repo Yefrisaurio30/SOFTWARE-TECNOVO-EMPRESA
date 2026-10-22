@@ -12,7 +12,7 @@ export const ListingDraftInput = z.object({
     .min(1990, "El año no parece válido")
     .max(currentYear + 1, "El año no puede ser futuro"),
   km: z.coerce.number().int().min(0, "El kilometraje no puede ser negativo").max(500000),
-  price: z.coerce.number().int().min(100000, "El precio mínimo es $100.000").max(200000000),
+  price: z.coerce.number().int().min(50000, "El precio mínimo es $50.000").max(200000000),
   city: z.string().trim().min(2, "Escribe la ciudad").max(80),
   phone: z
     .string()

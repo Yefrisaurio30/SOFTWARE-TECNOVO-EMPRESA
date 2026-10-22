@@ -66,7 +66,7 @@ export function Navbar() {
         </div>
 
         <form
-          action="/motos-electricas"
+          action="/buscar"
           method="get"
           role="search"
           className="ml-auto hidden min-w-0 flex-1 max-w-40 items-center md:flex"
@@ -93,12 +93,15 @@ export function Navbar() {
         {status === "authenticated" ? (
           <div className="hidden shrink-0 items-center gap-2 md:flex">
             {role === "SUPERADMIN" ? (
-              <Link
-                href="/admin"
-                className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black transition hover:scale-[1.02]"
-              >
-                Panel
-              </Link>
+              <>
+                <span className="max-w-28 truncate text-sm text-text-muted">Hola, {firstName}</span>
+                <Link
+                  href="/admin"
+                  className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-black transition hover:scale-[1.02]"
+                >
+                  Panel
+                </Link>
+              </>
             ) : role === "MAYORISTA" || role === "DISTRIBUIDOR" ? (
               <Link
                 href="/distribuidores/catalogo"

@@ -19,6 +19,7 @@ const STATIC = [
   "/capacitacion",
   "/calculadora",
   "/comparar",
+  "/buscar",
   "/legales/terminos-y-condiciones",
   "/legales/politica-de-privacidad",
   "/legales/politica-de-cookies",
