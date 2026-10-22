@@ -20,11 +20,9 @@ export default async function BannersPage() {
     };
     const image = await toDataUrl(formData.get("image"));
     if (!image) throw new Error("Imagen requerida");
-    const imageMobile = await toDataUrl(formData.get("imageMobile"));
     await prisma.heroSlide.create({
       data: {
         image,
-        imageMobile,
         order: Number(formData.get("order") || 0),
         isActive: formData.get("isActive") === "on",
       },
@@ -59,10 +57,7 @@ export default async function BannersPage() {
           <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Imagen (desktop)</label>
           <input name="image" type="file" accept="image/*" required className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none file:mr-3 file:rounded-full file:border-0 file:bg-cta file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-[#000]" />
         </div>
-        <div className="md:col-span-2">
-          <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Imagen mobile (opcional)</label>
-          <input name="imageMobile" type="file" accept="image/*" className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none file:mr-3 file:rounded-full file:border-0 file:bg-cta file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-[#000]" />
-        </div>
+
         <div>
           <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Orden</label>
           <input name="order" type="number" defaultValue={0} className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none" />
