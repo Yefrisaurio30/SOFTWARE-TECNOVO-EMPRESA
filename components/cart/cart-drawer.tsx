@@ -50,11 +50,11 @@ export function CartDrawer() {
             aria-label="Carrito de compras"
           >
             <div className="flex items-center justify-between border-b border-white/10 p-5">
-              <h2 className="text-lg font-semibold">Carrito ({lines.length})</h2>
+              <h2 className="text-lg font-semibold text-white">Carrito ({lines.length})</h2>
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Cerrar carrito"
-                className="grid size-9 place-items-center rounded-full border border-white/10 text-text-muted hover:text-text"
+                className="grid size-9 place-items-center rounded-full border border-white/10 text-gray-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
               >
                 <X size={17} />
               </button>
@@ -62,8 +62,8 @@ export function CartDrawer() {
             <div className="flex-1 overflow-y-auto p-5">
               {lines.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center text-center">
-                  <p className="text-lg font-medium">Tu carrito está vacío</p>
-                  <p className="mt-1 text-sm text-text-muted">Explora el catálogo y agrega algo.</p>
+                  <p className="text-lg font-medium text-white">Tu carrito está vacío</p>
+                  <p className="mt-1 text-sm text-[#D1D5DB]">Explora el catálogo y agrega algo.</p>
                   <Link
                     href="/motos-electricas"
                     onClick={() => setOpen(false)}
@@ -120,15 +120,15 @@ export function CartDrawer() {
             {lines.length > 0 ? (
               <div className="border-t border-white/10 p-5">
                 <div className="flex justify-between text-[15px]">
-                  <span className="text-text-muted">Subtotal (informativo)</span>
-                  <span className="font-semibold tabular-nums">{formatCOP(cartSubtotal(lines))}</span>
+                  <span className="font-medium text-white">Subtotal (informativo)</span>
+                  <span className="font-semibold tabular-nums text-white">{formatCOP(cartSubtotal(lines))}</span>
                 </div>
-                <p className="mt-1 text-xs text-text-faint">El total final se calcula en el checkout.</p>
+                <p className="mt-1 text-xs text-[#D1D5DB]">El total final se calcula en el checkout.</p>
                 <div className="mt-4 grid grid-cols-2 gap-3">
                   <Link
                     href="/carrito"
                     onClick={() => setOpen(false)}
-                    className="rounded-full border border-white/15 py-3 text-center text-sm font-medium"
+                    className="rounded-full border border-[#AFD262] bg-transparent py-3 text-center text-sm font-medium text-white transition hover:bg-[#AFD262]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#AFD262]"
                   >
                     Ver carrito
                   </Link>
