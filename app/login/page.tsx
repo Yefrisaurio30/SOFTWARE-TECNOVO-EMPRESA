@@ -10,6 +10,7 @@ const inputCls =
   "w-full rounded-2xl border border-[#000] bg-white/5 px-4 py-3 text-[15px] text-text outline-none placeholder:text-text-faint focus:border-steel/60";
 const labelCls = "mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase";
 
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
