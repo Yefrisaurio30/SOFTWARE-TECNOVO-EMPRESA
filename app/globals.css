@@ -55,6 +55,43 @@ select option:checked {
   color: #1e1e1e;
 }
 
+/* Campos de formulario: contraste consistente en toda la app. */
+input,
+textarea,
+select {
+  background-color: #F4F9E9 !important;
+  color: #202820 !important;
+  border: 1px solid #AFC58A !important;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-text-fill-color: #202820;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #66705E !important;
+  opacity: 1;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #7FA52E !important;
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(127, 165, 46, 0.15);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: #202820 !important;
+  -webkit-box-shadow: 0 0 0 1000px #F4F9E9 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 /* Tarjetas: elevación suave + brillo que barre al hover. */
 .lift {
   transition: transform 0.25s cubic-bezier(.22,1,.36,1), border-color 0.2s;
