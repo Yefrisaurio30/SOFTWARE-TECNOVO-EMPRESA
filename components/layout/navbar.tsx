@@ -145,7 +145,7 @@ export function Navbar() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="block rounded-2xl px-4 py-3 text-[15px] text-white hover:bg-white/5"
+              className="block rounded-2xl px-4 py-3 text-[15px] text-white hover:bg-white/5 hover:text-[#AFD262]"
             >
               {l.label}
             </Link>
@@ -157,7 +157,7 @@ export function Navbar() {
                   <Link
                     href="/admin"
                     onClick={() => setOpen(false)}
-                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-white hover:bg-white/5"
+                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-white hover:bg-white/5 hover:text-[#AFD262]"
                   >
                     Panel admin
                   </Link>
@@ -166,7 +166,7 @@ export function Navbar() {
                   <Link
                     href="/distribuidores/catalogo"
                     onClick={() => setOpen(false)}
-                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-white hover:bg-white/5"
+                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-white hover:bg-white/5 hover:text-[#AFD262]"
                   >
                     Catálogo mayorista
                   </Link>
@@ -190,7 +190,7 @@ export function Navbar() {
                 <Link
                   href="/registro"
                   onClick={() => setOpen(false)}
-                  className="flex-1 rounded-full border border-[#4B5563] px-4 py-2.5 text-center text-[15px] text-[#F3F4F6]"
+                  className="flex-1 rounded-full border border-[#AFD262] px-4 py-2.5 text-center text-[15px] text-white"
                 >
                   Crear cuenta
                 </Link>

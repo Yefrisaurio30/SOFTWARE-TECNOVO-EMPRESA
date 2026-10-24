@@ -8,7 +8,7 @@ import { Container } from "@/components/ui/section";
 import { ConsentCheckboxes } from "@/components/legal/consent-checkboxes";
 
 const inputCls =
-  "w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none placeholder:text-text-faint focus:border-steel/60";
+  "w-full rounded-2xl border border-[#AFD262] bg-[#AFD262] px-4 py-3 text-[15px] text-[#1e1e1e] outline-none placeholder:text-[#555555] focus:border-[#AFD262]";
 const labelCls = "mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase";
 
 export default function RegistroPage() {
