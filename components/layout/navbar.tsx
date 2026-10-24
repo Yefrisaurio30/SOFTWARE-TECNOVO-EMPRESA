@@ -139,13 +139,13 @@ export function Navbar() {
       </nav>
 
       {open ? (
-        <div className="fixed inset-x-4 top-20 z-50 rounded-3xl border border-white/10 bg-graphite p-3 lg:hidden">
+        <div className="absolute inset-x-4 top-full mt-2 z-50 rounded-2xl border border-white/10 bg-graphite p-3 lg:hidden">
           {LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="block rounded-2xl px-4 py-3 text-[15px] text-text hover:bg-white/5"
+              className="block rounded-2xl px-4 py-3 text-[15px] text-white hover:bg-white/5"
             >
               {l.label}
             </Link>
@@ -157,7 +157,7 @@ export function Navbar() {
                   <Link
                     href="/admin"
                     onClick={() => setOpen(false)}
-                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-text hover:bg-white/5"
+                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-white hover:bg-white/5"
                   >
                     Panel admin
                   </Link>
@@ -166,14 +166,14 @@ export function Navbar() {
                   <Link
                     href="/distribuidores/catalogo"
                     onClick={() => setOpen(false)}
-                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-text hover:bg-white/5"
+                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-white hover:bg-white/5"
                   >
                     Catálogo mayorista
                   </Link>
                 ) : null}
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}
-                  className="block w-full rounded-2xl px-4 py-3 text-left text-[15px] text-text-muted hover:bg-white/5"
+                  className="block w-full rounded-2xl px-4 py-3 text-left text-[15px] text-gray-300 hover:bg-white/5"
                 >
                   Salir ({firstName})
                 </button>
@@ -190,7 +190,7 @@ export function Navbar() {
                 <Link
                   href="/registro"
                   onClick={() => setOpen(false)}
-                  className="flex-1 rounded-full border border-white/15 px-4 py-2.5 text-center text-[15px] text-text"
+                  className="flex-1 rounded-full border border-[#4B5563] px-4 py-2.5 text-center text-[15px] text-[#F3F4F6]"
                 >
                   Crear cuenta
                 </Link>
