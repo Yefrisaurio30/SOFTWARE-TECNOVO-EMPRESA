@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -16,8 +17,8 @@ type Slide = {
 export function HeroBanner() {
   const [slides, setSlides] = useState<Slide[]>([]);
 
-  const swiperRef = useRef<any>(null);
-  const timerRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperType | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const programmaticRef = useRef(false);
   const firstChangeRef = useRef(true);
 
