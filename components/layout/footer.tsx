@@ -7,7 +7,7 @@ import { TECNOVO_MAPS_URL, TECNOVO_STORE_CITY } from "@/lib/store";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black text-text">
+    <footer className="border-t border-white/10 bg-[#29F506] text-text" style={{ boxShadow: "none", backgroundImage: "none" }}>
       <Container className="py-16">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
