@@ -16,7 +16,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
+ 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -31,6 +31,7 @@ export default function LoginPage() {
     router.push("/");
     router.refresh();
   };
+
 
   return (
     <main className="bg-white py-16 text-text">
