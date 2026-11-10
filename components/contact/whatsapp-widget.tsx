@@ -16,13 +16,13 @@ export function WhatsAppWidget({ number }: { number: string }) {
       rel="noopener noreferrer"
       onClick={onClick}
       aria-label="Hablar con TECNOVO por WhatsApp"
-      className="fixed right-5 bottom-5 z-50 grid size-13 place-items-center rounded-full border bg-graphite text-text transition hover:scale-105"
-      style={{ width: 52, height: 52, borderColor: "#B8C2CF" }}
+      className="fixed right-5 bottom-5 z-50 grid size-[76px] place-items-center rounded-full border bg-graphite text-text transition hover:scale-105 hover:shadow-lg"
+      style={{ width: 76, height: 76, borderColor: "#B8C2CF" }}
     >
       <svg
         viewBox="0 0 32 32"
-        width={26}
-        height={26}
+        width={40}
+        height={40}
         aria-hidden
         fill="#25D366"
       >
