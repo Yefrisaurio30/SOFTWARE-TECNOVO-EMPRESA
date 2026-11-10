@@ -1,15 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Wrench, Phone, Shield, MessageSquare } from "lucide-react";
+import { MapPin } from "lucide-react";
 
-import { TECNOVO_STORE_CITY } from "@/lib/store";
-
-const quickLinks = [
-  { href: "/taller", label: "Servicio Técnico", Icon: Wrench },
-  { href: "/pqrs", label: "Contacto", Icon: Phone },
-  { href: "/politica-datos", label: "Política de datos", Icon: Shield },
-  { href: "/pqrs", label: "PQRS", Icon: MessageSquare },
-];
+import { Container } from "@/components/ui/section";
+import { TECNOVO_STORE_CITY, TECNOVO_MAPS_URL } from "@/lib/store";
 
 export function Footer() {
   return (
