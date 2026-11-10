@@ -16,12 +16,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-<<<<<<< HEAD
 
-  
-=======
- 
->>>>>>> 5f9750010e3c847ddc708779827a0820d37fafb1
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
