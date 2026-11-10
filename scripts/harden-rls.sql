@@ -24,6 +24,7 @@ alter table "public"."AuditLog"           enable row level security;
 alter table "public"."Consent"            enable row level security;
 alter table "public"."Course"             enable row level security;
 alter table "public"."DistributorProfile" enable row level security;
+alter table "public"."HeroSlide"          enable row level security;
 alter table "public"."Order"              enable row level security;
 alter table "public"."OrderItem"          enable row level security;
 alter table "public"."Product"            enable row level security;

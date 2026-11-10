@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 
 type Slide = {
   id: string;
@@ -17,6 +17,11 @@ type Slide = {
 export function HeroBanner() {
   const [slides, setSlides] = useState<Slide[]>([]);
 
+  const swiperRef = useRef<SwiperType | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const programmaticRef = useRef(false);
+  const firstChangeRef = useRef(true);
+
   useEffect(() => {
     fetch("/api/hero-slides")
       .then((r) => r.json())
@@ -24,16 +29,63 @@ export function HeroBanner() {
       .catch(() => setSlides([]));
   }, []);
 
+  const clearTimer = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
+  const scheduleAuto = (delay: number) => {
+    clearTimer();
+    if (slides.length < 2) return;
+    timerRef.current = setTimeout(() => {
+      const swiper = swiperRef.current;
+      if (!swiper) return;
+      programmaticRef.current = true;
+      swiper.slideNext();
+      programmaticRef.current = false;
+      scheduleAuto(3000);
+    }, delay);
+  };
+
+  useEffect(() => {
+    return () => clearTimer();
+  }, []);
+
+  const handleSlideChange = () => {
+    if (firstChangeRef.current) {
+      firstChangeRef.current = false;
+      return;
+    }
+    if (programmaticRef.current) return; // avance automático: ya programado
+    // interacción manual: esperar 10s antes de reanudar el automático
+    clearTimer();
+    timerRef.current = setTimeout(() => {
+      const swiper = swiperRef.current;
+      if (!swiper) return;
+      programmaticRef.current = true;
+      swiper.slideNext();
+      programmaticRef.current = false;
+      scheduleAuto(3000);
+    }, 10000);
+  };
+
   if (slides.length === 0) return null;
 
   return (
     <section className="relative w-full">
       <Swiper
-        modules={[Autoplay, Navigation, Pagination]}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        modules={[Navigation, Pagination]}
         loop
         navigation
         pagination={{ clickable: true }}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+          firstChangeRef.current = true;
+          scheduleAuto(3000);
+        }}
+        onSlideChange={handleSlideChange}
         className="hero-swiper w-full"
       >
         {slides.map((s, i) => (

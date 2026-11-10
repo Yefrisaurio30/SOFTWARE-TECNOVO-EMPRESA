@@ -37,7 +37,7 @@ export function Navbar() {
       <nav
         aria-label="Navegación principal"
         className={cn(
-          "flex w-full max-w-[1200px] items-center gap-3 rounded-full border border-white/10 bg-black/70 backdrop-blur-xl transition-all duration-200",
+          "flex w-full max-w-[1200px] items-center gap-3 rounded-full border border-white/10 bg-[#29F506]/70 backdrop-blur-xl transition-all duration-200",
           compact ? "h-12 px-3" : "h-14 px-4",
         )}
         style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,.06)" }}
