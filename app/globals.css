@@ -15,11 +15,7 @@
   --color-light-muted: #555555;
   /* Acento neón de marca. steel solo sobre oscuros; steel-deep sobre gris claro. */
   --color-steel: #29F506;
-<<<<<<< HEAD
   --color-steel-deep: #00a330;
-=======
-  --color-steel-deep: #29F506;
->>>>>>> 5f9750010e3c847ddc708779827a0820d37fafb1
   /* Secundario: enlaces, badges decorativos e interactividad. */
   --color-electric: #0088ff;
   /* CTA de comercio: botones de compra, cotizaciones, ofertas y precios destacados. */
