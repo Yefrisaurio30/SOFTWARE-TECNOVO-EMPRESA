@@ -44,10 +44,10 @@ export function Splash() {
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <Image
-              src="/brand/tecnovo-logo-original.png"
+              src="/brand/tecnovo-logo-negro.png"
               alt=""
               width={180}
-              height={180}
+              height={38}
               priority
             />
           </motion.div>

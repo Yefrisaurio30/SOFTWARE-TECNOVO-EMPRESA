@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "TECNOVO",
     description: "Motos eléctricas, segunda mano, repuestos y accesorios.",
-    images: ["/brand/tecnovo-logo-original.png"],
+    images: ["/brand/tecnovo-logo-negro.png"],
   },
 };
 
@@ -44,7 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <div id="contenido" className="pt-24">
           {children}
         </div>
-        <Footer />
+        <Footer whatsapp={whatsapp} />
         <WhatsAppWidget number={whatsapp} />
         <CartDrawer />
         <CompareTray />

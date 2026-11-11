@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { requireAdmin } from "@/lib/admin";
 import { auth, signOut } from "@/lib/auth";
 import { Container } from "@/components/ui/section";
@@ -23,7 +24,17 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <main className="bg-white py-10 text-text md:py-14">
       <Container>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm font-medium tracking-wide text-steel uppercase">Superadmin</p>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/brand/tecnovo-logo-verde.png"
+              alt="TECNOVO — Superadmin"
+              width={140}
+              height={30}
+              className="h-7 w-auto"
+              priority
+            />
+            <p className="text-sm font-medium tracking-wide text-steel uppercase">Superadmin</p>
+          </div>
           {session?.user ? (
             <div className="flex items-center gap-3 text-sm text-text-muted">
               <span>Hola, {session.user.name ?? session.user.email}</span>

@@ -1,94 +1,109 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { Facebook, Instagram, Phone, Settings, ShieldCheck, CircleAlert } from "lucide-react";
+import { waLink } from "@/lib/whatsapp";
 
-import { Container } from "@/components/ui/section";
-import { TECNOVO_STORE_CITY, TECNOVO_MAPS_URL } from "@/lib/store";
-
-export function Footer() {
+function TikTokIcon({ size = 20 }: { size?: number }) {
   return (
-    <footer className="border-t border-white/10 bg-black text-text">
-      <Container className="py-16">
-        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-sm">
-            <Image
-              src="/brand/tecnovo-logo-original.png"
-              alt="TECNOVO"
-              width={220}
-              height={220}
-              className="opacity-60"
-            />
-            <p className="mt-4 text-sm leading-relaxed text-text-muted">
-              Motos eléctricas nuevas, segunda mano, repuestos y accesorios.
-            </p>
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden
+    >
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+    </svg>
+  );
+}
+
+const SOCIALS = [
+  { label: "Facebook", href: "https://www.facebook.com/tecnovo.co", Icon: Facebook },
+  { label: "TikTok", href: "https://www.tiktok.com/@tecnovo.co", Icon: TikTokIcon },
+  { label: "Instagram", href: "https://www.instagram.com/tecnovo.co", Icon: Instagram },
+];
+
+const UTILITIES = [
+  { label: "Servicio Técnico", href: "/taller", Icon: Settings },
+  { label: "Política de datos", href: "/politica-datos", Icon: ShieldCheck },
+  { label: "PQRS", href: "/pqrs", Icon: CircleAlert },
+] as const;
+
+interface FooterProps {
+  whatsapp?: string;
+}
+
+export function Footer({ whatsapp }: FooterProps) {
+  const contactHref = waLink("Hola TECNOVO, quiero información. ¿Me ayudan?", whatsapp);
+  const utilities = [
+    { label: "Contacto", href: contactHref, Icon: Phone, external: true },
+    ...UTILITIES.map((u) => ({ ...u, external: false })),
+  ];
+
+  return (
+    <footer className="border-t border-black/10 bg-white text-text">
+      <div className="mx-auto flex max-w-[1200px] flex-col items-center px-4 py-14 text-center">
+        <Image
+          src="/brand/tecnovo-logo-negro.png"
+          alt="TECNOVO"
+          width={150}
+          height={31}
+          priority
+        />
+        <p className="mt-6 max-w-md text-[15px] font-semibold leading-relaxed text-text-faint">
+          ¡Bienvenido a la nueva revolución de movilidad eléctrica en Colombia!{" "}
+          <span aria-hidden>⚡</span>
+        </p>
+        <div className="mt-6 flex items-center gap-6">
+          {SOCIALS.map(({ label, href, Icon }) => (
             <a
-              href={TECNOVO_MAPS_URL}
+              key={label}
+              href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-sm text-text-muted transition hover:text-text"
+              aria-label={label}
+              className="text-text-faint transition hover:text-text"
             >
-              <MapPin size={16} aria-hidden />
-              Sede {TECNOVO_STORE_CITY} · Cómo llegar
+              <Icon size={24} />
             </a>
-          </div>
-          <nav aria-label="Enlaces de interés" className="grid grid-cols-2 gap-8 text-sm md:grid-cols-4">
-            <div className="flex flex-col gap-3">
-              <span className="text-text-faint uppercase tracking-wide text-xs">Tienda</span>
-              <Link href="/motos-electricas" className="text-text-muted hover:text-text">
-                Motos eléctricas
-              </Link>
-              <Link href="/motos-usadas" className="text-text-muted hover:text-text">
-                Segunda mano
-              </Link>
-              <Link href="/repuestos-accesorios" className="text-text-muted hover:text-text">
-                Repuestos
-              </Link>
-            </div>
-            <div className="flex flex-col gap-3">
-              <span className="text-text-faint uppercase tracking-wide text-xs">Servicio</span>
-              <Link href="/taller" className="text-text-muted hover:text-text">
-                Taller y garantía
-              </Link>
-              <Link href="/capacitacion" className="text-text-muted hover:text-text">
-                Capacitación
-              </Link>
-              <Link href="/calculadora" className="text-text-muted hover:text-text">
-                Calculadora de ahorro
-              </Link>
-            </div>
-            <div className="flex flex-col gap-3">
-              <span className="text-text-faint uppercase tracking-wide text-xs">Empresa</span>
-              <Link href="/distribuidores" className="text-text-muted hover:text-text">
-                Distribuidores
-              </Link>
-              <Link href="/publicar" className="text-text-muted hover:text-text">
-                Publica tu moto
-              </Link>
-              <Link href="/pqrs" className="text-text-muted hover:text-text">
-                PQRS
-              </Link>
-            </div>
-            <div className="flex flex-col gap-3">
-              <span className="text-text-faint uppercase tracking-wide text-xs">Legal</span>
-              <Link href="/legales/terminos-y-condiciones" className="text-text-muted hover:text-text">
-                Términos y condiciones
-              </Link>
-              <Link href="/legales/politica-de-privacidad" className="text-text-muted hover:text-text">
-                Política de privacidad
-              </Link>
-              <Link href="/legales/politica-de-cookies" className="text-text-muted hover:text-text">
-                Política de cookies
-              </Link>
-              <Link href="/legales/derecho-de-retracto-y-reembolsos" className="text-text-muted hover:text-text">
-                Retracto y reembolsos
-              </Link>
-            </div>
+          ))}
+        </div>
+      </div>
+      <div className="border-t border-black/10 bg-surface">
+        <div className="mx-auto flex max-w-[1200px] flex-col items-center gap-4 px-4 py-6">
+          <nav
+            aria-label="Enlaces de servicio"
+            className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3"
+          >
+            {utilities.map(({ label, href, Icon, external }) =>
+              external ? (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-text-muted transition hover:text-text"
+                >
+                  <Icon size={16} aria-hidden />
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  key={label}
+                  href={href}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-text-muted transition hover:text-text"
+                >
+                  <Icon size={16} aria-hidden />
+                  {label}
+                </Link>
+              ),
+            )}
           </nav>
+          <p className="text-xs text-text-faint">
+            © 2026 TECNOVO. Todos los derechos reservados.
+          </p>
         </div>
-        <div className="mt-12 border-t border-white/10 pt-6 text-xs text-text-faint">
-          <span>© 2026 TECNOVO. Todos los derechos reservados.</span>
-        </div>
-      </Container>
+      </div>
     </footer>
   );
 }

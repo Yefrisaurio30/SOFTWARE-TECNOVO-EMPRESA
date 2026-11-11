@@ -10,8 +10,7 @@ import {
   isCatalogCategory,
 } from "@/lib/products";
 import { formatCOP } from "@/lib/money";
-import { waProductLink } from "@/lib/whatsapp";
-import { getWhatsAppNumber } from "@/lib/site-settings";
+import { DirectPurchaseButton } from "@/components/purchase/direct-purchase";
 import { Container } from "@/components/ui/section";
 import { AddToCartButton } from "@/components/cart/add-button";
 import { Gallery } from "@/components/product/gallery";
@@ -45,7 +44,7 @@ export async function generateMetadata({
     openGraph: {
       title: product.name,
       description: product.description.slice(0, 155),
-      images: product.images.length > 0 ? product.images : ["/brand/tecnovo-logo-original.png"],
+      images: product.images.length > 0 ? product.images : ["/brand/tecnovo-logo-negro.png"],
     },
   };
 }
@@ -60,7 +59,6 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
   const related = await getRelatedProducts(product.type, product.id, 4);
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const url = `${siteUrl}${detailHref(product)}`;
-  const wa = waProductLink(product.name, await getWhatsAppNumber());
   const isUsed = product.type === "MOTO_USADA";
   const available = product.stock > 0;
 
@@ -70,7 +68,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
     name: product.name,
     description: product.description,
     brand: { "@type": "Brand", name: product.brand },
-    image: product.images.length > 0 ? product.images : [`${siteUrl}/brand/tecnovo-logo-original.png`],
+    image: product.images.length > 0 ? product.images : [`${siteUrl}/brand/tecnovo-logo-negro.png`],
     offers: {
       "@type": "Offer",
       url,
@@ -135,15 +133,13 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               {available ? <AddToCartButton product={product} /> : null}
-              <a
-                href={wa}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.02]"
+              <DirectPurchaseButton
+                product={{ name: product.name, price: product.priceRetail }}
+                className="inline-flex items-center gap-2 rounded-full bg-cta px-7 py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.02]"
               >
                 <MessageCircle size={18} aria-hidden />
-                Cotizar por WhatsApp
-              </a>
+                Comprar por WhatsApp
+              </DirectPurchaseButton>
             </div>
             <div className="mt-8">
               <h2 className="mb-3 text-lg font-semibold">Ficha técnica</h2>

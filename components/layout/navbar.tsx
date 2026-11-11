@@ -44,11 +44,10 @@ export function Navbar() {
       >
         <Link href="/" className="flex items-center gap-2" aria-label="TECNOVO inicio">
           <Image
-            src="/brand/tecnovo-mark-512.png"
+            src="/brand/tecnovo-logo-negro.png"
             alt="TECNOVO"
-            width={compact ? 26 : 30}
+            width={compact ? 84 : 96}
             height={compact ? 26 : 30}
-            className="rounded-full"
             priority
           />
         </Link>
