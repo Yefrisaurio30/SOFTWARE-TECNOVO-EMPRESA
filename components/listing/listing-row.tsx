@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Check, X } from "lucide-react";
 import { discardListing, markAsSold, resubmitListing } from "@/lib/listing-actions";
@@ -146,8 +147,16 @@ export function ListingRow({ row, sold }: { row: Row; sold?: boolean }) {
         <div className="flex shrink-0 gap-2">
           {(row.images.length > 0 ? row.images : [null]).slice(0, 3).map((src, i) =>
             src ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img key={src} src={src} alt="" className="size-20 rounded-2xl border border-white/10 object-cover" />
+              <Image
+                key={src}
+                src={src}
+                alt=""
+                width={128}
+                height={128}
+                quality={75}
+                sizes="128px"
+                className="size-20 rounded-2xl border border-white/10 object-cover"
+              />
             ) : (
               <div key={i} className="grid size-20 place-items-center rounded-2xl border border-dashed border-white/15 text-xs text-text-faint">
                 sin foto

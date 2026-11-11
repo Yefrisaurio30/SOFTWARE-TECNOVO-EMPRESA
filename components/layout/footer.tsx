@@ -48,6 +48,7 @@ export function Footer({ whatsapp }: FooterProps) {
           alt="TECNOVO"
           width={150}
           height={31}
+          quality={80}
           priority
         />
         <p className="mt-6 max-w-md text-[15px] font-semibold leading-relaxed text-text-faint">

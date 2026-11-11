@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
@@ -75,8 +76,7 @@ export default async function BannersPage() {
       <div className="mt-8 grid gap-4">
         {slides.map((s) => (
           <div key={s.id} className="flex items-center gap-4 rounded-[24px] border border-white/10 bg-surface p-4">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={s.image} alt={s.title ?? ""} className="h-16 w-28 rounded-xl object-cover" />
+            <Image src={s.image} alt={s.title ?? ""} width={112} height={64} quality={75} sizes="112px" className="h-16 w-28 rounded-xl object-cover" />
             <div className="min-w-0 flex-1">
               <p className="text-xs text-text-faint">orden {s.order} · {s.isActive ? "activo" : "inactivo"}</p>
             </div>

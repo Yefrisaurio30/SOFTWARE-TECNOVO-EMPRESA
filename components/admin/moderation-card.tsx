@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Check, X } from "lucide-react";
 import type { Prisma } from "@prisma/client";
@@ -52,11 +53,14 @@ export function ModerationCard({ listing }: { listing: Pending }) {
         <div className="flex shrink-0 flex-wrap gap-2">
           {listing.images.length > 0 ? (
             listing.images.slice(0, 5).map((src) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <Image
                 key={src}
                 src={src}
                 alt=""
+                width={128}
+                height={128}
+                quality={75}
+                sizes="128px"
                 className="size-24 rounded-2xl border border-white/10 object-cover"
               />
             ))

@@ -53,6 +53,7 @@ function HeroVisual({ product, paused }: { product: Product; paused: boolean }) 
                 alt=""
                 fill
                 sizes="(max-width: 768px) 100vw, 768px"
+                quality={80}
                 className="object-contain p-6 md:p-10"
                 priority={photo === 0}
               />

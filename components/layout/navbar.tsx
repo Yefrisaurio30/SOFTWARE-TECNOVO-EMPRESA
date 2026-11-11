@@ -48,6 +48,7 @@ export function Navbar() {
             alt="TECNOVO"
             width={compact ? 84 : 96}
             height={compact ? 26 : 30}
+            quality={80}
             priority
           />
         </Link>

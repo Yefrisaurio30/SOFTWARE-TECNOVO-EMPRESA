@@ -31,6 +31,7 @@ export function ProductImage({
           alt={name}
           fill
           sizes={sizes}
+          quality={75}
           className="object-contain p-4 transition duration-300 group-hover:scale-[1.03]"
           loading="lazy"
         />
@@ -41,6 +42,7 @@ export function ProductImage({
             aria-hidden
             fill
             sizes={sizes}
+            quality={75}
             className="bg-white object-contain p-4 opacity-0 transition duration-300 group-hover:opacity-100"
             loading="lazy"
           />

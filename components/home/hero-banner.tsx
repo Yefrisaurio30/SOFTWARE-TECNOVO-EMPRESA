@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import { Navigation, Pagination } from "swiper/modules";
@@ -91,12 +92,14 @@ export function HeroBanner() {
         {slides.map((s, i) => (
           <SwiperSlide key={s.id}>
             <div className="relative w-full aspect-[16/9]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={s.image}
                 alt="Banner TECNOVO"
+                fill
+                priority={i === 0}
+                quality={80}
+                sizes="100vw"
                 className="h-full w-full object-contain"
-                loading={i === 0 ? "eager" : "lazy"}
               />
             </div>
           </SwiperSlide>

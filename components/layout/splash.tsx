@@ -48,6 +48,7 @@ export function Splash() {
               alt=""
               width={180}
               height={38}
+              quality={80}
               priority
             />
           </motion.div>

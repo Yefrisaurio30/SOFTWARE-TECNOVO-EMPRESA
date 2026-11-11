@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Play } from "lucide-react";
 import { youtubeEmbedUrl, youtubeThumbnailUrl } from "@/lib/youtube";
 
@@ -28,11 +29,12 @@ export function YouTubeEmbed({ videoId, title }: { videoId: string; title: strin
           aria-label={`Reproducir video: ${title}`}
           className="group absolute inset-0 h-full w-full"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={youtubeThumbnailUrl(videoId)}
             alt=""
-            loading="lazy"
+            fill
+            quality={75}
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-[1.04]"
           />
           <span

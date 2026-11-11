@@ -3,6 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   images: {
+    // Formatos modernos: AVIF primero, WebP como respaldo.
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Caché del optimizador: 30 días.
+    minimumCacheTTL: 60 * 60 * 24 * 30,
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com" },
       // Fotos de producto y de anuncios que viven en Supabase Storage.
@@ -12,6 +18,8 @@ const nextConfig: NextConfig = {
         hostname: "*.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
+      // Miniaturas de portada de videos de capacitación.
+      { protocol: "https", hostname: "i.ytimg.com" },
     ],
   },
 };

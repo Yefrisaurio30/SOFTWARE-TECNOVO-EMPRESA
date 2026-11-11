@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { ProductType } from "@prisma/client";
@@ -66,10 +67,8 @@ export function Gallery({
         className="relative aspect-[4/3] overflow-hidden rounded-[24px] border border-white/10 bg-white outline-none focus-visible:border-steel"
       >
         <AnimatePresence mode="popLayout" initial={false} custom={direction}>
-          <motion.img
+          <motion.div
             key={images[active]}
-            src={images[active]}
-            alt={`${name} — foto ${active + 1} de ${images.length}`}
             custom={direction}
             initial={
               reduceMotion
@@ -86,9 +85,19 @@ export function Gallery({
               if (info.offset.x < -60) next();
               else if (info.offset.x > 60) prev();
             }}
-            className="absolute inset-0 h-full w-full cursor-grab object-contain p-4 active:cursor-grabbing md:p-6"
-            draggable={false}
-          />
+            className="absolute inset-0 h-full w-full cursor-grab active:cursor-grabbing"
+          >
+            <Image
+              src={images[active]}
+              alt={`${name} — foto ${active + 1} de ${images.length}`}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              quality={80}
+              priority={active === 0}
+              className="object-contain p-4 md:p-6"
+              draggable={false}
+            />
+          </motion.div>
         </AnimatePresence>
 
         {!single ? (
@@ -155,12 +164,15 @@ export function Gallery({
                     : "border-white/10 opacity-70 hover:scale-[1.03] hover:opacity-100",
                 )}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                {/* Miniatura optimizada: WebP/AVIF a resolución de pulgar */}
+                <Image
                   src={src}
                   alt=""
+                  width={128}
+                  height={128}
+                  quality={75}
+                  sizes="128px"
                   className="aspect-square w-full object-contain p-1"
-                  loading="lazy"
                 />
               </button>
             ))}

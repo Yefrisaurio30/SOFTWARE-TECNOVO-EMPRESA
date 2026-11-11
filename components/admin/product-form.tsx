@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { Product, ProductType } from "@prisma/client";
 import { saveProduct } from "@/lib/admin-actions";
@@ -145,8 +146,15 @@ export function ProductForm({ product }: { product?: Product | null }) {
             <ul className="mt-3 grid grid-cols-4 gap-3">
               {images.map((src) => (
                 <li key={src} className="relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={src} alt="" className="aspect-square w-full rounded-2xl border border-white/10 bg-white object-contain p-1" />
+                  <Image
+                    src={src}
+                    alt=""
+                    width={128}
+                    height={128}
+                    quality={75}
+                    sizes="128px"
+                    className="aspect-square w-full rounded-2xl border border-white/10 bg-white object-contain p-1"
+                  />
                   <button
                     type="button"
                     onClick={() => setImages((prev) => prev.filter((x) => x !== src))}

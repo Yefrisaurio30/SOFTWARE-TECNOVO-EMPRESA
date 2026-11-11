@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { MAX_FILES, MAX_FILE_BYTES, MAX_TOTAL_BYTES, formatKB } from "@/lib/image-validation";
 import { submitForReview } from "@/lib/listing-actions";
@@ -116,8 +117,16 @@ export function PhotoStep({
           <ul className="mt-4 grid grid-cols-3 gap-3">
             {images.map((src) => (
               <li key={src} className="relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="" className="aspect-square w-full rounded-2xl border border-white/10 object-cover" />
+                <Image
+                  key={src}
+                  src={src}
+                  alt=""
+                  width={128}
+                  height={128}
+                  quality={75}
+                  sizes="128px"
+                  className="aspect-square w-full rounded-2xl border border-white/10 object-cover"
+                />
                 <button
                   type="button"
                   onClick={() => remove(src)}

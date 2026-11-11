@@ -92,9 +92,10 @@ export function SpecsSticky({ products }: { products: Product[] }) {
                   {src ? (
                     <Image
                       src={src}
-                      alt={`${product.name} — foto principal`}
+                      alt={`${product.name} - foto principal`}
                       fill
                       sizes="(max-width: 768px) 100vw, 384px"
+                      quality={75}
                       className="object-contain p-6"
                       loading="lazy"
                     />
