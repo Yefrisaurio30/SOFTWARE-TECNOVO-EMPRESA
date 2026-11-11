@@ -7,7 +7,8 @@ import { canAccessOrder } from "@/lib/orders";
 import { formatCOP } from "@/lib/money";
 import { waLink, getWhatsAppNumber } from "@/lib/whatsapp";
 import { Container, SectionHeading } from "@/components/ui/section";
-import { PayButton } from "@/components/payment/pay-button";
+// PASARELA DESACTIVADA: pago coordinado por WhatsApp. Reactivar con Wompi.
+// import { PayButton } from "@/components/payment/pay-button";
 
 const STATUS_LABEL: Record<string, string> = {
   PENDIENTE: "Pendiente de pago",
@@ -74,10 +75,20 @@ export default async function PedidoPage({ params }: { params: Promise<{ id: str
             {order.status === "PENDIENTE" ? (
               <div className="mt-6 rounded-[24px] border border-white/10 bg-white/5 p-5">
                 <p className="text-sm text-text-muted">
-                  Tu pedido quedó registrado y está verificando el pago. Si aún no pagas:
+                  Tu pedido quedó registrado. Coordinamos el pago directo por WhatsApp:
                 </p>
                 <div className="mt-3">
-                  <PayButton orderId={order.id} />
+                  <a
+                    href={waLink(
+                      `Hola TECNOVO, quiero coordinar el pago de mi pedido N.º ${order.id.slice(-8).toUpperCase()} por ${formatCOP(order.total)}.`,
+                      await getWhatsAppNumber(),
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center rounded-full bg-cta py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.01]"
+                  >
+                    Coordinar pago por WhatsApp
+                  </a>
                 </div>
               </div>
             ) : null}

@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, Trash2, X } from "lucide-react";
 import { cartSubtotal, useCartStore } from "@/store/cart-store";
 import { formatCOP } from "@/lib/money";
+import { CartPurchaseButton } from "@/components/cart/cart-whatsapp-button";
 
 export function CartDrawer() {
   const [open, setOpen] = useState(false);
@@ -123,7 +124,7 @@ export function CartDrawer() {
                   <span className="font-medium text-white">Subtotal (informativo)</span>
                   <span className="font-semibold tabular-nums text-white">{formatCOP(cartSubtotal(lines))}</span>
                 </div>
-                <p className="mt-1 text-xs text-[#D1D5DB]">El total final se calcula en el checkout.</p>
+                <p className="mt-1 text-xs text-[#D1D5DB]">Coordinamos tu compra por WhatsApp.</p>
                 <div className="mt-4 grid grid-cols-2 gap-3">
                   <Link
                     href="/carrito"
@@ -132,13 +133,7 @@ export function CartDrawer() {
                   >
                     Ver carrito
                   </Link>
-                  <Link
-                    href="/checkout"
-                    onClick={() => setOpen(false)}
-                    className="rounded-full bg-white py-3 text-center text-sm font-medium text-[#000]"
-                  >
-                    Finalizar compra
-                  </Link>
+                  <CartPurchaseButton className="rounded-full bg-white py-3 text-center text-sm font-medium text-[#000]" />
                 </div>
               </div>
             ) : null}

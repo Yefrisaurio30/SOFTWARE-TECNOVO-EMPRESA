@@ -45,13 +45,13 @@ const owners: string[] = [];
 const ids: string[] = [];
 
 afterAll(async () => {
-  for (const id of ids) {
-    await prisma.orderItem.deleteMany({ where: { productId: id } });
-    await prisma.product.deleteMany({ where: { id } });
+  if (ids.length > 0) {
+    await prisma.orderItem.deleteMany({ where: { productId: { in: ids } } });
+    await prisma.product.deleteMany({ where: { id: { in: ids } } });
   }
   await prisma.user.deleteMany({ where: { email: { contains: TAG } } });
   await prisma.$disconnect();
-});
+}, 20000);
 
 describe("Moderación: el catálogo solo muestra APPROVED", () => {
   it("oculta DRAFT, PENDING y REJECTED del catálogo de usadas", async () => {

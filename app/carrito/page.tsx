@@ -5,6 +5,7 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 import { cartSubtotal, useCartStore } from "@/store/cart-store";
 import { formatCOP } from "@/lib/money";
 import { Container, SectionHeading } from "@/components/ui/section";
+import { CartPurchaseButton } from "@/components/cart/cart-whatsapp-button";
 
 export default function CarritoPage() {
   const lines = useCartStore((s) => s.lines);
@@ -85,12 +86,7 @@ export default function CarritoPage() {
               <p className="mt-1 text-xs text-text-faint">
                 Informativo. El total final lo calcula el servidor con precios y stock vigentes.
               </p>
-              <Link
-                href="/checkout"
-                className="mt-5 block rounded-full bg-cta py-3 text-center text-[15px] font-medium text-[#000] transition hover:scale-[1.01]"
-              >
-                Finalizar compra
-              </Link>
+              <CartPurchaseButton className="mt-5 block w-full rounded-full bg-cta py-3 text-center text-[15px] font-medium text-[#000] transition hover:scale-[1.01] disabled:opacity-60" />
               <Link
                 href="/motos-electricas"
                 className="mt-3 block text-center text-sm text-text-muted hover:text-electric"

@@ -3,7 +3,7 @@ import { MessageCircle } from "lucide-react";
 import type { Product } from "@prisma/client";
 import { getSpecs } from "@/lib/products";
 import { topSpecs } from "@/lib/specs";
-import { waProductLink } from "@/lib/whatsapp";
+import { waDirectPurchaseLink } from "@/lib/whatsapp";
 import { getWhatsAppNumber } from "@/lib/site-settings";
 import { AddToCartButton } from "@/components/cart/add-button";
 import { CompareButton } from "@/components/compare/compare-button";
@@ -29,7 +29,7 @@ export function detailHref(p: Pick<Product, "slug" | "type">): string {
 
 export async function ProductCard({ product }: { product: Product }) {
   const specs = topSpecs(getSpecs(product));
-  const wa = waProductLink(product.name, await getWhatsAppNumber());
+  const wa = waDirectPurchaseLink({ name: product.name, price: product.priceRetail }, await getWhatsAppNumber());
 
   return (
     <article
@@ -72,7 +72,7 @@ export async function ProductCard({ product }: { product: Product }) {
               href={wa}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Cotizar ${product.name} por WhatsApp`}
+              aria-label={`Comprar ${product.name} por WhatsApp`}
               className="grid size-9 place-items-center rounded-full border border-white/10 text-text-muted transition hover:border-white/25 hover:text-text"
             >
               <MessageCircle size={16} aria-hidden />
