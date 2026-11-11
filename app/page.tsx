@@ -9,7 +9,6 @@ import { SpecsSticky } from "@/components/home/specs-sticky";
 import { Locations } from "@/components/home/locations";
 import { SavingsCalculator } from "@/components/home/savings-calculator";
 import { TestRide } from "@/components/home/test-ride";
-import { Reviews } from "@/components/home/reviews";
 
 export const metadata: Metadata = {
   title: "TECNOVO — Motos eléctricas, segunda mano y repuestos",
@@ -36,7 +35,6 @@ export default async function Home() {
       <SavingsCalculator settings={energy} warrantyYears={warrantyYears} />
       <Locations />
       <TestRide number={whatsapp} />
-      <Reviews />
     </main>
   );
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { formatCOP } from "@/lib/money";
 import { DeleteProductButton } from "@/components/admin/delete-button";
+import { ToggleProductActiveButton } from "@/components/admin/toggle-product-button";
 
 export default async function ProductosPage() {
   const products = await prisma.product.findMany({
@@ -42,15 +43,24 @@ export default async function ProductosPage() {
                 <td className="px-4 py-3 text-text-muted">{p.type}</td>
                 <td className="px-4 py-3 tabular-nums">{formatCOP(p.priceRetail)}</td>
                 <td className="px-4 py-3 tabular-nums">{p.stock}</td>
-                <td className="px-4 py-3 text-text-muted">
-                  {p.active ? "Activo" : "Inactivo"}
-                  {p.featured ? " · ★" : ""}
+                <td className="px-4 py-3">
+                  <span
+                    className={
+                      p.active
+                        ? "inline-block rounded-full border border-steel/50 px-2.5 py-0.5 text-xs text-steel"
+                        : "inline-block rounded-full border border-danger/40 px-2.5 py-0.5 text-xs text-danger"
+                    }
+                  >
+                    {p.active ? "Activo" : "Inactivo"}
+                  </span>
+                  {p.featured ? <span className="ml-1 text-xs">★</span> : null}
                 </td>
                 <td className="px-4 py-3">
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-3">
                     <Link href={`/admin/productos/${p.id}`} className="text-steel hover:underline">
                       Editar
                     </Link>
+                    <ToggleProductActiveButton id={p.id} name={p.name} active={p.active} />
                     <DeleteProductButton id={p.id} name={p.name} />
                   </div>
                 </td>

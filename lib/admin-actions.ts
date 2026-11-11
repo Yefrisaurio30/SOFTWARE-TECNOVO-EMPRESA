@@ -77,6 +77,16 @@ export async function deleteProduct(id: string) {
   return { ok: true as const };
 }
 
+/** Habilitar / inhabilitar un producto (lo oculta del catálogo sin borrarlo). */
+export async function setProductActive(id: string, active: boolean) {
+  const session = await requireAdmin();
+  await prisma.product.update({ where: { id }, data: { active } });
+  await audit(active ? "product.enable" : "product.disable", "Product", id, session.user.id);
+  revalidatePath("/admin/productos");
+  revalidatePath("/");
+  return { ok: true as const };
+}
+
 const StatusSchema = z.enum(["PENDIENTE", "PAGADO", "RECHAZADO", "ENVIADO", "ENTREGADO", "CANCELADO"]);
 
 export async function setOrderStatus(orderId: string, status: string) {
