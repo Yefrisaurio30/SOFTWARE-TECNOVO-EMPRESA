@@ -10,6 +10,7 @@ import {
   isCatalogCategory,
 } from "@/lib/products";
 import { formatCOP } from "@/lib/money";
+import { getWhatsAppNumber } from "@/lib/site-settings";
 import { DirectPurchaseButton } from "@/components/purchase/direct-purchase";
 import { Container } from "@/components/ui/section";
 import { AddToCartButton } from "@/components/cart/add-button";
@@ -135,6 +136,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               {available ? <AddToCartButton product={product} /> : null}
               <DirectPurchaseButton
                 product={{ name: product.name, price: product.priceRetail }}
+                number={await getWhatsAppNumber()}
                 className="inline-flex items-center gap-2 rounded-full bg-cta px-7 py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.02]"
               >
                 <MessageCircle size={18} aria-hidden />
