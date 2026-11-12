@@ -62,6 +62,7 @@ export function ProductForm({ product }: { product?: Product | null }) {
         type: fd.get("type"),
         brand: fd.get("brand"),
         priceRetail: fd.get("priceRetail"),
+        priceBefore: (fd.get("priceBefore") as string) || undefined,
         priceWholesale: (fd.get("priceWholesale") as string) || undefined,
         stock: fd.get("stock"),
         description: fd.get("description"),
@@ -111,10 +112,14 @@ export function ProductForm({ product }: { product?: Product | null }) {
           <label htmlFor="pf-brand" className={labelCls}>Marca</label>
           <input id="pf-brand" name="brand" required defaultValue={product?.brand ?? ""} className={inputCls} />
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           <div>
-            <label htmlFor="pf-retail" className={labelCls}>Precio retail (COP)</label>
+            <label htmlFor="pf-retail" className={labelCls}>Precio oferta (COP)</label>
             <input id="pf-retail" name="priceRetail" type="number" min={0} required defaultValue={product?.priceRetail ?? 0} className={inputCls} />
+          </div>
+          <div>
+            <label htmlFor="pf-before" className={labelCls}>Precio anterior (opcional)</label>
+            <input id="pf-before" name="priceBefore" type="number" min={0} defaultValue={product?.priceBefore ?? ""} className={inputCls} />
           </div>
           <div>
             <label htmlFor="pf-ws" className={labelCls}>Mayorista (opcional)</label>

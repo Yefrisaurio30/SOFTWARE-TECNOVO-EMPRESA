@@ -67,7 +67,7 @@ export default function CheckoutPage() {
             <p className="mt-1 text-sm text-text-muted">
               Te llevamos a WhatsApp con tu resumen prellenado para coordinar pago y entrega.
             </p>
-            <CartPurchaseButton className="mt-5 w-full rounded-full bg-cta py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.01] disabled:opacity-60" />
+            <CartPurchaseButton className="mt-5 w-full rounded-full bg-steel py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.01] disabled:opacity-60" />
             <Link
               href="/carrito"
               className="mt-3 block rounded-full border border-white/15 py-2.5 text-center text-sm"

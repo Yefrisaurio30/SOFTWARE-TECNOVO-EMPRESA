@@ -111,6 +111,8 @@ model Product {
   type           ProductType
   brand          String
   priceRetail    Int
+  /// Precio anterior (se muestra tachado como referencia de oferta).
+  priceBefore    Int?
   priceWholesale Int?
   stock          Int           @default(0)
   description    String        @default("")

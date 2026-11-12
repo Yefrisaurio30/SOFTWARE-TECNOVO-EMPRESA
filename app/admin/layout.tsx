@@ -33,7 +33,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               className="h-7 w-auto"
               priority
             />
-            <p className="text-sm font-medium tracking-wide text-steel uppercase">Superadmin</p>
+            <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Superadmin</p>
           </div>
           {session?.user ? (
             <div className="flex items-center gap-3 text-sm text-text-muted">

@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 
-const ENV_WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP ?? "573001112233").replace(/\D/g, "");
+const ENV_WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP ?? "573102636088").replace(/\D/g, "");
 
 export const getSetting = cache(async (key: string): Promise<unknown> => {
   const row = await prisma.siteSetting.findUnique({ where: { key } });

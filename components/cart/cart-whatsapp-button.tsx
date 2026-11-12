@@ -1,5 +1,6 @@
 "use client";
 
+import { MessageCircle } from "lucide-react";
 import { cartSubtotal, useCartStore, type CartLine } from "@/store/cart-store";
 import { waCartPurchaseLink } from "@/lib/whatsapp";
 
@@ -27,7 +28,8 @@ export function CartPurchaseButton({ className }: { className?: string }) {
       onClick={() => purchaseCart(lines)}
       className={className}
     >
-      Comprar por WhatsApp
+      <MessageCircle size={16} aria-hidden className="mr-2 inline" />
+      COTIZAR
     </button>
   );
 }

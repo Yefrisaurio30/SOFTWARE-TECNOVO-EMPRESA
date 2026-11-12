@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { requireApprovedDistributor, companyFor, minUnitsFor } from "@/lib/distributor";
 import { Container, SectionHeading } from "@/components/ui/section";
@@ -28,8 +29,9 @@ export default async function CatalogoMayoristaPage() {
           description="Solo motos nuevas a precio de distribuidor. El total se valida en el servidor."
         />
         <div className="mt-4 flex gap-4 text-sm">
-          <Link href="/checkout" className="rounded-full bg-cta px-5 py-2 font-medium text-[#000]">
-            Comprar por WhatsApp
+          <Link href="/checkout" className="inline-flex items-center gap-2 rounded-full bg-steel px-5 py-2 font-semibold text-black">
+            <MessageCircle size={15} aria-hidden />
+            COTIZAR
           </Link>
           <Link href="/distribuidores/pedidos" className="py-2 text-text-muted hover:text-text">
             Mis pedidos ›

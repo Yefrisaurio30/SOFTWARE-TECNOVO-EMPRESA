@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MessageCircle } from "lucide-react";
 import { getWhatsAppNumber } from "@/lib/site-settings";
 import { waLink } from "@/lib/whatsapp";
 import { Container, Section, SectionHeading } from "@/components/ui/section";
@@ -46,9 +47,10 @@ export default async function PqrsPage() {
               href={waLink("Hola TECNOVO, quiero radicar una PQRS.", whatsapp)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-block rounded-full bg-steel px-6 py-3 text-[15px] font-medium text-[#000]"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-steel px-6 py-3 text-[15px] font-semibold text-black"
             >
-              Radicar por WhatsApp
+              <MessageCircle size={17} aria-hidden />
+              COTIZAR
             </a>
           </div>
         </Container>

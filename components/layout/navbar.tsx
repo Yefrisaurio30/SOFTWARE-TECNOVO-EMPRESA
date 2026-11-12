@@ -38,7 +38,7 @@ export function Navbar() {
         aria-label="Navegación principal"
         className={cn(
           "flex w-full max-w-[1200px] items-center gap-3 rounded-full border border-white/10 bg-[#29F506]/70 backdrop-blur-xl transition-all duration-200",
-          compact ? "h-12 px-3" : "h-14 px-4",
+          compact ? "h-12 px-3" : "h-16 px-4",
         )}
         style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,.06)" }}
       >
@@ -46,8 +46,8 @@ export function Navbar() {
           <Image
             src="/brand/tecnovo-logo-negro.png"
             alt="TECNOVO"
-            width={compact ? 84 : 96}
-            height={compact ? 26 : 30}
+            width={compact ? 108 : 128}
+            height={compact ? 34 : 40}
             quality={80}
             priority
           />

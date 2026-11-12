@@ -6,7 +6,6 @@ import { topSpecs } from "@/lib/specs";
 import { waDirectPurchaseLink } from "@/lib/whatsapp";
 import { getWhatsAppNumber } from "@/lib/site-settings";
 import { AddToCartButton } from "@/components/cart/add-button";
-import { CompareButton } from "@/components/compare/compare-button";
 import { ProductImage } from "./product-image";
 import { Price } from "./price";
 
@@ -45,10 +44,10 @@ export async function ProductCard({ product }: { product: Product }) {
         />
       </Link>
       <div className="flex flex-1 flex-col gap-2 p-5">
-        <p className="text-xs font-medium tracking-wide text-steel uppercase">
+        <p className="text-base font-semibold tracking-wide text-steel-deep uppercase">
           {TYPE_LABEL[product.type]} · {product.brand}
         </p>
-        <h3 className="text-lg font-semibold text-text">
+        <h3 className="text-2xl font-semibold text-text">
           <Link href={detailHref(product)} className="hover:underline">
             {product.name}
           </Link>
@@ -61,23 +60,26 @@ export async function ProductCard({ product }: { product: Product }) {
             </div>
           ))}
         </dl>
-        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
-          <Price value={product.priceRetail} className="text-xl font-semibold text-cta" />
-          <div className="flex items-center gap-2">
-            <AddToCartButton product={product} />
-            {(product.type === "MOTO_NUEVA" || product.type === "MOTO_USADA") ? (
-              <CompareButton product={product} />
-            ) : null}
-            <a
-              href={wa}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Comprar ${product.name} por WhatsApp`}
-              className="grid size-9 place-items-center rounded-full border border-white/10 text-text-muted transition hover:border-white/25 hover:text-text"
-            >
-              <MessageCircle size={16} aria-hidden />
-            </a>
-          </div>
+        <div className="mt-auto pt-3">
+          <Price
+            value={product.priceRetail}
+            before={product.priceBefore}
+            className="text-2xl font-semibold text-steel-deep"
+            beforeClassName="text-base text-text-muted"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <AddToCartButton product={product} />
+          <a
+            href={wa}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Preguntar por ${product.name} por WhatsApp`}
+            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-black/15 px-4 py-2 text-sm font-medium text-text transition hover:border-black/30 hover:scale-[1.02]"
+          >
+            <MessageCircle size={15} aria-hidden />
+            Preguntar
+          </a>
         </div>
       </div>
     </article>

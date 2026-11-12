@@ -43,17 +43,17 @@ export function CookieBanner() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-x-4 bottom-4 z-[70] mx-auto max-w-3xl rounded-[24px] border border-white/10 bg-graphite/97 p-5 text-text backdrop-blur-xl"
+          className="fixed inset-x-4 bottom-4 z-[70] mx-auto max-w-3xl rounded-[24px] border border-black/15 bg-white p-5 text-text shadow-2xl backdrop-blur-xl"
         >
-          <p className="text-[15px] leading-relaxed text-text-muted">
+          <p className="text-[15px] leading-relaxed text-text">
             Usamos una cookie esencial para mantener tu sesión iniciada y guardamos tu carrito en el
-            navegador para que no lo pierdas al cerrar. <strong className="text-text">No usamos
+            navegador para que no lo pierdas al cerrar. <strong className="font-semibold">No usamos
             cookies publicitarias ni de seguimiento.</strong>{" "}
             <Link
               href="/legales/politica-de-cookies"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-steel underline"
+              className="font-semibold text-steel-deep underline underline-offset-2"
             >
               Ver la política de cookies
             </Link>
@@ -61,7 +61,7 @@ export function CookieBanner() {
           <div className="mt-4 flex justify-end">
             <button
               onClick={cerrar}
-              className="rounded-full bg-steel px-6 py-2.5 text-sm font-medium text-[#000]"
+              className="rounded-full bg-steel px-6 py-2.5 text-sm font-semibold text-black transition hover:scale-[1.02]"
             >
               Entendido
             </button>

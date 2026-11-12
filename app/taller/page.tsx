@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Phone, ShieldCheck, Wrench } from "lucide-react";
+import { MapPin, MessageCircle, Phone, ShieldCheck, Wrench } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getWarrantyYears } from "@/lib/products";
 import { getWhatsAppNumber } from "@/lib/site-settings";
@@ -54,6 +55,15 @@ export default async function TallerPage() {
 
       <Section tone="light">
         <Container>
+          <Image
+            src="/taller/taller-motos-electricas.jpg"
+            alt="Técnico TECNOVO revisando el sistema eléctrico de una moto en el taller"
+            width={2000}
+            height={1000}
+            quality={80}
+            sizes="(max-width: 768px) 100vw, 1200px"
+            className="mb-10 aspect-[2/1] w-full rounded-[28px] border border-black/10 object-cover"
+          />
           <SectionHeading tone="light" eyebrow="Red de servicio" title="Dónde te atendemos." />
           {services.length === 0 ? (
             <div className="mt-10 rounded-[28px] border border-black/10 bg-light-surface p-10 text-center">
@@ -65,9 +75,10 @@ export default async function TallerPage() {
                 href={waLink(`Hola TECNOVO, ¿cuándo hay servicio técnico cerca de mí?`, whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-block rounded-full bg-white px-6 py-2.5 text-sm font-medium text-white"
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-steel px-6 py-2.5 text-sm font-semibold text-black"
               >
-                Consultar por WhatsApp
+                <MessageCircle size={15} aria-hidden />
+                COTIZAR
               </a>
             </div>
           ) : (
@@ -118,9 +129,10 @@ export default async function TallerPage() {
                       href={waLink(`Hola TECNOVO, quiero agendar servicio técnico en ${s.name} (${s.city}).`, whatsapp)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="rounded-full bg-white px-5 py-2 text-sm font-medium text-white"
+                      className="inline-flex items-center gap-2 rounded-full bg-steel px-5 py-2 text-sm font-semibold text-black"
                     >
-                      Agendar cita
+                      <MessageCircle size={15} aria-hidden />
+                      COTIZAR
                     </a>
                     {s.mapsUrl ? (
                       <a
@@ -159,9 +171,10 @@ export default async function TallerPage() {
                 href={waLink("Hola TECNOVO, quiero agendar mantenimiento de mi moto eléctrica.", whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-steel px-6 py-3 text-[15px] font-medium text-[#000]"
+                className="inline-flex items-center gap-2 rounded-full bg-steel px-6 py-3 text-[15px] font-semibold text-black"
               >
-                Agendar por WhatsApp
+                <MessageCircle size={17} aria-hidden />
+                COTIZAR
               </a>
               <a
                 href={TECNOVO_MAPS_URL}

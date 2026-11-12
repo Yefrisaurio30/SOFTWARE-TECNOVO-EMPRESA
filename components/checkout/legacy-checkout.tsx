@@ -247,7 +247,7 @@ export default function LegacyCheckoutPage() {
             <button
               type="submit"
               disabled={sending}
-              className="mt-5 w-full rounded-full bg-cta py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.01] disabled:opacity-60"
+              className="mt-5 w-full rounded-full bg-steel py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.01] disabled:opacity-60"
             >
               {sending ? "Creando pedido…" : "Confirmar pedido"}
             </button>

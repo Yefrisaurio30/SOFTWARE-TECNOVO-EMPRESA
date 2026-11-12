@@ -5,7 +5,7 @@ export function defaultNumber(): string {
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ??
     process.env.NEXT_PUBLIC_WHATSAPP ??
     "";
-  return fromEnv.replace(/\D/g, "") || "573122779324";
+  return fromEnv.replace(/\D/g, "") || "573102636088";
 }
 
 export function waLink(message: string, number?: string): string {

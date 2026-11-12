@@ -36,7 +36,7 @@ export default function LoginPage() {
   return (
     <main className="bg-white py-16 text-text">
       <Container className="max-w-md">
-        <p className="text-sm font-medium tracking-wide text-steel uppercase">Cuenta</p>
+        <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Cuenta</p>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight">Entrar</h1>
         <form onSubmit={submit} className="mt-8 flex flex-col gap-4 rounded-[28px] border border-white/10 bg-surface p-6 shadow-sm">
           <div>

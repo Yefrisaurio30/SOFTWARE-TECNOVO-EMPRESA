@@ -68,7 +68,7 @@ Copia `.env.example` a `.env`. Lo mínimo para desarrollo:
 DATABASE_URL=postgresql://tecnovo:tecnovo@localhost:5434/tecnovo?schema=public
 AUTH_SECRET=<genera uno>
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-NEXT_PUBLIC_WHATSAPP=573122779324
+NEXT_PUBLIC_WHATSAPP=573102636088
 ```
 
 Wompi (`WOMPI_PUBLIC_KEY`, `WOMPI_INTEGRITY_SECRET`, `WOMPI_EVENTS_SECRET`) solo

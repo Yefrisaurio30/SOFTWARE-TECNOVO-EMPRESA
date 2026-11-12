@@ -64,7 +64,7 @@ export function SpecsSticky({ products }: { products: Product[] }) {
           }}
         >
           <div className="md:sticky md:top-28 md:self-start">
-            <p className="text-sm font-medium tracking-wide text-steel uppercase">En cifras</p>
+            <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">En cifras</p>
             <AnimatePresence mode="wait" initial={false}>
               <motion.h2
                 key={product.id}

@@ -63,7 +63,7 @@ export default function RegistroDistribuidorPage() {
   return (
     <main className="bg-white py-16 text-text">
       <Container className="max-w-lg">
-        <p className="text-sm font-medium tracking-wide text-steel uppercase">Distribuidores</p>
+        <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Distribuidores</p>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight">Registra tu empresa</h1>
         <p className="mt-2 text-text-muted">
           Necesitas una cuenta. Si no has entrado, te pedimos login al enviar.

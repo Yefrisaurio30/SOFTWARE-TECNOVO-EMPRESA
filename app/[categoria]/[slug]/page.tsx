@@ -103,33 +103,38 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
         <div className="mt-6 grid gap-10 lg:grid-cols-2">
           <Gallery images={product.images} name={product.name} type={product.type} />
           <div>
-            <p className="text-sm font-medium tracking-wide text-steel uppercase">
+            <p className="text-xl md:text-2xl font-semibold tracking-wide text-steel-deep uppercase">
               {CATEGORY_LABEL[categoria]} · {product.brand}
             </p>
             <h1
               className="mt-2 font-semibold"
-              style={{ fontSize: "clamp(32px, 5vw, 56px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
+              style={{ fontSize: "clamp(38px, 5.5vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
             >
               {product.name}
             </h1>
             {isUsed ? (
-              <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                <span className="rounded-full border border-steel/50 px-3 py-1 text-steel">
+              <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                <span className="rounded-full border border-steel/50 px-3 py-1 text-steel-deep">
                   Unidad única
                 </span>
-                <span className="rounded-full border border-white/10 px-3 py-1 text-text-muted">
+                <span className="rounded-full border border-black/15 px-3 py-1 text-text-muted">
                   Modelo {String(specs.anio ?? "—")}
                 </span>
-                <span className="rounded-full border border-white/10 px-3 py-1 text-text-muted">
+                <span className="rounded-full border border-black/15 px-3 py-1 text-text-muted">
                   {formatCOP(product.priceRetail)}
                 </span>
               </div>
             ) : null}
-            <Price value={product.priceRetail} className="mt-4 block text-3xl font-semibold text-cta" />
+            <Price
+              value={product.priceRetail}
+              before={product.priceBefore}
+              className="mt-4 text-4xl font-semibold text-steel-deep"
+              beforeClassName="text-2xl text-text-muted"
+            />
             <p className="mt-1 text-sm text-text-muted" role="status">
               {available ? null : "Agotado temporalmente"}
             </p>
-            <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-text-muted">
+            <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-text-muted">
               {product.description}
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -137,10 +142,10 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               <DirectPurchaseButton
                 product={{ name: product.name, price: product.priceRetail }}
                 number={await getWhatsAppNumber()}
-                className="inline-flex items-center gap-2 rounded-full bg-cta px-7 py-3 text-[15px] font-medium text-[#000] transition hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 rounded-full border border-black/15 px-7 py-3 text-[15px] font-semibold text-text transition hover:border-black/30 hover:scale-[1.02]"
               >
                 <MessageCircle size={18} aria-hidden />
-                Comprar por WhatsApp
+                Preguntar
               </DirectPurchaseButton>
             </div>
             <div className="mt-8">

@@ -28,7 +28,7 @@ export function DirectPurchaseButton({ product, number, className, children }: D
       onClick={() => handleDirectPurchase(product, number)}
       className={className}
     >
-      {children ?? "Comprar por WhatsApp"}
+      {children ?? "COTIZAR"}
     </button>
   );
 }

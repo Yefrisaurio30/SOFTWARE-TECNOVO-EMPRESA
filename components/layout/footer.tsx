@@ -46,8 +46,8 @@ export function Footer({ whatsapp }: FooterProps) {
         <Image
           src="/brand/tecnovo-logo-negro.png"
           alt="TECNOVO"
-          width={150}
-          height={31}
+          width={220}
+          height={45}
           quality={80}
           priority
         />

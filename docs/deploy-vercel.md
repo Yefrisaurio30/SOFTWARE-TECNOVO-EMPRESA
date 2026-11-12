@@ -137,7 +137,7 @@ SUPABASE_DB_NAME=postgres
 | `AUTH_SECRET` | secret | `openssl rand -base64 32`, distinto al local |
 | `AUTH_URL` | secret | `https://<proyecto>.vercel.app` |
 | `NEXT_PUBLIC_SITE_URL` | config | `https://<proyecto>.vercel.app` |
-| `NEXT_PUBLIC_WHATSAPP` | config | `573122779324` |
+| `NEXT_PUBLIC_WHATSAPP` | config | `573102636088` |
 | `NEXT_PUBLIC_SUPABASE_URL` | config | `https://nbexwuloacrpttqibnsb.supabase.co` |
 | `SUPABASE_SERVICE_ROLE_KEY` | secret | el `service_role` del punto 3.3 |
 | `STORAGE_DRIVER` | config | `supabase` |

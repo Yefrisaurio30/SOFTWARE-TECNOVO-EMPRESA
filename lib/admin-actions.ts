@@ -21,6 +21,7 @@ const ProductSchema = z.object({
   type: z.enum(["MOTO_NUEVA", "MOTO_USADA", "REPUESTO", "ACCESORIO"]),
   brand: z.string().trim().min(1).max(60),
   priceRetail: z.coerce.number().int().min(0),
+  priceBefore: z.coerce.number().int().min(0).optional(),
   priceWholesale: z.coerce.number().int().min(0).optional(),
   stock: z.coerce.number().int().min(0),
   description: z.string().trim().max(2000).default(""),
@@ -52,7 +53,7 @@ export async function saveProduct(input: unknown, id?: string) {
 
   const data = {
     name: d.name, slug, type: d.type, brand: d.brand, priceRetail: d.priceRetail,
-    priceWholesale: d.priceWholesale ?? null, stock: d.stock, description: d.description,
+    priceBefore: d.priceBefore ?? null, priceWholesale: d.priceWholesale ?? null, stock: d.stock, description: d.description,
     images, specs, featured: d.featured, active: d.active,
   };
   if (id) {

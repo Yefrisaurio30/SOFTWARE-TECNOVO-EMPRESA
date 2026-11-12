@@ -18,7 +18,7 @@ export default function DistribuidoresPage() {
     <main className="bg-white text-text">
       <section className="py-20 md:py-28">
         <Container>
-          <p className="text-sm font-medium tracking-wide text-steel uppercase">Negocios</p>
+          <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Negocios</p>
           <h1
             className="mt-3 max-w-3xl font-semibold"
             style={{ fontSize: "clamp(40px, 7vw, 88px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}

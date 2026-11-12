@@ -141,7 +141,7 @@ export function Hero({ products, whatsapp }: { products: Product[]; whatsapp: st
             exit={{ opacity: 0, x: -72 * direction }}
             transition={{ duration: 0.55, ease: EASE }}
           >
-            <p className="text-sm font-medium tracking-wide text-steel uppercase">
+            <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel uppercase">
               {p.brand} · Eléctrica
             </p>
             <h1

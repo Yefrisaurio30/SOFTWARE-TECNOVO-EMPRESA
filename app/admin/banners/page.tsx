@@ -56,7 +56,7 @@ export default async function BannersPage() {
       <form action={createSlide} className="mt-6 grid gap-4 rounded-[24px] border border-white/10 bg-surface p-6 md:grid-cols-2">
         <div className="md:col-span-2">
           <label className="mb-1 block text-xs font-medium tracking-wide text-text-muted uppercase">Imagen (desktop)</label>
-          <input name="image" type="file" accept="image/*" required className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none file:mr-3 file:rounded-full file:border-0 file:bg-cta file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-[#000]" />
+          <input name="image" type="file" accept="image/*" required className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-text outline-none file:mr-3 file:rounded-full file:border-0 file:bg-steel file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-[#000]" />
         </div>
 
         <div>
@@ -67,7 +67,7 @@ export default async function BannersPage() {
           <label className="flex items-center gap-2 text-sm text-text-muted">
             <input type="checkbox" name="isActive" defaultChecked /> Activo
           </label>
-          <button type="submit" className="rounded-full bg-cta px-5 py-2.5 text-sm font-medium text-[#000]">
+          <button type="submit" className="rounded-full bg-steel px-5 py-2.5 text-sm font-medium text-[#000]">
             Agregar banner
           </button>
         </div>

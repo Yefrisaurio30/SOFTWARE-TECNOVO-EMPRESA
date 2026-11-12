@@ -36,7 +36,7 @@ export default async function CapacitacionPage() {
           aria-hidden
         />
         <Container className="relative text-center">
-          <p className="text-sm font-medium tracking-wide text-steel uppercase">Capacitación</p>
+          <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Capacitación</p>
           <h1
             className="mx-auto mt-3 max-w-4xl font-semibold"
             style={{ fontSize: "clamp(40px, 7vw, 88px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
