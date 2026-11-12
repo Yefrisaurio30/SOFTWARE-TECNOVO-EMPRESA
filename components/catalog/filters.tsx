@@ -42,7 +42,7 @@ export function Filters({
         </div>
         <button
           type="submit"
-          className="rounded-full bg-steel px-6 py-2.5 text-sm font-semibold text-black transition hover:scale-[1.02]"
+          className="rounded-full bg-steel px-6 py-2.5 text-sm font-semibold text-white transition hover:scale-[1.02]"
         >
           Buscar
         </button>

@@ -22,7 +22,7 @@ export function TestRide({ number }: { number: string }) {
             href={waTestRideLink(number)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-steel px-7 py-3 text-[15px] font-semibold text-black transition hover:scale-[1.02]"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-steel px-7 py-3 text-[15px] font-semibold text-white transition hover:scale-[1.02]"
           >
             <MessageCircle size={18} aria-hidden />
             COTIZAR

@@ -51,7 +51,7 @@ export default async function AdminAnunciosPage({
       <h1 className="text-3xl font-semibold tracking-tight">
         Revisión de anuncios{" "}
         {countOf("PENDING") > 0 ? (
-          <span className="ml-2 rounded-full bg-steel px-3 py-1 text-sm font-medium text-[#000] tabular-nums">
+          <span className="ml-2 rounded-full bg-steel px-3 py-1 text-sm font-medium text-white tabular-nums">
             {countOf("PENDING")}
           </span>
         ) : null}

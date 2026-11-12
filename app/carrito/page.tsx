@@ -86,7 +86,7 @@ export default function CarritoPage() {
               <p className="mt-1 text-xs text-text-faint">
                 Informativo. El total final lo calcula el servidor con precios y stock vigentes.
               </p>
-              <CartPurchaseButton className="mt-5 block w-full rounded-full bg-steel py-3 text-center text-[15px] font-medium text-[#000] transition hover:scale-[1.01] disabled:opacity-60" />
+              <CartPurchaseButton className="mt-5 block w-full rounded-full bg-steel py-3 text-center text-[15px] font-medium text-white transition hover:scale-[1.01] disabled:opacity-60" />
               <Link
                 href="/motos-electricas"
                 className="mt-3 block text-center text-sm text-text-muted hover:text-electric"

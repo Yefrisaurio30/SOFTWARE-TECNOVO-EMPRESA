@@ -104,7 +104,7 @@ export function HeroBanner() {
               />
               <Link
                 href="/motos-electricas"
-                className="absolute bottom-6 left-6 z-10 inline-flex items-center gap-2 rounded-full bg-[#29F506] px-8 py-4 text-lg font-semibold tracking-wide text-black uppercase shadow-xl transition hover:scale-[1.03] active:scale-[0.98] md:bottom-10 md:left-10 md:px-10 md:py-5 md:text-xl"
+                className="absolute bottom-6 left-6 z-10 inline-flex items-center gap-2 rounded-full bg-[#29F506] px-8 py-4 text-lg font-semibold tracking-wide text-white uppercase shadow-xl transition hover:scale-[1.03] active:scale-[0.98] md:bottom-10 md:left-10 md:px-10 md:py-5 md:text-xl"
               >
                 Cotiza ¡YA!
               </Link>

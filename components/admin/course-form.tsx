@@ -103,7 +103,7 @@ export function CourseForm({ course }: { course?: Course | null }) {
       </div>
       {error ? <p role="alert" className="text-sm text-danger">{error}</p> : null}
       <div>
-        <button type="submit" disabled={saving} className="rounded-full bg-steel px-7 py-3 text-[15px] font-medium text-[#000] disabled:opacity-60">
+        <button type="submit" disabled={saving} className="rounded-full bg-steel px-7 py-3 text-[15px] font-medium text-white disabled:opacity-60">
           {saving ? "Guardando…" : course ? "Guardar cambios" : "Crear curso"}
         </button>
       </div>

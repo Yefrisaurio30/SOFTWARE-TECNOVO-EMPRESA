@@ -13,7 +13,7 @@ export default async function AdminTallerPage() {
           <Link href="/taller" className="rounded-full border border-white/15 px-5 py-2.5 text-sm">
             Ver /taller
           </Link>
-          <Link href="/admin/taller/nuevo" className="rounded-full bg-steel px-5 py-2.5 text-sm font-medium text-[#000]">
+          <Link href="/admin/taller/nuevo" className="rounded-full bg-steel px-5 py-2.5 text-sm font-medium text-white">
             + Nuevo punto
           </Link>
         </div>

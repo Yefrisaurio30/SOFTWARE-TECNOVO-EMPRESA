@@ -42,7 +42,7 @@ export function YouTubeEmbed({ videoId, title }: { videoId: string; title: strin
             style={{ background: "rgba(0,0,0,.35)" }}
             aria-hidden
           >
-            <span className="grid size-14 place-items-center rounded-full bg-steel text-[#000] transition group-hover:scale-110">
+            <span className="grid size-14 place-items-center rounded-full bg-steel text-white transition group-hover:scale-110">
               <Play size={24} fill="currentColor" />
             </span>
           </span>

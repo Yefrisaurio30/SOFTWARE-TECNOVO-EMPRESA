@@ -86,7 +86,7 @@ export default async function PedidoPage({ params }: { params: Promise<{ id: str
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 rounded-full bg-steel py-3 text-[15px] font-semibold text-black transition hover:scale-[1.01]"
+                    className="flex items-center justify-center gap-2 rounded-full bg-steel py-3 text-[15px] font-semibold text-white transition hover:scale-[1.01]"
                   >
                     <MessageCircle size={17} aria-hidden />
                     COTIZAR
@@ -102,7 +102,7 @@ export default async function PedidoPage({ params }: { params: Promise<{ id: str
                href={waLink(`Hola TECNOVO, tengo una consulta sobre mi pedido N.º ${order.id.slice(-8).toUpperCase()}.`, await getWhatsAppNumber())}
                target="_blank"
                rel="noopener noreferrer"
-               className="mt-4 flex items-center justify-center gap-2 rounded-full bg-steel px-5 py-2.5 text-sm font-semibold text-black transition hover:scale-[1.02]"
+               className="mt-4 flex items-center justify-center gap-2 rounded-full bg-steel px-5 py-2.5 text-sm font-semibold text-white transition hover:scale-[1.02]"
              >
                <MessageCircle size={15} aria-hidden />
                COTIZAR

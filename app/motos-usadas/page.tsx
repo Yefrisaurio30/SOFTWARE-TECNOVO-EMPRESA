@@ -31,7 +31,7 @@ export default async function UsadasPage({ searchParams }: { searchParams: Promi
         />
         <Link
           href="/publicar"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-steel px-8 py-4 text-lg font-semibold text-black shadow-md transition hover:scale-[1.03]"
+          className="mt-6 inline-flex items-center gap-2 rounded-full bg-steel px-8 py-4 text-lg font-semibold text-white shadow-md transition hover:scale-[1.03]"
         >
           ¿Tienes una moto para vender? Publícala aquí
         </Link>

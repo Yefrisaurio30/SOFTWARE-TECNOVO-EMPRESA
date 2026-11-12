@@ -29,7 +29,7 @@ export default async function CatalogoMayoristaPage() {
           description="Solo motos nuevas a precio de distribuidor. El total se valida en el servidor."
         />
         <div className="mt-4 flex gap-4 text-sm">
-          <Link href="/checkout" className="inline-flex items-center gap-2 rounded-full bg-steel px-5 py-2 font-semibold text-black">
+          <Link href="/checkout" className="inline-flex items-center gap-2 rounded-full bg-steel px-5 py-2 font-semibold text-white">
             <MessageCircle size={15} aria-hidden />
             COTIZAR
           </Link>
