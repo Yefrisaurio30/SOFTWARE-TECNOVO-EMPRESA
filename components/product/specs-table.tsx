@@ -5,20 +5,16 @@ export function SpecsTable({ specs }: { specs: Specs }) {
   const rows = allSpecs(specs);
   if (rows.length === 0) return null;
   return (
-    <div className="overflow-hidden rounded-[24px] border border-white/10">
-      <table className="w-full text-left text-[15px]">
-        <caption className="sr-only">Ficha técnica</caption>
-        <tbody>
-          {rows.map(([k, v], i) => (
-            <tr key={k} className={i % 2 === 0 ? "bg-surface" : "bg-graphite"}>
-              <th scope="row" className="px-5 py-3 font-normal text-text-muted">
-                {k}
-              </th>
-              <td className="px-5 py-3 text-text">{v}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <dl className="flex flex-col text-[15px]">
+      {rows.map(([k, v]) => (
+        <div
+          key={k}
+          className="flex items-baseline justify-between gap-3 border-b border-dotted border-black/20 py-2.5"
+        >
+          <dt className="shrink-0 text-text-muted">{k}</dt>
+          <dd className="text-right font-medium text-text">{v}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }

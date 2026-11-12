@@ -34,19 +34,19 @@ export default async function TallerPage() {
   <div className="mt-10 grid gap-4 sm:grid-cols-3">
     <div className="rounded-[24px] border border-steel/40 bg-surface p-6">
       <ShieldCheck size={26} strokeWidth={1.5} className="text-steel" aria-hidden />
-      <p className="mt-3 text-3xl font-semibold text-zinc-200">{warrantyYears} años</p>
+      <p className="mt-3 text-3xl font-semibold text-black">{warrantyYears} años</p>
       <p className="mt-1 text-sm text-text-muted">de garantía en defectos de fabrica</p>
     </div>
     <div className="rounded-[24px] border border-zinc-400/20 bg-surface p-6">
       <Wrench size={26} strokeWidth={1.5} className="text-steel" aria-hidden />
-      <p className="mt-3 text-3xl font-semibold text-zinc-200">{services.length}</p>
+      <p className="mt-3 text-3xl font-semibold text-black">{services.length}</p>
       <p className="mt-1 text-sm text-text-muted">
         {services.length === 1 ? "punto de servicio" : "puntos de servicio"} activos
       </p>
     </div>
     <div className="rounded-[24px] border border-zinc-400/20 bg-surface p-6">
       <Phone size={26} strokeWidth={1.5} className="text-steel" aria-hidden />
-      <p className="mt-3 text-3xl font-semibold text-zinc-200">WhatsApp</p>
+      <p className="mt-3 text-3xl font-semibold text-black">WhatsApp</p>
       <p className="mt-1 text-sm text-text-muted">agenda tu cita sin costo</p>
     </div>
   </div>
@@ -86,45 +86,43 @@ export default async function TallerPage() {
               {services.map((s) => (
                 <article
                   key={s.id}
-                  className="rounded-[28px] border border-black/10 bg-light-surface p-8"
+                  className="flex flex-col items-center rounded-[28px] border border-black/10 bg-light-surface p-10 text-center"
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h3 className="text-xl font-semibold text-light-text">
-                        {s.name}
-                        {s.isHeadquarter ? (
-                          <span className="ml-2 rounded-full bg-white px-3 py-1 text-xs font-medium text-white">
-                            Sede principal
-                          </span>
-                        ) : null}
-                      </h3>
-                      <p className="mt-1 text-sm text-light-muted">
-                        <MapPin size={14} className="mr-1 inline text-steel-deep" aria-hidden />
-                        {s.city}
-                      </p>
-                    </div>
+                  <div className="flex flex-col items-center gap-3">
+                    <h3 className="text-3xl font-semibold text-light-text">
+                      {s.name}
+                      {s.isHeadquarter ? (
+                        <span className="ml-2 rounded-full bg-white px-3 py-1 align-middle text-xs font-medium text-white">
+                          Sede principal
+                        </span>
+                      ) : null}
+                    </h3>
+                    <p className="text-base font-medium text-light-muted">
+                      <MapPin size={16} className="mr-1 inline text-steel-deep" aria-hidden />
+                      {s.city}
+                    </p>
                     {s.warranty ? (
-                      <span className="shrink-0 rounded-full border border-black/15 px-3 py-1 text-xs text-light-muted">
+                      <span className="rounded-full border border-black/15 px-3 py-1 text-sm text-light-muted">
                         Garantía
                       </span>
                     ) : null}
                   </div>
                   {s.address ? (
-                    <p className="mt-3 text-[15px] text-light-text">{s.address}</p>
+                    <p className="mt-3 text-[17px] text-light-text">{s.address}</p>
                   ) : null}
                   {s.services.length > 0 ? (
-                    <ul className="mt-4 flex flex-wrap gap-2">
+                    <ul className="mt-4 flex flex-wrap justify-center gap-2">
                       {s.services.map((x) => (
                         <li
                           key={x}
-                          className="rounded-full border border-black/12 px-3 py-1 text-xs text-light-muted"
+                          className="rounded-full border border-black/12 px-3 py-1 text-sm text-light-muted"
                         >
                           {x}
                         </li>
                       ))}
                     </ul>
                   ) : null}
-                  <div className="mt-6 flex flex-wrap gap-3">
+                  <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                     <a
                       href={waLink(`Hola TECNOVO, quiero agendar servicio técnico en ${s.name} (${s.city}).`, whatsapp)}
                       target="_blank"
@@ -145,7 +143,7 @@ export default async function TallerPage() {
                       </a>
                     ) : null}
                     {s.phone ? (
-                      <a href={`tel:${s.phone.replace(/\s/g, "")}`} className="px-2 py-2 text-sm text-light-muted">
+                      <a href={`tel:${s.phone.replace(/\s/g, "")}`} className="px-2 py-2 text-base font-medium text-black">
                         {s.phone}
                       </a>
                     ) : null}

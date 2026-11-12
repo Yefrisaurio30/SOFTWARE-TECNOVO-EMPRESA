@@ -110,7 +110,7 @@ async function main() {
       name: "TECNOVO Sede Principal",
       city: "Villavicencio, Meta",
       address: "Sede principal TECNOVO",
-      phone: "312 277 9324",
+      phone: "310 263 6088",
       mapsUrl: "https://maps.app.goo.gl/fCfpvA8viDZwy6nr6",
       services: ["Mecánica general", "Diagnóstico eléctrico", "Cambio de batería", "Repuestos originales"],
       warranty: true,
