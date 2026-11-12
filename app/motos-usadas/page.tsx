@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getBrandsByType, getCatalog } from "@/lib/products";
+import { getCatalog } from "@/lib/products";
 import { pageHref, parseFilters } from "@/lib/catalog-params";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { Filters } from "@/components/catalog/filters";
@@ -19,10 +19,7 @@ type SP = Record<string, string | string[] | undefined>;
 export default async function UsadasPage({ searchParams }: { searchParams: Promise<SP> }) {
   const raw = await searchParams;
   const { filters, values } = parseFilters(raw);
-  const [{ items, total, pages, page }, brands] = await Promise.all([
-    getCatalog(["MOTO_USADA"], filters),
-    getBrandsByType(["MOTO_USADA"]),
-  ]);
+  const { items, total, pages, page } = await getCatalog(["MOTO_USADA"], filters);
 
   return (
     <main className="bg-white py-10 text-text md:py-14">
@@ -34,12 +31,12 @@ export default async function UsadasPage({ searchParams }: { searchParams: Promi
         />
         <Link
           href="/publicar"
-          className="mt-6 inline-flex items-center gap-2 rounded-full border border-steel/50 px-5 py-2.5 text-sm text-steel hover:bg-steel/10"
+          className="mt-6 inline-flex items-center gap-2 rounded-full bg-steel px-8 py-4 text-lg font-semibold text-black shadow-md transition hover:scale-[1.03]"
         >
           ¿Tienes una moto para vender? Publícala aquí
         </Link>
         <div className="mt-8">
-          <Filters variant="usadas" brands={brands} values={values} clearHref="/motos-usadas" />
+          <Filters values={values} clearHref="/motos-usadas" />
         </div>
         <div className="mt-8">
           {items.length === 0 ? (

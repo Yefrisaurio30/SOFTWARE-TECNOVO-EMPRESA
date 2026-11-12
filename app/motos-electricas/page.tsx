@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getBrandsByType, getCatalog } from "@/lib/products";
+import { getCatalog } from "@/lib/products";
 import { pageHref, parseFilters } from "@/lib/catalog-params";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { Filters } from "@/components/catalog/filters";
@@ -22,10 +22,7 @@ export default async function ElectricasPage({
 }) {
   const raw = await searchParams;
   const { filters, values } = parseFilters(raw);
-  const [{ items, total, pages, page }, brands] = await Promise.all([
-    getCatalog(["MOTO_NUEVA"], filters),
-    getBrandsByType(["MOTO_NUEVA"]),
-  ]);
+  const { items, total, pages, page } = await getCatalog(["MOTO_NUEVA"], filters);
 
   return (
     <main className="bg-white py-10 text-text md:py-14">
@@ -36,7 +33,7 @@ export default async function ElectricasPage({
           description="Autonomía real, batería extraíble y garantía escrita."
         />
         <div className="mt-8">
-          <Filters variant="nuevas" brands={brands} values={values} clearHref="/motos-electricas" />
+          <Filters values={values} clearHref="/motos-electricas" />
         </div>
         <div className="mt-8">
           {items.length === 0 ? (

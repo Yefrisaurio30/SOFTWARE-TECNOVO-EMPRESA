@@ -40,7 +40,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </a>
         <MotionProvider>
         <AuthProvider>
-        <Navbar />
+        {/* Banda verde de marca: la barra de navegación vive dentro de ella. */}
+        <div className="fixed inset-x-0 top-0 z-40 h-24 bg-[#29F506]">
+          <Navbar />
+        </div>
         <div id="contenido" className="pt-24">
           {children}
         </div>

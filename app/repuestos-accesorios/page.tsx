@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getBrandsByType, getCatalog } from "@/lib/products";
+import { getCatalog } from "@/lib/products";
 import { pageHref, parseFilters } from "@/lib/catalog-params";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { Filters } from "@/components/catalog/filters";
@@ -18,10 +18,7 @@ type SP = Record<string, string | string[] | undefined>;
 export default async function RepuestosPage({ searchParams }: { searchParams: Promise<SP> }) {
   const raw = await searchParams;
   const { filters, values } = parseFilters(raw);
-  const [{ items, total, pages, page }, brands] = await Promise.all([
-    getCatalog(["REPUESTO", "ACCESORIO"], filters),
-    getBrandsByType(["REPUESTO", "ACCESORIO"]),
-  ]);
+  const { items, total, pages, page } = await getCatalog(["REPUESTO", "ACCESORIO"], filters);
 
   return (
     <main className="bg-white py-10 text-text md:py-14">
@@ -32,12 +29,7 @@ export default async function RepuestosPage({ searchParams }: { searchParams: Pr
           description="Originales y compatibles, con referencia y modelos aplicables."
         />
         <div className="mt-8">
-          <Filters
-            variant="repuestos"
-            brands={brands}
-            values={values}
-            clearHref="/repuestos-accesorios"
-          />
+          <Filters values={values} clearHref="/repuestos-accesorios" />
         </div>
         <div className="mt-8">
           {items.length === 0 ? (

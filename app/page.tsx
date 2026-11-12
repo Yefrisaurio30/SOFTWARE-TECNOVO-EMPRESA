@@ -28,8 +28,6 @@ export default async function Home() {
 
   return (
     <main>
-      {/* Relleno verde: une la barra de navegación con el banner sin costuras. */}
-      <div aria-hidden className="h-24 bg-[#29F506]" />
       <HeroBanner />
       <WhyTecnovo />
       <ModelGrid products={gridModels} />

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { getCatalog, getBrandsByType } from "@/lib/products";
+import { getCatalog } from "@/lib/products";
 import { pageHref, parseFilters } from "@/lib/catalog-params";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { Filters } from "@/components/catalog/filters";
@@ -19,10 +19,10 @@ type SP = Record<string, string | string[] | undefined>;
 export default async function BuscarPage({ searchParams }: { searchParams: Promise<SP> }) {
   const raw = await searchParams;
   const { filters, values } = parseFilters(raw);
-  const [{ items, total, pages, page }, brands] = await Promise.all([
-    getCatalog(["MOTO_NUEVA", "MOTO_USADA", "REPUESTO", "ACCESORIO"], filters),
-    getBrandsByType(["MOTO_NUEVA", "MOTO_USADA", "REPUESTO", "ACCESORIO"]),
-  ]);
+  const { items, total, pages, page } = await getCatalog(
+    ["MOTO_NUEVA", "MOTO_USADA", "REPUESTO", "ACCESORIO"],
+    filters,
+  );
 
   return (
     <main className="bg-white py-10 text-text md:py-14">
@@ -33,7 +33,7 @@ export default async function BuscarPage({ searchParams }: { searchParams: Promi
           description={`${total} resultado${total === 1 ? "" : "s"}.`}
         />
         <div className="mt-8">
-          <Filters variant="nuevas" brands={brands} values={values} clearHref="/buscar" />
+          <Filters values={values} clearHref="/buscar" />
         </div>
         <div className="mt-8">
           {items.length === 0 ? (
