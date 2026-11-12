@@ -23,7 +23,7 @@ export default function DistribuidoresPage() {
             className="mt-3 max-w-3xl font-semibold"
             style={{ fontSize: "clamp(40px, 7vw, 88px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
           >
-            Vende eléctrico en tu ciudad.
+            Quiero ser distribuidor mayorista
           </h1>
           <p className="mt-4 max-w-xl text-[17px]/relaxed text-text-muted">
             Precios mayoristas en motos nuevas, material comercial y respaldo de repuestos.

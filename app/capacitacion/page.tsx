@@ -41,11 +41,10 @@ export default async function CapacitacionPage() {
             className="mx-auto mt-3 max-w-4xl font-semibold"
             style={{ fontSize: "clamp(40px, 7vw, 88px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
           >
-            Aprende todo de tu moto eléctrica.
+            CONVIERTE EN UN EXPERTO DEL SERVICIO TECNICO ESPECIALIZADO EN MOVILIDAD ELECTRICA.
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[17px]/relaxed text-text-muted">
-            Cursos y guías para manejar, mantener y vender TECNOVO. Videos de fondo y
-            próximas fechas publicadas por TECNOVO.
+            Cursos , guias y talleres en mecánica de motos electricas.
           </p>
         </Container>
       </section>
