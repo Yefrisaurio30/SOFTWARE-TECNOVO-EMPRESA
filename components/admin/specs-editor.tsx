@@ -105,7 +105,7 @@ export function SpecsEditor({ type, initial }: { type: ProductType; initial: Spe
       ) : (
         <ul className="flex flex-col gap-3">
           {extras.map((k) => (
-            <li key={k} className="grid grid-cols-[1fr_1fr_auto] gap-2">
+            <li key={k} className="grid grid-cols-1 gap-2 sm:grid-cols-[1fr_1fr_auto]">
               <input
                 aria-label="Nombre del dato"
                 defaultValue={k}

@@ -13,7 +13,7 @@ export default async function AdminCapacitacionPage() {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-3xl font-semibold tracking-tight">Capacitación ({courses.length})</h1>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           <Link href="/capacitacion" className="rounded-full border border-white/15 px-5 py-2.5 text-sm">
             Ver /capacitacion
           </Link>

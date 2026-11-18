@@ -29,7 +29,7 @@ export default async function UsuariosPage() {
           <ul className="mt-4 flex flex-col gap-4">
             {pending.map((p) => (
               <li key={p.id} className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 p-4 text-sm">
-                <div className="min-w-52 flex-1">
+                <div className="min-w-0 flex-1">
                   <p className="font-medium">{p.company} · NIT {p.nit}</p>
                   <p className="text-text-muted">{p.user.name} · {p.user.email} · {p.city} · {p.phone}</p>
                 </div>

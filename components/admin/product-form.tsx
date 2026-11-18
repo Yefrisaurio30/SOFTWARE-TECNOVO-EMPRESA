@@ -148,7 +148,7 @@ export function ProductForm({ product }: { product?: Product | null }) {
           {uploading ? <p className="mt-2 text-sm text-text-muted">Subiendo…</p> : null}
           {uploadError ? <p role="alert" className="mt-2 text-sm text-danger">{uploadError}</p> : null}
           {images.length > 0 ? (
-            <ul className="mt-3 grid grid-cols-4 gap-3">
+            <ul className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-4">
               {images.map((src) => (
                 <li key={src} className="relative">
                   <Image

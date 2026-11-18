@@ -12,7 +12,7 @@ export default async function ProductosPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-3xl font-semibold tracking-tight">Productos ({products.length})</h1>
         <Link
           href="/admin/productos/nuevo"

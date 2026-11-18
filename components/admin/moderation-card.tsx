@@ -71,7 +71,7 @@ export function ModerationCard({ listing }: { listing: Pending }) {
           )}
         </div>
 
-        <div className="min-w-64 flex-1">
+        <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h3 className="text-lg font-semibold">{listing.name}</h3>
             <p className="text-xl font-semibold tabular-nums">{formatCOP(listing.priceRetail)}</p>
