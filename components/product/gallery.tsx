@@ -106,21 +106,21 @@ export function Gallery({
               type="button"
               onClick={prev}
               aria-label="Foto anterior"
-              className="absolute top-1/2 left-3 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-white/60 text-white backdrop-blur transition hover:scale-[1.05] hover:bg-white/80"
+              className="absolute top-1/2 left-3 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-graphite/85 text-white shadow-lg backdrop-blur transition hover:scale-[1.08] hover:bg-graphite active:scale-95"
             >
-              <ChevronLeft size={20} aria-hidden />
+              <ChevronLeft size={24} aria-hidden />
             </button>
             <button
               type="button"
               onClick={next}
               aria-label="Foto siguiente"
-              className="absolute top-1/2 right-3 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-white/60 text-white backdrop-blur transition hover:scale-[1.05] hover:bg-white/80"
+              className="absolute top-1/2 right-3 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-graphite/85 text-white shadow-lg backdrop-blur transition hover:scale-[1.08] hover:bg-graphite active:scale-95"
             >
-              <ChevronRight size={20} aria-hidden />
+              <ChevronRight size={24} aria-hidden />
             </button>
             <p
               aria-live="polite"
-              className="absolute right-3 bottom-3 rounded-full bg-white/60 px-3 py-1 text-xs font-medium text-white tabular-nums backdrop-blur"
+              className="absolute right-3 bottom-3 rounded-full bg-graphite/85 px-3 py-1 text-xs font-medium text-white tabular-nums backdrop-blur"
             >
               {active + 1} / {images.length}
             </p>
@@ -138,8 +138,8 @@ export function Gallery({
               <span
                 key={src}
                 className={cn(
-                  "h-1.5 rounded-full transition-all duration-200",
-                  i === active ? "w-6 bg-white" : "w-1.5 bg-white/30",
+                  "h-2 rounded-full transition-all duration-200",
+                  i === active ? "w-6 bg-steel-deep" : "w-2 bg-zinc-300",
                 )}
               />
             ))}
