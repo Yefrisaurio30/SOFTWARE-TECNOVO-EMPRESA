@@ -32,19 +32,19 @@ export default async function TallerPage() {
     description="Mantenimiento, diagnóstico y repuestos originales para tu moto eléctrica."
   />
   <div className="mt-10 grid gap-4 sm:grid-cols-3">
-    <div className="rounded-[24px] border border-steel/40 bg-surface p-6">
+    <div className="rounded-[24px] border border-steel/40 bg-zinc-200 p-6">
       <ShieldCheck size={26} strokeWidth={1.5} className="text-steel" aria-hidden />
       <p className="mt-3 text-3xl font-semibold text-black">{warrantyYears} años</p>
       <p className="mt-1 text-sm text-text-muted">de garantía en defectos de fabrica</p>
     </div>
-    <div className="rounded-[24px] border border-zinc-400/20 bg-surface p-6">
+    <div className="rounded-[24px] border border-zinc-400/20 bg-zinc-200 p-6">
       <Wrench size={26} strokeWidth={1.5} className="text-steel" aria-hidden />
       <p className="mt-3 text-3xl font-semibold text-black">{services.length}</p>
       <p className="mt-1 text-sm text-text-muted">
         {services.length === 1 ? "punto de servicio" : "puntos de servicio"} activos
       </p>
     </div>
-    <div className="rounded-[24px] border border-zinc-400/20 bg-surface p-6">
+    <div className="rounded-[24px] border border-zinc-400/20 bg-zinc-200 p-6">
       <Phone size={26} strokeWidth={1.5} className="text-steel" aria-hidden />
       <p className="mt-3 text-3xl font-semibold text-black">WhatsApp</p>
       <p className="mt-1 text-sm text-text-muted">agenda tu cita sin costo</p>

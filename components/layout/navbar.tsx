@@ -38,7 +38,7 @@ export function Navbar() {
         aria-label="Navegación principal"
         className={cn(
           "flex w-full items-center gap-3 rounded-full border border-white/10 bg-[#29F506]/70 backdrop-blur-xl transition-all duration-200",
-          compact ? "h-14 px-4" : "h-20 px-6",
+          compact ? "h-16 px-5" : "h-22 px-7",
         )}
         style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,.06)" }}
       >
@@ -46,19 +46,19 @@ export function Navbar() {
           <Image
             src="/brand/tecnovo-logo-negro.png"
             alt="TECNOVO"
-            width={compact ? 160 : 210}
-            height={compact ? 34 : 44}
+            width={compact ? 182 : 240}
+            height={compact ? 38 : 50}
             quality={80}
             priority
           />
         </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-1 xl:flex">
           {LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="rounded-full px-2.5 py-2 text-base font-medium text-text-muted transition hover:bg-white/5 hover:text-electric"
+              className="rounded-full px-3 py-2 text-[17px] font-medium text-text-muted transition hover:bg-white/5 hover:text-electric"
             >
               {l.label}
             </Link>
@@ -129,7 +129,7 @@ export function Navbar() {
         ) : null}
 
         <button
-          className="grid size-11 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5 text-text lg:hidden"
+          className="grid size-11 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5 text-text xl:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
@@ -139,7 +139,7 @@ export function Navbar() {
       </nav>
 
       {open ? (
-        <div className="absolute inset-x-4 top-full mt-2 z-50 rounded-2xl border border-white/10 bg-graphite p-3 lg:hidden">
+        <div className="absolute inset-x-4 top-full mt-2 z-50 rounded-2xl border border-white/10 bg-graphite p-3 xl:hidden">
           {LINKS.map((l) => (
             <Link
               key={l.href}
