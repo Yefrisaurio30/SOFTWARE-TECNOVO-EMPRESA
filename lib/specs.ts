@@ -1,4 +1,28 @@
 import type { Specs } from "@/lib/products";
+import { formatCOP } from "@/lib/money";
+
+/**
+ * Specs internas de cálculo (comisión del marketplace). Solo las ve el
+ * SUPERADMIN: al público jamás — ni en la ficha del detalle ni en tarjetas.
+ */
+export const INTERNAL_SPEC_KEYS = [
+  "comision_pct",
+  "comision_cop",
+  "ganancia_vendedor",
+];
+
+export function isInternalSpec(key: string): boolean {
+  return INTERNAL_SPEC_KEYS.includes(key);
+}
+
+/** Copia de specs sin las claves internas, para render público. */
+export function publicSpecs(specs: Specs): Specs {
+  const out: Specs = {};
+  for (const [k, v] of Object.entries(specs)) {
+    if (!isInternalSpec(k)) out[k] = v;
+  }
+  return out;
+}
 
 const LABELS: Record<string, string> = {
   autonomia: "Autonomía",
@@ -17,6 +41,10 @@ const LABELS: Record<string, string> = {
   garantia: "Garantía",
   referencia: "Referencia",
   compatibilidad: "Compatible con",
+  // Internas (solo admin):
+  comision_pct: "Comisión",
+  comision_cop: "Comisión (COP)",
+  ganancia_vendedor: "Ganancia del vendedor",
 };
 
 const UNITS: Record<string, string> = {
@@ -26,6 +54,7 @@ const UNITS: Record<string, string> = {
   tiempo_carga_h: " h",
   kilometraje_km: " km",
   estado_1_10: "/10",
+  comision_pct: " %",
 };
 
 export function specLabel(key: string): string {
@@ -34,6 +63,7 @@ export function specLabel(key: string): string {
 
 export function specValue(key: string, value: string | number): string {
   if (typeof value === "number") {
+    if (key === "comision_cop" || key === "ganancia_vendedor") return formatCOP(value);
     if (key === "anio") return String(value);
     const formatted = new Intl.NumberFormat("es-CO").format(value);
     return `${formatted}${UNITS[key] ?? ""}`;
@@ -41,16 +71,20 @@ export function specValue(key: string, value: string | number): string {
   return value;
 }
 
-/** Primeras N specs para tarjetas compactas. */
+/** Primeras N specs para tarjetas compactas. Nunca incluye las internas. */
 export function topSpecs(specs: Specs, n = 2): Array<[string, string]> {
-  return Object.entries(specs)
+  return Object.entries(publicSpecs(specs))
     .slice(0, n)
     .map(([k, v]) => [specLabel(k), specValue(k, v)]);
 }
 
-/** Todas las specs para la tabla de detalle. */
-export function allSpecs(specs: Specs): Array<[string, string]> {
-  return Object.entries(specs).map(([k, v]) => [specLabel(k), specValue(k, v)]);
+/**
+ * Todas las specs para la tabla de detalle. Las internas (comisión) solo
+ * entran si el llamador es el panel del admin.
+ */
+export function allSpecs(specs: Specs, includeInternal = false): Array<[string, string]> {
+  const source = includeInternal ? specs : publicSpecs(specs);
+  return Object.entries(source).map(([k, v]) => [specLabel(k), specValue(k, v)]);
 }
 
 /** Claves que en la BD son números (el resto son texto). */

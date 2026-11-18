@@ -10,6 +10,7 @@ import {
   isCatalogCategory,
 } from "@/lib/products";
 import { formatCOP } from "@/lib/money";
+import { auth } from "@/lib/auth";
 import { getWhatsAppNumber } from "@/lib/site-settings";
 import { DirectPurchaseButton } from "@/components/purchase/direct-purchase";
 import { Container } from "@/components/ui/section";
@@ -57,6 +58,10 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
   if (!product || !CATEGORY_TO_TYPES[categoria].includes(product.type)) notFound();
 
   const specs = getSpecs(product);
+  // La comisión y la ganancia del vendedor solo aparecen en la ficha cuando
+  // el que mira es el SUPERADMIN; para el público se filtran en allSpecs.
+  const session = await auth();
+  const isAdmin = session?.user?.role === "SUPERADMIN";
   const related = await getRelatedProducts(product.type, product.id, 4);
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const url = `${siteUrl}${detailHref(product)}`;
@@ -150,7 +155,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             </div>
             <div className="mt-8">
               <h2 className="mb-3 text-lg font-semibold">Ficha técnica</h2>
-              <SpecsTable specs={specs} />
+              <SpecsTable specs={specs} admin={isAdmin} />
             </div>
           </div>
         </div>

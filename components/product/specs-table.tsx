@@ -1,8 +1,8 @@
 import { allSpecs } from "@/lib/specs";
 import type { Specs } from "@/lib/products";
 
-export function SpecsTable({ specs }: { specs: Specs }) {
-  const rows = allSpecs(specs);
+export function SpecsTable({ specs, admin = false }: { specs: Specs; admin?: boolean }) {
+  const rows = allSpecs(specs, admin);
   if (rows.length === 0) return null;
   return (
     <dl className="flex flex-col text-[15px]">
