@@ -39,7 +39,7 @@ export default async function CapacitacionPage() {
           <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Capacitación</p>
           <h1
             className="mx-auto mt-3 max-w-4xl font-semibold"
-            style={{ fontSize: "clamp(40px, 7vw, 88px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
+            style={{ fontSize: "clamp(28px, 7vw, 88px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
           >
             CONVIERTE EN UN EXPERTO DEL SERVICIO TECNICO ESPECIALIZADO EN MOVILIDAD ELECTRICA.
           </h1>
@@ -52,7 +52,7 @@ export default async function CapacitacionPage() {
       <Section>
         <Container>
           {courses.length === 0 ? (
-            <div className="rounded-[28px] border border-white/10 bg-surface p-12 text-center">
+            <div className="rounded-[28px] border border-white/10 bg-surface p-6 text-center md:p-12">
               <Video size={36} strokeWidth={1.25} className="mx-auto text-text-faint" aria-hidden />
               <h2 className="mt-4 text-xl font-semibold">Próximamente</h2>
               <p className="mx-auto mt-2 max-w-md text-[15px] text-text-muted">

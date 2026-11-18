@@ -66,7 +66,7 @@ export default async function TallerPage() {
           />
           <SectionHeading tone="light" eyebrow="Red de servicio" title="Dónde te atendemos." />
           {services.length === 0 ? (
-            <div className="mt-10 rounded-[28px] border border-black/10 bg-light-surface p-10 text-center">
+            <div className="mt-10 rounded-[28px] border border-black/10 bg-light-surface p-6 text-center md:p-10">
               <p className="text-lg font-semibold text-light-text">Estamos ampliando la red</p>
               <p className="mt-2 text-light-muted">
                 Escríbenos y te decimos cuándo hay servicio cerca de ti.
@@ -86,10 +86,10 @@ export default async function TallerPage() {
               {services.map((s) => (
                 <article
                   key={s.id}
-                  className="flex flex-col items-center rounded-[28px] border border-black/10 bg-light-surface p-10 text-center"
+                  className="flex flex-col items-center rounded-[28px] border border-black/10 bg-light-surface p-6 text-center md:p-10"
                 >
                   <div className="flex flex-col items-center gap-3">
-                    <h3 className="text-3xl font-semibold text-light-text">
+                    <h3 className="text-3xl font-semibold break-words text-light-text">
                       {s.name}
                       {s.isHeadquarter ? (
                         <span className="ml-2 rounded-full bg-white px-3 py-1 align-middle text-xs font-medium text-white">
@@ -157,7 +157,7 @@ export default async function TallerPage() {
 
       <Section>
         <Container>
-          <div className="flex flex-col items-start gap-6 rounded-[28px] bg-surface p-10 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col items-start gap-6 rounded-[28px] bg-surface p-6 md:flex-row md:items-center md:justify-between md:p-10">
             <div>
               <h2 className="text-3xl font-semibold tracking-tight">¿Necesitas mantenimiento?</h2>
               <p className="mt-2 max-w-md text-[15px] text-text-muted">

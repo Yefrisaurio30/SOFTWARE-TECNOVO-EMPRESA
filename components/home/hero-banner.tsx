@@ -104,7 +104,7 @@ export function HeroBanner() {
               />
               <Link
                 href="/motos-electricas"
-                className="absolute bottom-6 left-6 z-10 inline-flex items-center gap-2 rounded-full bg-[#29F506] px-8 py-4 text-lg font-semibold tracking-wide text-white uppercase shadow-xl transition hover:scale-[1.03] active:scale-[0.98] md:bottom-10 md:left-10 md:px-10 md:py-5 md:text-xl"
+                className="absolute bottom-6 left-6 z-10 hidden items-center gap-2 rounded-full bg-[#29F506] px-8 py-4 text-lg font-semibold tracking-wide text-white uppercase shadow-xl transition hover:scale-[1.03] active:scale-[0.98] md:inline-flex md:bottom-10 md:left-10 md:px-10 md:py-5 md:text-xl"
               >
                 Catálogo
               </Link>
@@ -112,6 +112,16 @@ export function HeroBanner() {
           </SwiperSlide>
         ))}
       </Swiper>
+      {/* En móvil el botón no tapa la imagen: queda entre el carrusel y
+          "Por qué TECNOVO". En escritorio sigue sobre el banner. */}
+      <div className="px-4 pt-4 md:hidden">
+        <Link
+          href="/motos-electricas"
+          className="flex w-full items-center justify-center gap-2 rounded-full bg-[#29F506] px-8 py-4 text-lg font-semibold tracking-wide text-white uppercase shadow-xl transition active:scale-[0.98]"
+        >
+          Catálogo
+        </Link>
+      </div>
       <style jsx global>{`
         .hero-swiper .swiper-button-next,
         .hero-swiper .swiper-button-prev {

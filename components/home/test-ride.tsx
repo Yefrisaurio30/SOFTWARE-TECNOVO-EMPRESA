@@ -6,7 +6,7 @@ export function TestRide({ number }: { number: string }) {
   return (
     <section aria-label="Prueba de manejo" className="bg-light pb-24 text-light-text md:pb-32">
       <Container>
-        <div className="flex flex-col items-start gap-6 rounded-[28px] bg-white p-10 text-text md:flex-row md:items-center md:justify-between md:p-14">
+        <div className="flex flex-col items-start gap-6 rounded-[28px] bg-white p-6 text-text md:flex-row md:items-center md:justify-between md:p-14">
           <div>
             <h2
               className="font-semibold"

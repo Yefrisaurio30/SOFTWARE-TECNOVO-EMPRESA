@@ -17,7 +17,7 @@ export function CompareTray() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-xl items-center gap-3 rounded-full border border-white/10 bg-graphite/95 py-2 pr-2 pl-5 text-text backdrop-blur-xl"
+          className="fixed inset-x-4 bottom-4 z-[60] mx-auto flex max-w-xl items-center gap-3 rounded-full border border-white/10 bg-graphite/95 py-2 pr-2 pl-5 text-text backdrop-blur-xl"
           role="region"
           aria-label="Comparador"
         >

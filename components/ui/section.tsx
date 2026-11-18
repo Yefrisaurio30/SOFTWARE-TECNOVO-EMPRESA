@@ -56,8 +56,8 @@ export function SectionHeading({
         </p>
       ) : null}
       <h2
-        className="mt-3 font-semibold"
-        style={{ fontSize: "clamp(32px, 5vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
+        className="mt-3 font-semibold break-words"
+        style={{ fontSize: "clamp(26px, 5vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
       >
         {title}
       </h2>

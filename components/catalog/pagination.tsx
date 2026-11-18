@@ -17,11 +17,11 @@ export function Pagination({
     );
   }
   return (
-    <nav aria-label="Paginación" className="flex items-center justify-between gap-4">
+    <nav aria-label="Paginación" className="flex flex-wrap items-center justify-between gap-3">
       <p className="text-sm text-text-muted" role="status">
         Página {page} de {pages} · {total} {total === 1 ? "producto" : "productos"}
       </p>
-      <div className="flex gap-2">
+      <div className="flex shrink-0 gap-2">
         {page > 1 ? (
           <a
             href={buildHref(page - 1)}

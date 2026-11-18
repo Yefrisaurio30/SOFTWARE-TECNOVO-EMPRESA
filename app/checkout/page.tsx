@@ -20,7 +20,7 @@ export default function CheckoutPage() {
       <main className="bg-white py-10 text-text md:py-14">
         <Container>
           <SectionHeading eyebrow="Compra" title="Checkout." />
-          <div className="mt-8 rounded-[28px] border border-white/10 bg-surface p-10 text-center">
+          <div className="mt-8 rounded-[28px] border border-white/10 bg-surface p-6 text-center md:p-10">
             <p className="text-lg font-semibold">No hay nada para comprar</p>
             <Link
               href="/motos-electricas"

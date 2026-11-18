@@ -30,8 +30,8 @@ export function WholesaleCard({ product }: { product: Product }) {
             </div>
           ))}
         </dl>
-        <div className="mt-auto flex items-end justify-between gap-2 pt-3">
-          <div>
+        <div className="mt-auto flex flex-wrap items-end justify-between gap-x-2 gap-y-3 pt-3">
+          <div className="min-w-0">
             <p className="text-2xl font-semibold text-steel-deep tabular-nums">
               {product.priceWholesale != null ? formatCOP(product.priceWholesale) : "—"}
             </p>

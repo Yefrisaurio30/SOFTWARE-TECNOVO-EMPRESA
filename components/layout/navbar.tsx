@@ -38,18 +38,24 @@ export function Navbar() {
         aria-label="Navegación principal"
         className={cn(
           "flex w-full items-center gap-3 rounded-full border border-white/10 bg-[#29F506]/70 backdrop-blur-xl transition-all duration-200",
-          compact ? "h-16 px-5" : "h-22 px-7",
+          compact ? "h-16 px-4 md:px-5" : "h-22 px-4 md:px-7",
         )}
         style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,.06)" }}
       >
-        <Link href="/" className="flex items-center gap-2" aria-label="TECNOVO inicio">
+        <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="TECNOVO inicio">
           <Image
             src="/brand/tecnovo-logo-negro.png"
             alt="TECNOVO"
-            width={compact ? 182 : 240}
-            height={compact ? 38 : 50}
+            width={240}
+            height={50}
             quality={80}
             priority
+            // En móvil el ancho real lo manda la altura en CSS (h-7/h-9);
+            // los atributos solo fijan la proporción natural del archivo.
+            className={cn(
+              "w-auto",
+              compact ? "h-7 md:h-10" : "h-8 sm:h-9 md:h-[50px]",
+            )}
           />
         </Link>
 
@@ -74,14 +80,14 @@ export function Navbar() {
           <label htmlFor="nav-search" className="sr-only">
             Buscar motos y repuestos
           </label>
-          <div className="flex w-full items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
-            <Search size={17} className="shrink-0 text-text-faint" aria-hidden />
+          <div className="flex w-full items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2">
+            <Search size={18} className="shrink-0 text-text-faint" aria-hidden />
             <input
               id="nav-search"
               name="q"
               type="search"
               placeholder="Buscar…"
-              className="w-full bg-transparent text-base text-text outline-none placeholder:text-text-faint"
+              className="w-full bg-transparent text-[17px] text-text outline-none placeholder:text-text-faint"
             />
           </div>
         </form>
@@ -94,10 +100,10 @@ export function Navbar() {
           <div className="hidden shrink-0 items-center gap-2 md:flex">
             {role === "SUPERADMIN" ? (
               <>
-                <span className="max-w-28 truncate text-base text-text-muted">Hola, {firstName}</span>
+                <span className="max-w-32 truncate text-[17px] text-text-muted">Hola, {firstName}</span>
                 <Link
                   href="/admin"
-                  className="rounded-full bg-white px-5 py-2 text-base font-medium text-[#000] transition hover:scale-[1.02]"
+                  className="rounded-full bg-white px-5 py-2 text-[17px] font-medium text-[#000] transition hover:scale-[1.02]"
                 >
                   Panel
                 </Link>
@@ -105,16 +111,16 @@ export function Navbar() {
             ) : role === "MAYORISTA" || role === "DISTRIBUIDOR" ? (
               <Link
                 href="/distribuidores/catalogo"
-                className="rounded-full bg-white px-5 py-2 text-base font-medium text-[#000] transition hover:scale-[1.02]"
+                className="rounded-full bg-white px-5 py-2 text-[17px] font-medium text-[#000] transition hover:scale-[1.02]"
               >
                 Mayorista
               </Link>
             ) : (
-              <span className="max-w-28 truncate text-base text-text-muted">Hola, {firstName}</span>
+              <span className="max-w-32 truncate text-[17px] text-text-muted">Hola, {firstName}</span>
             )}
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="rounded-full px-3 py-2 text-base text-text-muted transition hover:bg-white/5 hover:text-text"
+              className="rounded-full px-3 py-2 text-[17px] font-medium text-text-muted transition hover:bg-white/5 hover:text-text"
             >
               Salir
             </button>
@@ -122,7 +128,7 @@ export function Navbar() {
         ) : status === "unauthenticated" ? (
           <Link
             href="/login"
-            className="hidden shrink-0 rounded-full border border-white/15 px-5 py-2 text-base text-text transition hover:border-white/30 md:block"
+            className="hidden shrink-0 rounded-full border border-white/15 px-5 py-2 text-[17px] font-medium text-text transition hover:border-white/30 md:block"
           >
             Entrar
           </Link>

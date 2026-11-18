@@ -107,8 +107,8 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               {CATEGORY_LABEL[categoria]} · {product.brand}
             </p>
             <h1
-              className="mt-2 font-semibold"
-              style={{ fontSize: "clamp(38px, 5.5vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
+              className="mt-2 font-semibold break-words"
+              style={{ fontSize: "clamp(30px, 5.5vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
             >
               {product.name}
             </h1>
