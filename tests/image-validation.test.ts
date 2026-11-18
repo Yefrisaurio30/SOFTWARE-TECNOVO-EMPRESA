@@ -59,11 +59,16 @@ describe("checkImage", () => {
     if (!r.ok) expect(r.reason).toBe("no-es-imagen");
   });
 
-  it("rechaza un SVG aunque se anuncie como image/svg+xml", () => {
+  it("reconoce TIFF por su cabecera II* o MM*", () => {
+    expect(detectImage(bytes(0x49, 0x49, 0x2a, 0x00, 0x00))?.mime).toBe("image/tiff");
+    expect(detectImage(bytes(0x4d, 0x4d, 0x00, 0x2a, 0x00))?.mime).toBe("image/tiff");
+  });
+
+  it("reconoce SVG (se rasteriza a WebP antes de guardar, sin riesgo de XSS)", () => {
     const svg = pad([0x3c, 0x73, 0x76, 0x67, 0x20, 0x78, 0x6d, 0x6c, 0x3e]);
     const r = checkImage(svg);
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toBe("no-es-imagen");
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.detected.mime).toBe("image/svg+xml");
   });
 
   it("rechaza archivo vacío y archivo mayor al tope", () => {

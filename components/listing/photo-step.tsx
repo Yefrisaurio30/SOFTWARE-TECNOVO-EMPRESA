@@ -152,13 +152,13 @@ export function PhotoStep({
               id="li-photos"
               ref={fileRef}
               type="file"
-              accept="image/*"
+              accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.avif,.heic,.heif,.bmp,.tif,.tiff,.svg"
               multiple
               className="sr-only"
               onChange={(e) => e.target.files && upload(e.target.files)}
             />
             <p className="mt-2 text-xs text-text-faint">
-              Hasta {MAX_FILES} fotos, {formatKB(MAX_TOTAL_BYTES)} en total y {formatKB(MAX_FILE_BYTES)} por foto. JPG, PNG, WebP, GIF, AVIF, HEIC o BMP.
+              Hasta {MAX_FILES} fotos, {formatKB(MAX_TOTAL_BYTES)} en total y {formatKB(MAX_FILE_BYTES)} por foto. Cualquier formato: JPG, PNG, WebP, GIF, AVIF, HEIC, BMP, TIFF o SVG. Las fotos se comprimen automáticamente al subirlas.
             </p>
           </div>
         ) : null}

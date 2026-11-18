@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  // sharp se usa en las rutas de subida para comprimir fotos; mejor dejarlo
+  // fuera del bundle para que use los binarios nativos precompilados.
+  serverExternalPackages: ["sharp"],
   images: {
     // Formatos modernos: AVIF primero, WebP como respaldo.
     formats: ["image/avif", "image/webp"],

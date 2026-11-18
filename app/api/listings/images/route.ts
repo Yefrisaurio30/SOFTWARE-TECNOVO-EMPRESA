@@ -8,6 +8,7 @@ import {
   MAX_TOTAL_BYTES,
   overLimitMessage,
 } from "@/lib/image-validation";
+import { compressImage } from "@/lib/image-compress";
 import { getStorage } from "@/lib/storage";
 import { LISTING_DIR } from "@/lib/storage-key";
 
@@ -67,24 +68,30 @@ export async function POST(req: Request) {
   if (!check.ok) {
     const msg =
       check.reason === "no-es-imagen"
-        ? `"${file.name}" no es una imagen válida (JPG, PNG, WebP, GIF, AVIF, HEIC o BMP).`
+        ? `"${file.name}" no es una imagen válida (JPG, PNG, WebP, GIF, AVIF, HEIC, BMP, TIFF o SVG).`
         : check.reason === "vacio"
           ? `"${file.name}" está vacío.`
           : `"${file.name}" supera el máximo por archivo.`;
     return NextResponse.json({ error: msg }, { status: 400 });
   }
-  if (used + check.bytes > MAX_TOTAL_BYTES) {
+
+  // Compresión automática: se reduce y se convierte a WebP antes de contar
+  // el peso y de guardar, así el usuario puede mandar fotos pesadas de su
+  // celular sin quedarse sin cupo del anuncio.
+  const compressed = await compressImage(buffer, check.detected);
+
+  if (used + compressed.buffer.length > MAX_TOTAL_BYTES) {
     return NextResponse.json(
-      { error: overLimitMessage(used + check.bytes - MAX_TOTAL_BYTES) },
+      { error: overLimitMessage(used + compressed.buffer.length - MAX_TOTAL_BYTES) },
       { status: 413 },
     );
   }
-  used += check.bytes;
+  used += compressed.buffer.length;
 
-  const key = `${LISTING_DIR}/${Date.now()}-${randomUUID()}${check.detected.ext}`;
+  const key = `${LISTING_DIR}/${Date.now()}-${randomUUID()}${compressed.ext}`;
   let url: string;
   try {
-    url = await storage.save(key, buffer, check.detected.mime);
+    url = await storage.save(key, compressed.buffer, compressed.mime);
   } catch {
     return NextResponse.json(
       { error: "No se pudo guardar la foto. Intenta de nuevo." },

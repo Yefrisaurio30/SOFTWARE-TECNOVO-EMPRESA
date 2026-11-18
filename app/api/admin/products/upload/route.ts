@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { auth } from "@/lib/auth";
 import { audit } from "@/lib/admin";
 import { checkImage, MAX_PRODUCT_FILE_BYTES } from "@/lib/image-validation";
+import { compressImage } from "@/lib/image-compress";
 import { getStorage } from "@/lib/storage";
 import { PRODUCTS_DIR } from "@/lib/storage-key";
 
@@ -13,18 +14,6 @@ import { PRODUCTS_DIR } from "@/lib/storage-key";
  * aunque cada una pase el limite. El cliente (`components/admin/product-form.tsx`)
  * las manda de a una.
  */
-
-/**
- * Tipos que el optimizador de `next/image` sabe convertir. Un pre-filtro
- * barato sobre lo que declara el navegador.
- */
-const MIME_BY_EXT: Record<string, string> = {
-  "image/jpeg": ".jpg",
-  "image/png": ".png",
-  "image/webp": ".webp",
-  "image/gif": ".gif",
-  "image/avif": ".avif",
-};
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -49,16 +38,12 @@ export async function POST(req: Request) {
   }
 
   const file = files[0];
-  if (!MIME_BY_EXT[file.type]) {
-    return NextResponse.json(
-      { error: `Tipo no permitido: ${file.type || file.name}` },
-      { status: 400 },
-    );
-  }
 
   const bytes = Buffer.from(await file.arrayBuffer());
 
   // El Content-Type del navegador no vale como prueba: se mira el contenido.
+  // Así cualquier formato de imagen real (JPG, PNG, WebP, GIF, AVIF, HEIC,
+  // BMP, TIFF, SVG) pasa, aunque el navegador lo anuncie raro.
   const check = checkImage(bytes, MAX_PRODUCT_FILE_BYTES);
   if (!check.ok) {
     const message =
@@ -70,9 +55,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
-  // La extension la decide lo que realmente es el archivo, no el nombre.
-  const key = `${PRODUCTS_DIR}/${Date.now()}-${randomUUID()}${check.detected.ext}`;
-  const url = await getStorage().save(key, bytes, check.detected.mime);
+  // Compresión automática a WebP (máx. 1600px): menos peso en almacenamiento
+  // y en la página. Los GIF animados se guardan tal cual; los SVG se rasterizan.
+  const compressed = await compressImage(bytes, check.detected);
+
+  // La extensión la decide lo que realmente es el archivo, no el nombre.
+  const key = `${PRODUCTS_DIR}/${Date.now()}-${randomUUID()}${compressed.ext}`;
+  const url = await getStorage().save(key, compressed.buffer, compressed.mime);
 
   await audit("product.upload", "Product", undefined, session.user.id);
   return NextResponse.json({ urls: [url] });

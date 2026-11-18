@@ -69,6 +69,17 @@ export function detectImage(buf: Uint8Array): DetectedImage | null {
   }
   // BMP: "BM"
   if (startsWith(buf, [0x42, 0x4d])) return { ext: ".bmp", mime: "image/bmp" };
+  // TIFF: "II*\0" (little-endian) o "MM\0*" (big-endian)
+  if (startsWith(buf, [0x49, 0x49, 0x2a, 0x00]) || startsWith(buf, [0x4d, 0x4d, 0x00, 0x2a]))
+    return { ext: ".tiff", mime: "image/tiff" };
+  // SVG: "<svg" o "<?xml". Nunca se guarda como SVG: la compresión lo
+  // rasteriza a WebP, así que el archivo servido al navegador es una imagen
+  // bitmap sin JavaScript (el riesgo de XSS del SVG se elimina al convertir).
+  if (
+    startsWith(buf, [0x3c, 0x73, 0x76, 0x67]) || // "<svg"
+    startsWith(buf, [0x3c, 0x3f, 0x78, 0x6d, 0x6c]) // "<?xml"
+  )
+    return { ext: ".svg", mime: "image/svg+xml" };
   return null;
 }
 
