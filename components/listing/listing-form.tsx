@@ -3,6 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { formatCOP } from "@/lib/money";
+import {
+  commissionBreakdown,
+  rateLabel,
+  tierLabel,
+} from "@/lib/listing-commission";
 import { ConsentCheckboxes } from "@/components/legal/consent-checkboxes";
 
 const inputCls =
@@ -91,9 +96,34 @@ export function ListingForm({
         </div>
         <div>
           <label htmlFor="li-price" className={labelCls}>Precio de venta (COP)</label>
-          <input id="li-price" name="price" type="number" min={0} step={1000} required value={price} onChange={(e) => setPrice(e.target.value)} className={inputCls} />
+          <input id="li-price" name="price" type="number" min={50000} step={1000} required value={price} onChange={(e) => setPrice(e.target.value)} className={inputCls} />
           {Number(price) > 0 ? (
-            <p className="mt-1 text-xs text-steel tabular-nums">Lo verá el comprador: {formatCOP(Number(price))}</p>
+            <div className="mt-1 space-y-0.5">
+              <p className="text-xs text-text-faint tabular-nums">
+                Lo verá el comprador: {formatCOP(Number(price))}
+              </p>
+              {Number(price) >= 50000 ? (
+                <div className="rounded-xl border border-steel/40 bg-steel/5 px-3 py-2">
+                  <p className="text-xs font-medium text-steel-deep tabular-nums">
+                    Tramo: {tierLabel(Number(price))}
+                  </p>
+                  {(() => {
+                    const b = commissionBreakdown(Number(price));
+                    return (
+                      <p className="mt-0.5 text-xs text-text tabular-nums">
+                        Comisión {rateLabel(b.rate)} ({formatCOP(b.commission)}) →{" "}
+                        <strong className="text-steel-deep">Te quedan: {formatCOP(b.netEarn)}</strong>
+                      </p>
+                    );
+                  })()}
+                </div>
+              ) : (
+                <p className="text-xs text-danger tabular-nums">El precio mínimo es $50.000</p>
+              )}
+              <p className="text-[11px] text-text-faint">
+                Tramos: menos de $100.000 → 15 % · de $100.000 a $1.000.000 → 10 % · más de $1.000.000 → 8 %
+              </p>
+            </div>
           ) : null}
         </div>
         <div>

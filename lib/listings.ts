@@ -7,6 +7,7 @@ import {
   MAX_LISTINGS_PER_DAY,
   type ListingDraftData,
 } from "@/lib/listing-validation";
+import { commissionSpecs } from "@/lib/listing-commission";
 
 export function slugify(s: string): string {
   return s
@@ -78,6 +79,9 @@ export async function createDraft(
   }
 
   const d: ListingDraftData = parsed.data;
+  // La comisión la calcula el servidor: nunca se confía en lo que mande el
+  // cliente. Se guarda junto a las specs para que el desglose del vendedor
+  // (comisión y ganancia) sea consistente en todo el ciclo del anuncio.
   const slug = await uniqueSlug(slugify(`${d.brand}-${d.name}-${d.year}`));
 
   const product = await prisma.$transaction(async (tx) => {
@@ -97,6 +101,7 @@ export async function createDraft(
           kilometraje_km: d.km,
           ciudad: d.city,
           telefono: d.phone,
+          ...commissionSpecs(d.price),
         },
         featured: false,
         active: false,

@@ -7,6 +7,7 @@ import { audit } from "@/lib/admin";
 import { getStorage } from "@/lib/storage";
 import { MAX_TOTAL_BYTES, overLimitMessage } from "@/lib/image-validation";
 import { ListingDraftInput, MAX_LISTINGS_PER_DAY } from "@/lib/listing-validation";
+import { commissionSpecs } from "@/lib/listing-commission";
 
 async function ownListing(listingId: string) {
   const session = await auth();
@@ -99,6 +100,8 @@ export async function resubmitListing(listingId: string, input: unknown) {
         kilometraje_km: d.km,
         ciudad: d.city,
         telefono: d.phone,
+        // Recalculado por el servidor con el precio actualizado.
+        ...commissionSpecs(d.price),
       },
       status: "PENDING",
       active: true,
