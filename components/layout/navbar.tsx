@@ -38,7 +38,7 @@ export function Navbar() {
         aria-label="Navegación principal"
         className={cn(
           "flex w-full items-center gap-3 rounded-full border border-white/10 bg-[#29F506]/70 backdrop-blur-xl transition-all duration-200",
-          compact ? "h-12 px-3" : "h-16 px-4",
+          compact ? "h-14 px-4" : "h-20 px-6",
         )}
         style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,.06)" }}
       >
@@ -46,8 +46,8 @@ export function Navbar() {
           <Image
             src="/brand/tecnovo-logo-negro.png"
             alt="TECNOVO"
-            width={compact ? 108 : 128}
-            height={compact ? 34 : 40}
+            width={compact ? 160 : 210}
+            height={compact ? 34 : 44}
             quality={80}
             priority
           />
@@ -58,7 +58,7 @@ export function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className="rounded-full px-3 py-1.5 text-sm text-text-muted transition hover:bg-white/5 hover:text-electric"
+              className="rounded-full px-2.5 py-2 text-base font-medium text-text-muted transition hover:bg-white/5 hover:text-electric"
             >
               {l.label}
             </Link>
@@ -69,19 +69,19 @@ export function Navbar() {
           action="/buscar"
           method="get"
           role="search"
-          className="ml-auto hidden min-w-0 flex-1 max-w-40 items-center md:flex"
+          className="ml-auto hidden min-w-0 flex-1 max-w-52 items-center md:flex"
         >
           <label htmlFor="nav-search" className="sr-only">
             Buscar motos y repuestos
           </label>
           <div className="flex w-full items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
-            <Search size={15} className="shrink-0 text-text-faint" aria-hidden />
+            <Search size={17} className="shrink-0 text-text-faint" aria-hidden />
             <input
               id="nav-search"
               name="q"
               type="search"
               placeholder="Buscar…"
-              className="w-full bg-transparent text-sm text-text outline-none placeholder:text-text-faint"
+              className="w-full bg-transparent text-base text-text outline-none placeholder:text-text-faint"
             />
           </div>
         </form>
@@ -94,10 +94,10 @@ export function Navbar() {
           <div className="hidden shrink-0 items-center gap-2 md:flex">
             {role === "SUPERADMIN" ? (
               <>
-                <span className="max-w-28 truncate text-sm text-text-muted">Hola, {firstName}</span>
+                <span className="max-w-28 truncate text-base text-text-muted">Hola, {firstName}</span>
                 <Link
                   href="/admin"
-                  className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-[#000] transition hover:scale-[1.02]"
+                  className="rounded-full bg-white px-5 py-2 text-base font-medium text-[#000] transition hover:scale-[1.02]"
                 >
                   Panel
                 </Link>
@@ -105,16 +105,16 @@ export function Navbar() {
             ) : role === "MAYORISTA" || role === "DISTRIBUIDOR" ? (
               <Link
                 href="/distribuidores/catalogo"
-                className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-[#000] transition hover:scale-[1.02]"
+                className="rounded-full bg-white px-5 py-2 text-base font-medium text-[#000] transition hover:scale-[1.02]"
               >
                 Mayorista
               </Link>
             ) : (
-              <span className="max-w-28 truncate text-sm text-text-muted">Hola, {firstName}</span>
+              <span className="max-w-28 truncate text-base text-text-muted">Hola, {firstName}</span>
             )}
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="rounded-full px-3 py-1.5 text-sm text-text-muted transition hover:bg-white/5 hover:text-text"
+              className="rounded-full px-3 py-2 text-base text-text-muted transition hover:bg-white/5 hover:text-text"
             >
               Salir
             </button>
@@ -122,19 +122,19 @@ export function Navbar() {
         ) : status === "unauthenticated" ? (
           <Link
             href="/login"
-            className="hidden shrink-0 rounded-full border border-white/15 px-4 py-1.5 text-sm text-text transition hover:border-white/30 md:block"
+            className="hidden shrink-0 rounded-full border border-white/15 px-5 py-2 text-base text-text transition hover:border-white/30 md:block"
           >
             Entrar
           </Link>
         ) : null}
 
         <button
-          className="grid size-9 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5 text-text lg:hidden"
+          className="grid size-11 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5 text-text lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
         >
-          {open ? <X size={17} /> : <Menu size={17} />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
 
@@ -145,7 +145,7 @@ export function Navbar() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="block rounded-2xl px-4 py-3 text-[15px] text-white hover:bg-white/5 hover:text-[#AFD262]"
+              className="block rounded-2xl px-4 py-3 text-base text-white hover:bg-white/5 hover:text-[#AFD262]"
             >
               {l.label}
             </Link>
@@ -157,7 +157,7 @@ export function Navbar() {
                   <Link
                     href="/admin"
                     onClick={() => setOpen(false)}
-                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-white hover:bg-white/5 hover:text-[#AFD262]"
+                    className="block rounded-2xl px-4 py-3 text-base font-medium text-white hover:bg-white/5 hover:text-[#AFD262]"
                   >
                     Panel admin
                   </Link>
@@ -166,14 +166,14 @@ export function Navbar() {
                   <Link
                     href="/distribuidores/catalogo"
                     onClick={() => setOpen(false)}
-                    className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-white hover:bg-white/5 hover:text-[#AFD262]"
+                    className="block rounded-2xl px-4 py-3 text-base font-medium text-white hover:bg-white/5 hover:text-[#AFD262]"
                   >
                     Catálogo mayorista
                   </Link>
                 ) : null}
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}
-                  className="block w-full rounded-2xl px-4 py-3 text-left text-[15px] text-gray-300 hover:bg-white/5"
+                  className="block w-full rounded-2xl px-4 py-3 text-left text-base text-gray-300 hover:bg-white/5"
                 >
                   Salir ({firstName})
                 </button>
