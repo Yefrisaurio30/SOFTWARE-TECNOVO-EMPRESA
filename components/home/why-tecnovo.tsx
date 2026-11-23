@@ -11,9 +11,9 @@ const NO_REQUIRE = [
 
 export function WhyTecnovo() {
   return (
-    <section aria-label="Por qué TECNOVO" className="bg-white py-24 text-text md:py-32">
+    <section aria-label="¿Por qué TECNOVO?" className="bg-white py-24 text-text md:py-32">
       <Container>
-        <p className="text-center text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Por qué TECNOVO</p>
+        <p className="text-center text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">¿Por qué TECNOVO?</p>
         <h2
           className="mx-auto mt-3 max-w-2xl text-center font-semibold"
           style={{ fontSize: "clamp(32px, 5vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}

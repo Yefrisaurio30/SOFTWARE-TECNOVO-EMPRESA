@@ -11,7 +11,7 @@ import { SavingsCalculator } from "@/components/home/savings-calculator";
 import { TestRide } from "@/components/home/test-ride";
 
 export const metadata: Metadata = {
-  title: "TECNOVO — Motos eléctricas, segunda mano y repuestos",
+  title: "TECNOVO — Motos eléctricas, Motos de segunda y repuestos",
   description:
     "Motos eléctricas nuevas, motos de segunda mano, repuestos y accesorios con taller y garantía en Colombia.",
 };

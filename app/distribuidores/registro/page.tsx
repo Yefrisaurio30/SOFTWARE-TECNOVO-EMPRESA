@@ -70,8 +70,8 @@ export default function RegistroDistribuidorPage() {
         </p>
         <form onSubmit={submit} className="mt-8 flex flex-col gap-4 rounded-[28px] border border-white/10 bg-surface p-6">
           <div>
-            <label htmlFor="dist-company" className={labelCls}>Empresa</label>
-            <input id="dist-company" required value={company} onChange={(e) => setCompany(e.target.value)} className={inputCls} />
+            <label htmlFor="dist-company" className={labelCls}>Empresa o nombre</label>
+            <input id="dist-company" required placeholder="Empresa o nombre" value={company} onChange={(e) => setCompany(e.target.value)} className={inputCls} />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
@@ -88,7 +88,7 @@ export default function RegistroDistribuidorPage() {
             <input id="dist-phone" required value={phone} onChange={(e) => setPhone(e.target.value)} className={inputCls} />
           </div>
           {error ? <p role="alert" className="text-sm text-danger">{error}</p> : null}
-          <button type="submit" disabled={loading} className="rounded-full bg-white py-3 text-[15px] font-medium text-[#000] disabled:opacity-60">
+          <button type="submit" disabled={loading} className="rounded-full bg-[#00E640] py-3 text-[15px] font-medium text-[#000] disabled:opacity-60">
             {loading ? "Enviando…" : "Enviar solicitud"}
           </button>
         </form>

@@ -39,7 +39,7 @@ export default async function CapacitacionPage() {
           <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Capacitación</p>
           <h1
             className="mx-auto mt-3 max-w-4xl font-semibold"
-            style={{ fontSize: "clamp(28px, 7vw, 88px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
+            style={{ fontSize: "clamp(28px, 7vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
           >
             CONVIERTE EN UN EXPERTO DEL SERVICIO TECNICO ESPECIALIZADO EN MOVILIDAD ELECTRICA.
           </h1>

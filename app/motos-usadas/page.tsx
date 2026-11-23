@@ -10,7 +10,7 @@ import { EmptyState } from "@/components/catalog/empty-state";
 import { ProductCard } from "@/components/product/product-card";
 
 export const metadata: Metadata = {
-  title: "Motos de segunda mano | TECNOVO",
+  title: "Motos de segunda | TECNOVO",
   description: "Motos eléctricas usadas revisadas, con historial y garantía. Unidades únicas.",
 };
 
