@@ -66,14 +66,29 @@ describe("wompi checksum de eventos", () => {
 
 describe("wompi webhook idempotente y montos", () => {
   const phone = "3000000001";
+  const productIds: string[] = [];
 
   afterAll(async () => {
     await prisma.order.deleteMany({ where: { contactPhone: phone } });
+    if (productIds.length > 0) {
+      await prisma.product.deleteMany({ where: { id: { in: productIds } } });
+    }
     await prisma.$disconnect();
   });
 
   async function makeOrder(): Promise<{ orderId: string; productId: string; stockBefore: number }> {
-    const p = await prisma.product.findUniqueOrThrow({ where: { slug: "rep-guaya-acelerador" } });
+    const p = await prisma.product.create({
+      data: {
+        slug: `test-wompi-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        name: "Producto prueba Wompi",
+        type: "REPUESTO",
+        brand: "TECNOVO",
+        priceRetail: 100000,
+        stock: 5,
+        description: "Producto temporal para probar el webhook.",
+      },
+    });
+    productIds.push(p.id);
     await prisma.order.deleteMany({ where: { contactPhone: phone } });
     const order = await prisma.order.create({
       data: {
