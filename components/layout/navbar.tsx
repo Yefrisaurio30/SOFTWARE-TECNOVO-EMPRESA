@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 const LINKS = [
   { href: "/", label: "Inicio" },
-  { href: "/motos-electricas", label: "Eléctricas" },
+  { href: "/motos-electricas", label: "Motos" },
   { href: "/motos-usadas", label: "Motos de segunda" },
   { href: "/repuestos-accesorios", label: "Repuestos" },
   { href: "/taller", label: "Taller" },
@@ -75,7 +75,7 @@ export function Navbar() {
           action="/buscar"
           method="get"
           role="search"
-          className="ml-auto hidden min-w-0 flex-1 max-w-52 items-center md:flex"
+          className="ml-auto hidden min-w-0 flex-1 max-w-72 items-center md:flex xl:max-w-80"
         >
           <label htmlFor="nav-search" className="sr-only">
             Buscar motos y repuestos

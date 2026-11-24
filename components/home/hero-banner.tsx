@@ -10,14 +10,17 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-type Slide = {
+export type Slide = {
   id: string;
   image: string;
   imageMobile: string | null;
 };
 
-export function HeroBanner() {
-  const [slides, setSlides] = useState<Slide[]>([]);
+const BLUR =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNicgaGVpZ2h0PSc5Jz48cmVjdCB3aWR0aD0nMTYnIGhlaWdodD0nOScgZmlsbD0nI2Y0ZjVmNycvPjwvc3ZnPg==";
+
+export function HeroBanner({ initialSlides }: { initialSlides: Slide[] }) {
+  const [slides, setSlides] = useState<Slide[]>(initialSlides);
 
   const swiperRef = useRef<SwiperType | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -27,8 +30,10 @@ export function HeroBanner() {
   useEffect(() => {
     fetch("/api/hero-slides")
       .then((r) => r.json())
-      .then((d) => setSlides(Array.isArray(d) ? d : []))
-      .catch(() => setSlides([]));
+      .then((d) => {
+        if (Array.isArray(d) && d.length > 0) setSlides(d);
+      })
+      .catch(() => {});
   }, []);
 
   const clearTimer = () => {
@@ -98,8 +103,11 @@ export function HeroBanner() {
                 alt="Banner TECNOVO"
                 fill
                 priority={i === 0}
-                quality={80}
+                loading={i === 0 ? "eager" : "lazy"}
+                quality={70}
                 sizes="100vw"
+                placeholder="blur"
+                blurDataURL={BLUR}
                 className="h-full w-full object-contain"
               />
               <Link

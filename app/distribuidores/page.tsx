@@ -18,12 +18,12 @@ export default function DistribuidoresPage() {
     <main className="bg-white text-text">
       <section className="py-20 md:py-28">
         <Container>
-          <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Negocios</p>
+          <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Emprende con nosotros</p>
           <h1
             className="mt-3 max-w-3xl font-semibold break-words"
             style={{ fontSize: "clamp(30px, 7vw, 88px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
           >
-            Quiero ser distribuidor mayorista
+            ¿Quiero ser distribuidor mayorista?
           </h1>
           <p className="mt-4 max-w-xl text-[17px]/relaxed text-text-muted">
             Precios mayoristas en motos nuevas, material comercial y respaldo de repuestos.

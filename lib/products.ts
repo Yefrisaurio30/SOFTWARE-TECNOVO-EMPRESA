@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import type { Product, ProductType } from "@prisma/client";
 
@@ -79,9 +80,10 @@ function sortItems(items: Product[], order: CatalogOrder): Product[] {
   }
 }
 
-export async function getCatalog(
+async function loadCatalog(
   types: ProductType[],
   f: CatalogFilters,
+  pageSize: number,
 ): Promise<{ items: Product[]; total: number; pages: number; page: number }> {
   const q = f.q?.trim() || undefined;
   const all = await prisma.product.findMany({
@@ -120,11 +122,18 @@ export async function getCatalog(
 
   const sorted = sortItems(filtered, f.order ?? "relevancia");
   const page = Math.max(1, f.page ?? 1);
-  const pages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const pages = Math.max(1, Math.ceil(sorted.length / pageSize));
   const safePage = Math.min(page, pages);
-  const items = sorted.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
+  const items = sorted.slice((safePage - 1) * pageSize, safePage * pageSize);
   return { items, total: sorted.length, pages, page: safePage };
 }
+
+export const getCatalog = unstable_cache(
+  async (types: ProductType[], f: CatalogFilters, pageSize: number = PAGE_SIZE) =>
+    loadCatalog(types, f, pageSize),
+  ["catalog-v1"],
+  { revalidate: 60 },
+);
 
 /**
  * Años de garantía declarados en las fichas (`specs.garantia`, p. ej. "5 años").
