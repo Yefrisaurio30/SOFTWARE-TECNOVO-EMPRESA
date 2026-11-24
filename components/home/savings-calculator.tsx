@@ -97,6 +97,7 @@ export function SavingsCalculator({
                     <button
                       key={n}
                       type="button"
+                      color="black"
                       onClick={() => setStrato(n)}
                       className={`relative z-10 rounded-full px-4 py-2 text-sm font-medium transition ${
                         strato === n ? "bg-[#29F506] text-black" : "bg-transparent text-black"
