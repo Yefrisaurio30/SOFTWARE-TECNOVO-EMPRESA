@@ -8,9 +8,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         // Primario en fondo oscuro: píldora blanca, texto negro
-        primaryDark: "bg-white text-[#000] hover:brightness-95",
-        // Primario en fondo claro: píldora negra, texto blanco
-        primaryLight: "bg-white text-white hover:bg-ink",
+        primaryDark: "bg-[#00E640] text-[#000] hover:brightness-95",
+        // Primario en fondo claro: píldora verde, texto negro
+        primaryLight: "bg-[#00E640] text-[#000] hover:brightness-95",
         // Secundario: enlace con flecha, sin caja
         link: "rounded-none bg-transparent px-0 text-current hover:opacity-80",
         // Fantasma oscuro: borde sutil para navbar / superficies oscuras

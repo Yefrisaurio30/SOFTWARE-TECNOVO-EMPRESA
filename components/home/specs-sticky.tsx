@@ -45,7 +45,7 @@ export function SpecsSticky({ products }: { products: Product[] }) {
     reduceMotion ? { opacity: 0 } : { opacity: 0, x: 48 * dir };
 
   return (
-    <section aria-label="Modelos en cifras" className="bg-white py-24 text-text md:py-32">
+    <section aria-label="Modelos en ficha técnica" className="bg-white py-24 text-text md:py-32">
       <Container>
         <div
           className="grid items-center gap-10 outline-none md:grid-cols-2"
@@ -64,7 +64,7 @@ export function SpecsSticky({ products }: { products: Product[] }) {
           }}
         >
           <div className="md:sticky md:top-28 md:self-start">
-            <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">En cifras</p>
+            <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Ficha técnica</p>
             <AnimatePresence mode="wait" initial={false}>
               <motion.h2
                 key={product.id}

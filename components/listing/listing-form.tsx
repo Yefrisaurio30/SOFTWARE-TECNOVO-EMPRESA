@@ -79,8 +79,9 @@ export function ListingForm({
     <form onSubmit={submit} className="grid max-w-2xl gap-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="sm:col-span-2">
-          <label htmlFor="li-name" className={labelCls}>Modelo</label>
-          <input id="li-name" name="name" required minLength={3} defaultValue={defaults?.name ?? ""} placeholder="TEC-ONE" className={inputCls} />
+          <label htmlFor="li-name" className={labelCls}>Modelo (año / referencia / versión)</label>
+          <input id="li-name" name="name" required minLength={3} defaultValue={defaults?.name ?? ""} placeholder="Ej: TEC-ONE 2024 — versión estándar" className={inputCls} />
+          <p className="mt-1 text-xs text-text-muted">Indica el año/modelo, la referencia o la versión de la moto.</p>
         </div>
         <div>
           <label htmlFor="li-brand" className={labelCls}>Marca</label>
