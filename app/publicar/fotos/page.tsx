@@ -4,8 +4,9 @@ import { prisma } from "@/lib/prisma";
 import { touchDraft } from "@/lib/drafts";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { PhotoStep } from "@/components/listing/photo-step";
+import { privateMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Fotos de tu moto | TECNOVO" };
+export const metadata = privateMetadata("Fotos de tu moto | TECNOVO");
 
 export default async function FotosPage({
   searchParams,

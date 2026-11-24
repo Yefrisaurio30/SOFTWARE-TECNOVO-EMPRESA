@@ -3,11 +3,13 @@ import { MessageCircle } from "lucide-react";
 import { getWhatsAppNumber } from "@/lib/site-settings";
 import { waLink } from "@/lib/whatsapp";
 import { Container, Section, SectionHeading } from "@/components/ui/section";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "PQRS | TECNOVO",
   description: "Peticiones, quejas, reclamaciones y sugerencias para TECNOVO.",
-};
+  path: "/pqrs",
+});
 
 export default async function PqrsPage() {
   const whatsapp = await getWhatsAppNumber();

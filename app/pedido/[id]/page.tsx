@@ -8,6 +8,7 @@ import { canAccessOrder } from "@/lib/orders";
 import { formatCOP } from "@/lib/money";
 import { waLink, getWhatsAppNumber } from "@/lib/whatsapp";
 import { Container, SectionHeading } from "@/components/ui/section";
+import { privateMetadata } from "@/lib/seo";
 // PASARELA DESACTIVADA: pago coordinado por WhatsApp. Reactivar con Wompi.
 // import { PayButton } from "@/components/payment/pay-button";
 
@@ -21,7 +22,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 export const metadata: Metadata = {
-  title: "Estado del pedido | TECNOVO",
+  ...privateMetadata("Estado del pedido | TECNOVO"),
   description: "Consulta el estado de tu pedido.",
 };
 

@@ -5,9 +5,10 @@ import { prisma } from "@/lib/prisma";
 import { requireApprovedDistributor, companyFor, minUnitsFor } from "@/lib/distributor";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { WholesaleCard } from "@/components/distribuidor/wholesale-card";
+import { privateMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Catálogo mayorista | TECNOVO",
+  ...privateMetadata("Catálogo mayorista | TECNOVO"),
   description: "Motos nuevas a precio mayorista para mayoristas aprobados.",
 };
 

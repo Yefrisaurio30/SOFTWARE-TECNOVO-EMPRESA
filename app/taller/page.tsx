@@ -8,12 +8,14 @@ import { getWhatsAppNumber } from "@/lib/site-settings";
 import { waLink } from "@/lib/whatsapp";
 import { TECNOVO_MAPS_URL, TECNOVO_STORE_CITY } from "@/lib/store";
 import { Container, Section, SectionHeading } from "@/components/ui/section";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Taller y servicio técnico | TECNOVO",
   description:
     "Red de servicio técnico TECNOVO, garantía de las motos eléctricas y agenda de mantenimiento en Colombia.",
-};
+  path: "/taller",
+});
 
 export default async function TallerPage() {
   const [services, warrantyYears, whatsapp] = await Promise.all([

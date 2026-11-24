@@ -5,11 +5,13 @@ import { Container, SectionHeading } from "@/components/ui/section";
 import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { EmptyState } from "@/components/catalog/empty-state";
 import { ProductCard } from "@/components/product/product-card";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Motos de segunda | TECNOVO",
   description: "Motos eléctricas usadas revisadas, con historial y garantía. Unidades únicas.",
-};
+  path: "/motos-usadas",
+});
 
 export const revalidate = 60;
 

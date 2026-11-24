@@ -4,11 +4,13 @@ import { Container, SectionHeading } from "@/components/ui/section";
 import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { EmptyState } from "@/components/catalog/empty-state";
 import { ProductCard } from "@/components/product/product-card";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Motos eléctricas nuevas | TECNOVO",
   description: "Catálogo de motos eléctricas nuevas con autonomía, potencia y garantía en Colombia.",
-};
+  path: "/motos-electricas",
+});
 
 export const revalidate = 60;
 

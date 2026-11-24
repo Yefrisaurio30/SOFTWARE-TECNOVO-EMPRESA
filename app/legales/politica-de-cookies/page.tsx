@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { LegalNote, LegalPage, LegalSection } from "@/components/legal/legal-page";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Política de Cookies | TECNOVO",
   description: "Qué tecnologías guarda este sitio, para qué y cómo gestionarlas.",
-};
+  path: "/legales/politica-de-cookies",
+});
 
 export default function CookiesPage() {
   return (

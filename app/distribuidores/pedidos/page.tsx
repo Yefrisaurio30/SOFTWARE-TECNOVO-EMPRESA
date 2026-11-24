@@ -5,9 +5,10 @@ import { requireApprovedDistributor } from "@/lib/distributor";
 import { formatCOP } from "@/lib/money";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { PrintButton } from "@/components/distribuidor/print-button";
+import { privateMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Mis pedidos mayoristas | TECNOVO",
+  ...privateMetadata("Mis pedidos mayoristas | TECNOVO"),
   description: "Historial de pedidos del distribuidor.",
 };
 

@@ -20,6 +20,7 @@ import { SpecsTable } from "@/components/product/specs-table";
 import { Price } from "@/components/product/price";
 import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { ProductCard, detailHref } from "@/components/product/product-card";
+import { absoluteUrl, jsonLd, pageMetadata } from "@/lib/seo";
 
 const CATEGORY_LABEL: Record<string, string> = {
   "motos-electricas": "Motos eléctricas",
@@ -40,15 +41,12 @@ export async function generateMetadata({
   if (!product || !CATEGORY_TO_TYPES[categoria].includes(product.type)) {
     return { title: "No encontrado | TECNOVO" };
   }
-  return {
+  return pageMetadata({
     title: `${product.name} | TECNOVO`,
     description: product.description.slice(0, 155),
-    openGraph: {
-      title: product.name,
-      description: product.description.slice(0, 155),
-      images: product.images.length > 0 ? product.images : ["/brand/tecnovo-logo-negro.png"],
-    },
-  };
+    path: detailHref({ slug: product.slug, type: product.type }),
+    image: product.images[0] ?? "/brand/tecnovo-logo-negro.png",
+  });
 }
 
 export default async function ProductPage({ params }: { params: Promise<Params> }) {
@@ -63,32 +61,52 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
   const session = await auth();
   const isAdmin = session?.user?.role === "SUPERADMIN";
   const related = await getRelatedProducts(product.type, product.id, 4);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const url = `${siteUrl}${detailHref(product)}`;
+  const url = absoluteUrl(detailHref(product));
   const isUsed = product.type === "MOTO_USADA";
   const available = product.stock > 0;
 
-  const jsonLd = {
+  const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    description: product.description,
-    brand: { "@type": "Brand", name: product.brand },
-    image: product.images.length > 0 ? product.images : [`${siteUrl}/brand/tecnovo-logo-negro.png`],
-    offers: {
-      "@type": "Offer",
-      url,
-      priceCurrency: "COP",
-      price: product.priceRetail,
-      availability: available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-    },
+    "@graph": [
+      {
+        "@type": "Product",
+        name: product.name,
+        description: product.description,
+        sku: product.slug,
+        brand: { "@type": "Brand", name: product.brand },
+        image:
+          product.images.length > 0
+            ? product.images.map(absoluteUrl)
+            : [absoluteUrl("/brand/tecnovo-logo-negro.png")],
+        offers: {
+          "@type": "Offer",
+          url,
+          priceCurrency: "COP",
+          price: product.priceRetail,
+          availability: available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: CATEGORY_LABEL[categoria],
+            item: absoluteUrl(`/${categoria}`),
+          },
+          { "@type": "ListItem", position: 3, name: product.name, item: url },
+        ],
+      },
+    ],
   };
 
   return (
     <main className="bg-white py-10 text-text md:py-14">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(structuredData) }}
       />
       <Container>
         <nav aria-label="Miga de pan" className="text-sm text-text-muted">

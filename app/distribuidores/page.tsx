@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container, SectionHeading } from "@/components/ui/section";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Distribuidores | TECNOVO",
   description: "Vende motos eléctricas TECNOVO en tu ciudad. Precios mayoristas y respaldo de taller.",
-};
+  path: "/distribuidores",
+});
 
 const STEPS = [
   { n: "1", title: "Crea tu cuenta", text: "Regístrate como cliente en 1 minuto." },
