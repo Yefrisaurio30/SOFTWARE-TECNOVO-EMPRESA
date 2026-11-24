@@ -76,9 +76,9 @@ export function SavingsCalculator({
                   step={1}
                   value={kmDay}
                   onChange={(e) => setKmDay(Number(e.target.value))}
-                  className="w-full"
+                  className="w-full accent-[#29F506] [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#29F506] [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-[#29F506]"
                   style={{
-                    background: `linear-gradient(to right, #00E640 0%, #00E640 ${pct}%, #e5e7eb ${pct}%, #e5e7eb 100%)`,
+                    background: `linear-gradient(to right, #29F506 0%, #29F506 ${pct}%, #e5e7eb ${pct}%, #e5e7eb 100%)`,
                   }}
                 />
                 <div className="mt-1 flex justify-between text-xs text-text-faint">
@@ -98,7 +98,7 @@ export function SavingsCalculator({
                       type="button"
                       onClick={() => setStrato(n)}
                       className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                        strato === n ? "bg-[#00E640] text-black" : "text-text-muted"
+                        strato === n ? "bg-[#29F506] text-black" : "text-black"
                       }`}
                     >
                       Estrato {n}
