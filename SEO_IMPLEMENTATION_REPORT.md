@@ -87,7 +87,22 @@ La pasarela Wompi sigue **desactivada en el código** (checkout por WhatsApp); n
 ni se modificó porque está fuera del alcance de este trabajo. Eso se registra para no afirmar
 que "la pasarela de pago funciona" sin evidencia.
 
-## 4. Estado
+## 4. Despliegue verificado
+
+Push a `main` realizado. Vercel generó el despliegue de producción
+`tecnovomotos-kqbq29x02.vercel.app` en estado **Ready** (1m 21s), con alias en
+`www.tecnovomotoselectricas.com`, `tecnovomotoselectricas.com` y `tecnovomotos.vercel.app`.
+
+Comprobaciones en el sitio publicado:
+
+- `https://tecnovomotoselectricas.com/` → 307 a `www` (redirección coherente).
+- `https://www.tecnovomotoselectricas.com/` → 200, canonical y `og:url` con el host canónico,
+  1 bloque JSON-LD.
+- `/robots.txt` → 200 con `Sitemap: https://www.tecnovomotoselectricas.com/sitemap.xml`.
+- `/sitemap.xml` → 200, URLs con `www`, sin `vercel.app` ni rutas privadas.
+- Ficha `/motos-electricas/tec-one` → canonical correcto y JSON-LD `Product` + `BreadcrumbList`.
+
+## 5. Estado
 
 Técnicamente preparado para el despliegue y para que Google pueda rastrear e indexar.
 **No se afirma que el sitio esté indexado ni posicionado**: eso solo se puede confirmar con

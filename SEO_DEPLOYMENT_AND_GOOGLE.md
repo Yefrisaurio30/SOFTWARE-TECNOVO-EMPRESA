@@ -41,6 +41,19 @@ Resto de secretos intactos.
 | `https://tecnovomotoselectricas.com/` | 307 a `www` (redirección coherente) |
 | `https://tecnovomotoselectricas.com/sitemap.xml` | 307 a `www/sitemap.xml` |
 
+### Resultado real de la verificación (2026-11-24)
+
+Despliegue `tecnovomotos-kqbq29x02.vercel.app`: **Ready** en Production, con alias de los
+cuatro dominios. Comprobaciones en vivo:
+
+| URL | Resultado |
+|---|---|
+| `https://tecnovomotoselectricas.com/` | 307 → `https://www.tecnovomotoselectricas.com/` |
+| `https://www.tecnovomotoselectricas.com/` | 200; canonical y `og:url` = `https://www.tecnovomotoselectricas.com`; 1 bloque JSON-LD |
+| `https://www.tecnovomotoselectricas.com/robots.txt` | 200; `Sitemap: https://www.tecnovomotoselectricas.com/sitemap.xml` |
+| `https://www.tecnovomotoselectricas.com/sitemap.xml` | 200; primera URL `https://www.tecnovomotoselectricas.com/`; sin `vercel.app` ni rutas privadas |
+| `https://www.tecnovomotoselectricas.com/motos-electricas/tec-one` | 200; canonical con la ruta; JSON-LD `Product` + `BreadcrumbList` |
+
 Comando rápido (PowerShell):
 
 ```powershell
@@ -149,13 +162,13 @@ BD con `revalidate = 3600`); no hace falta editar el XML a mano.
 | Criterio | Estado |
 |---|---|
 | Validaciones locales (build, tipos, pruebas, secretos) | **Hecho**, con evidencia en el informe |
-| Sitio desplegado con los cambios | **Hecho** tras el push a `main` y el despliegue de Vercel |
-| Dominio principal funciona y redirecciones coherentes | **Hecho**: `www` sirve, el ápice redirige 307 |
-| `robots.txt` accesible | **Verificado en local**; pendiente de confirmar en producción |
-| `sitemap.xml` accesible y válido | **Verificado en local**; pendiente de confirmar en producción |
+| Sitio desplegado con los cambios | **Hecho**: push a `main` y despliegue `tecnovomotos-kqbq29x02` en estado Ready |
+| Dominio principal funciona y redirecciones coherentes | **Hecho en vivo**: `www` sirve 200, el ápice redirige 307 |
+| `robots.txt` accesible | **Verificado en vivo**: 200 y `Sitemap:` con el host canónico |
+| `sitemap.xml` accesible y válido | **Verificado en vivo**: 200, URLs `www`, sin rutas privadas ni `vercel.app` |
 | Metadatos correctos en páginas públicas | **Hecho** y verificado en HTML compilado |
 | Productos con URLs y metadatos apropiados | **Hecho** (canonical, OG, `Product`, `BreadcrumbList`) |
-| Datos estructurados válidos | **Hecho** en local; pendiente de Rich Results Test |
+| Datos estructurados válidos | **Hecho**: JSON-LD presente en `/` y en las fichas en local y en producción; pendiente de Rich Results Test (sección 6) |
 | Search Console recibió el sitemap | **Pendiente** (sección 4, propietario) |
 | Solicitudes de indexación enviadas | **Pendiente** (sección 4, propietario) |
 | Funcionalidades comerciales operativas | Pruebas automatizadas 93/93; checkout por WhatsApp activo, Wompi desactivado en código (registrado, no modificado) |
