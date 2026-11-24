@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getCatalog } from "@/lib/products";
-import { pageHref, parseFilters } from "@/lib/catalog-params";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
-import { Pagination } from "@/components/catalog/pagination";
 import { EmptyState } from "@/components/catalog/empty-state";
 import { ProductCard } from "@/components/product/product-card";
 
@@ -13,12 +11,10 @@ export const metadata: Metadata = {
   description: "Motos eléctricas usadas revisadas, con historial y garantía. Unidades únicas.",
 };
 
-type SP = Record<string, string | string[] | undefined>;
+export const revalidate = 60;
 
-export default async function UsadasPage({ searchParams }: { searchParams: Promise<SP> }) {
-  const raw = await searchParams;
-  const { filters } = parseFilters(raw);
-  const { items, total, pages, page } = await getCatalog(["MOTO_USADA"], filters);
+export default async function UsadasPage() {
+  const { items, total } = await getCatalog(["MOTO_USADA"], {}, 100);
 
   return (
     <main className="bg-white py-10 text-text md:py-14">
@@ -50,14 +46,9 @@ export default async function UsadasPage({ searchParams }: { searchParams: Promi
                   </StaggerItem>
                 ))}
               </StaggerGroup>
-              <div className="mt-8">
-                <Pagination
-                  page={page}
-                  pages={pages}
-                  total={total}
-                  buildHref={(n) => pageHref(raw, n)}
-                />
-              </div>
+              <p className="mt-8 text-sm text-text-muted" role="status">
+                {total} {total === 1 ? "moto disponible" : "motos disponibles"}
+              </p>
             </>
           )}
         </div>
