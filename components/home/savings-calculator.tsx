@@ -49,6 +49,7 @@ export function SavingsCalculator({
     };
   }, [kmDay, tariff]);
 
+  
   const pct = ((kmDay - 5) / (100 - 5)) * 100;
 
   return (
