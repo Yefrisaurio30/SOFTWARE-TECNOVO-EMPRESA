@@ -36,10 +36,10 @@ export default async function CapacitacionPage() {
           aria-hidden
         />
         <Container className="relative text-center">
-          <p className="text-2xl md:text-3xl font-semibold tracking-wide text-steel-deep uppercase">Capacitación</p>
+          <p className="text-3xl md:text-4xl font-semibold tracking-wide text-steel-deep uppercase">Capacitación</p>
           <h1
             className="mx-auto mt-3 max-w-4xl font-semibold"
-            style={{ fontSize: "clamp(28px, 7vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
+            style={{ fontSize: "clamp(26px, 6vw, 52px)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
           >
             CONVIERTE EN UN EXPERTO DEL SERVICIO TECNICO ESPECIALIZADO EN MOVILIDAD ELECTRICA.
           </h1>

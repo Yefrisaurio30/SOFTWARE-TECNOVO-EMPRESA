@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getCatalog } from "@/lib/products";
 import { pageHref, parseFilters } from "@/lib/catalog-params";
 import { Container, SectionHeading } from "@/components/ui/section";
-import { Filters } from "@/components/catalog/filters";
 import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { Pagination } from "@/components/catalog/pagination";
 import { EmptyState } from "@/components/catalog/empty-state";
@@ -18,7 +17,7 @@ type SP = Record<string, string | string[] | undefined>;
 
 export default async function UsadasPage({ searchParams }: { searchParams: Promise<SP> }) {
   const raw = await searchParams;
-  const { filters, values } = parseFilters(raw);
+  const { filters } = parseFilters(raw);
   const { items, total, pages, page } = await getCatalog(["MOTO_USADA"], filters);
 
   return (
@@ -35,9 +34,6 @@ export default async function UsadasPage({ searchParams }: { searchParams: Promi
         >
           ¿Tienes una moto para vender? Publícala aquí
         </Link>
-        <div className="mt-8">
-          <Filters values={values} clearHref="/motos-usadas" />
-        </div>
         <div className="mt-8">
           {items.length === 0 ? (
             <EmptyState

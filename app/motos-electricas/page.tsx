@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getCatalog } from "@/lib/products";
 import { pageHref, parseFilters } from "@/lib/catalog-params";
 import { Container, SectionHeading } from "@/components/ui/section";
-import { Filters } from "@/components/catalog/filters";
 import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { Pagination } from "@/components/catalog/pagination";
 import { EmptyState } from "@/components/catalog/empty-state";
@@ -21,7 +20,7 @@ export default async function ElectricasPage({
   searchParams: Promise<SP>;
 }) {
   const raw = await searchParams;
-  const { filters, values } = parseFilters(raw);
+  const { filters } = parseFilters(raw);
   const { items, total, pages, page } = await getCatalog(["MOTO_NUEVA"], filters);
 
   return (
@@ -32,9 +31,6 @@ export default async function ElectricasPage({
           title="Motos eléctricas nuevas."
           description="Autonomía real, batería extraíble y garantía escrita."
         />
-        <div className="mt-8">
-          <Filters values={values} clearHref="/motos-electricas" />
-        </div>
         <div className="mt-8">
           {items.length === 0 ? (
             <EmptyState

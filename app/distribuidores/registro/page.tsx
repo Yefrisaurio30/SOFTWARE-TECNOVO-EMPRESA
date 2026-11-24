@@ -70,8 +70,8 @@ export default function RegistroDistribuidorPage() {
         </p>
         <form onSubmit={submit} className="mt-8 flex flex-col gap-4 rounded-[28px] border border-white/10 bg-surface p-6">
           <div>
-            <label htmlFor="dist-company" className={labelCls}>Empresa o nombre</label>
-            <input id="dist-company" required placeholder="Empresa o nombre" value={company} onChange={(e) => setCompany(e.target.value)} className={inputCls} />
+            <label htmlFor="dist-company" className={labelCls}>Empresa o nombre del negocio</label>
+            <input id="dist-company" required placeholder="Empresa o nombre del negocio" value={company} onChange={(e) => setCompany(e.target.value)} className={inputCls} />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>

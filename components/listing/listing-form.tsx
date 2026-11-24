@@ -34,9 +34,9 @@ export function ListingForm({
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const [consents, setConsents] = useState(false);
-  const [price, setPrice] = useState(String(defaults?.price ?? 0));
-  const [year, setYear] = useState(defaults?.year ?? new Date().getFullYear() - 3);
-  const [km, setKm] = useState(String(defaults?.km ?? 0));
+  const [price, setPrice] = useState(defaults?.price !== undefined ? String(defaults.price) : "");
+  const [year, setYear] = useState(defaults?.year !== undefined ? String(defaults.year) : "");
+  const [km, setKm] = useState(defaults?.km !== undefined ? String(defaults.km) : "");
   const [description, setDescription] = useState(defaults?.description ?? "");
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -80,24 +80,32 @@ export function ListingForm({
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="sm:col-span-2">
           <label htmlFor="li-name" className={labelCls}>Modelo (año / referencia / versión)</label>
-          <input id="li-name" name="name" required minLength={3} defaultValue={defaults?.name ?? ""} placeholder="Ej: TEC-ONE 2024 — versión estándar" className={inputCls} />
+          <input id="li-name" name="name" required minLength={3} defaultValue={defaults?.name ?? ""} placeholder="ingresa el modelo de tu moto electrica" className={inputCls} />
           <p className="mt-1 text-xs text-text-muted">Indica el año/modelo, la referencia o la versión de la moto.</p>
         </div>
         <div>
           <label htmlFor="li-brand" className={labelCls}>Marca</label>
-          <input id="li-brand" name="brand" required minLength={2} defaultValue={defaults?.brand ?? ""} placeholder="TECNOVO" className={inputCls} />
+          <input
+            id="li-brand"
+            name="brand"
+            required
+            minLength={2}
+            defaultValue={defaults?.brand ?? ""}
+            placeholder="ingresa la marca de tu moto electrica"
+            className={inputCls}
+          />
         </div>
         <div>
           <label htmlFor="li-year" className={labelCls}>Año</label>
-          <input id="li-year" name="year" type="number" min={1990} max={new Date().getFullYear() + 1} required value={year} onChange={(e) => setYear(Number(e.target.value))} className={inputCls} />
+          <input id="li-year" name="year" type="number" min={1990} max={new Date().getFullYear() + 1} required value={year} onChange={(e) => setYear(e.target.value)} placeholder="ingresa el año de tu moto" className={inputCls} />
         </div>
         <div>
           <label htmlFor="li-km" className={labelCls}>Kilometraje</label>
-          <input id="li-km" name="km" type="number" min={0} required value={km} onChange={(e) => setKm(e.target.value)} className={inputCls} />
+          <input id="li-km" name="km" type="number" min={0} required value={km} onChange={(e) => setKm(e.target.value)} placeholder="ingresa el kilometraje" className={inputCls} />
         </div>
         <div>
           <label htmlFor="li-price" className={labelCls}>Precio de venta (COP)</label>
-          <input id="li-price" name="price" type="number" min={50000} step={1000} required value={price} onChange={(e) => setPrice(e.target.value)} className={inputCls} />
+          <input id="li-price" name="price" type="number" min={50000} step={1000} required value={price} onChange={(e) => setPrice(e.target.value)} placeholder="ingresa el precio de venta" className={inputCls} />
           {Number(price) > 0 ? (
             <div className="mt-1 space-y-0.5">
               <p className="text-xs text-text-faint tabular-nums">
@@ -106,7 +114,7 @@ export function ListingForm({
               {Number(price) >= 50000 ? (
                 <div className="rounded-xl border border-steel/40 bg-steel/5 px-3 py-2">
                   <p className="text-xs font-medium text-steel-deep tabular-nums">
-                    Tramo: {tierLabel(Number(price))}
+                    Valor: {tierLabel(Number(price))}
                   </p>
                   {(() => {
                     const b = commissionBreakdown(Number(price));
@@ -129,11 +137,11 @@ export function ListingForm({
         </div>
         <div>
           <label htmlFor="li-city" className={labelCls}>Ciudad</label>
-          <input id="li-city" name="city" required minLength={2} defaultValue={defaults?.city ?? ""} placeholder="Villavicencio" className={inputCls} />
+          <input id="li-city" name="city" required minLength={2} defaultValue={defaults?.city ?? ""} placeholder="pon tu ciudad" className={inputCls} />
         </div>
         <div>
           <label htmlFor="li-phone" className={labelCls}>Tu celular</label>
-          <input id="li-phone" name="phone" type="tel" required defaultValue={defaults?.phone ?? ""} placeholder="312 277 9324" className={inputCls} />
+          <input id="li-phone" name="phone" type="tel" required defaultValue={defaults?.phone ?? ""} placeholder="pon tu numero de celular" className={inputCls} />
           <p className="mt-1 text-xs text-text-faint">Lo ven los compradores del anuncio, no el público en general.</p>
         </div>
         <div className="sm:col-span-2">

@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 const LINKS = [
   { href: "/", label: "Inicio" },
-  { href: "/motos-electricas", label: "Eléctricas" },
+  { href: "/motos-electricas", label: "Motos" },
   { href: "/motos-usadas", label: "Motos de segunda" },
   { href: "/repuestos-accesorios", label: "Repuestos" },
   { href: "/taller", label: "Taller" },
