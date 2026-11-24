@@ -41,7 +41,7 @@ export default async function TallerPage() {
       <Wrench size={26} strokeWidth={1.5} className="text-steel" aria-hidden />
       <p className="mt-3 text-3xl font-semibold text-black">{services.length}</p>
       <p className="mt-1 text-sm text-text-muted">
-        {services.length === 1 ? "punto de servicio" : "puntos de servicio"} activos
+        puntos de servicio nuestros de nuestros aliados
       </p>
     </div>
     <div className="rounded-[24px] border border-zinc-400/20 bg-zinc-200 p-6">
@@ -75,7 +75,7 @@ export default async function TallerPage() {
                 href={waLink(`Hola TECNOVO, ¿cuándo hay servicio técnico cerca de mí?`, whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 rounded-full bg-steel px-6 py-2.5 text-sm font-semibold text-white"
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-zinc-200 px-6 py-2.5 text-sm font-semibold text-black"
               >
                 <MessageCircle size={15} aria-hidden />
                 COTIZAR
@@ -127,7 +127,7 @@ export default async function TallerPage() {
                       href={waLink(`Hola TECNOVO, quiero agendar servicio técnico en ${s.name} (${s.city}).`, whatsapp)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-steel px-5 py-2 text-sm font-semibold text-white"
+                      className="inline-flex items-center gap-2 rounded-full bg-zinc-200 px-5 py-2 text-sm font-semibold text-black"
                     >
                       <MessageCircle size={15} aria-hidden />
                       COTIZAR
@@ -137,13 +137,13 @@ export default async function TallerPage() {
                         href={s.mapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="rounded-full border border-black/15 px-5 py-2 text-sm text-light-text"
+                        className="rounded-full bg-steel px-5 py-2 text-sm font-semibold text-white"
                       >
                         Cómo llegar
                       </a>
                     ) : null}
                     {s.phone ? (
-                      <a href={`tel:${s.phone.replace(/\s/g, "")}`} className="px-2 py-2 text-base font-medium text-black">
+                      <a href={`tel:${s.phone.replace(/\s/g, "")}`} className="rounded-full bg-zinc-200 px-5 py-2 text-base font-medium text-black">
                         {s.phone}
                       </a>
                     ) : null}
@@ -169,7 +169,7 @@ export default async function TallerPage() {
                 href={waLink("Hola TECNOVO, quiero agendar mantenimiento de mi moto eléctrica.", whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-steel px-6 py-3 text-[15px] font-semibold text-white"
+                className="inline-flex items-center gap-2 rounded-full bg-zinc-200 px-6 py-3 text-[15px] font-semibold text-black"
               >
                 <MessageCircle size={17} aria-hidden />
                 COTIZAR
