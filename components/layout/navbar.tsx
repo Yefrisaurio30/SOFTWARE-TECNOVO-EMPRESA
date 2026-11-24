@@ -58,7 +58,7 @@ export function Navbar() {
             )}
           />
         </Link>
-
+        
         <div className="hidden items-center gap-1 xl:flex">
           {LINKS.map((l) => (
             <Link
