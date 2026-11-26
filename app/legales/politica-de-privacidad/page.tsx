@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { LegalNote, LegalPage, LegalSection } from "@/components/legal/legal-page";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Política de Privacidad | TECNOVO",
   description:
     "Tratamiento de datos personales conforme a la Ley 1581 de 2012 (Habeas Data) y al Decreto 1377 de 2013.",
-};
+  path: "/legales/politica-de-privacidad",
+});
 
 export default function PrivacidadPage() {
   return (

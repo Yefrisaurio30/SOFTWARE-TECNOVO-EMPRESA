@@ -3,6 +3,9 @@ import Image from "next/image";
 import { requireAdmin } from "@/lib/admin";
 import { auth, signOut } from "@/lib/auth";
 import { Container } from "@/components/ui/section";
+import { privateMetadata } from "@/lib/seo";
+
+export const metadata = privateMetadata("Panel de administración | TECNOVO");
 
 const NAV = [
   { href: "/admin", label: "Panel" },

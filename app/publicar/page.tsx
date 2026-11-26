@@ -4,8 +4,9 @@ import { getListingQuota } from "@/lib/listings";
 import { purgeExpiredDrafts } from "@/lib/drafts";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { ListingForm } from "@/components/listing/listing-form";
+import { privateMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Publicar mi moto | TECNOVO" };
+export const metadata = privateMetadata("Publicar mi moto | TECNOVO");
 
 export default async function PublicarPage() {
   const session = await auth();

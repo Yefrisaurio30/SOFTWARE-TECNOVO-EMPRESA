@@ -7,11 +7,13 @@ import { formatCOP } from "@/lib/money";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { ProductImage } from "@/components/product/product-image";
 import { detailHref } from "@/components/product/product-card";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Comparar motos | TECNOVO",
   description: "Compara hasta 3 motos lado a lado: autonomía, potencia, precio y más.",
-};
+  path: "/comparar",
+});
 
 export default async function CompararPage({
   searchParams,

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { LegalNote, LegalPage, LegalSection, LegalWarning } from "@/components/legal/legal-page";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Derecho de Retracto y Reembolsos | TECNOVO",
   description:
     "Condiciones del derecho de retracto en compras en línea, conforme al artículo 47 de la Ley 1480 de 2011.",
-};
+  path: "/legales/derecho-de-retracto-y-reembolsos",
+});
 
 export default function RetractoPage() {
   return (

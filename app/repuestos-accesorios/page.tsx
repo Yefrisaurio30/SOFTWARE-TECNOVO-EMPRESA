@@ -7,11 +7,13 @@ import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { Pagination } from "@/components/catalog/pagination";
 import { EmptyState } from "@/components/catalog/empty-state";
 import { ProductCard } from "@/components/product/product-card";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Repuestos y accesorios | TECNOVO",
   description: "Baterías, llantas, frenos, cascos y accesorios compatibles con tu moto eléctrica.",
-};
+  path: "/repuestos-accesorios",
+});
 
 type SP = Record<string, string | string[] | undefined>;
 

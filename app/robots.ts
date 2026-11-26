@@ -1,15 +1,28 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const url = siteUrl();
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api", "/pedido", "/checkout", "/carrito", "/distribuidores/catalogo", "/distribuidores/pedidos"],
+        disallow: [
+          "/admin",
+          "/api",
+          "/pedido",
+          "/checkout",
+          "/carrito",
+          "/login",
+          "/registro",
+          "/mis-anuncios",
+          "/publicar",
+          "/distribuidores/catalogo",
+          "/distribuidores/pedidos",
+        ],
       },
     ],
-    sitemap: `${siteUrl}/sitemap.xml`,
+    sitemap: `${url}/sitemap.xml`,
   };
 }

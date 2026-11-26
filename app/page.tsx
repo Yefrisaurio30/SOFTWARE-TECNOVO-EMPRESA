@@ -10,14 +10,16 @@ import { SpecsSticky } from "@/components/home/specs-sticky";
 import { Locations } from "@/components/home/locations";
 import { SavingsCalculator } from "@/components/home/savings-calculator";
 import { TestRide } from "@/components/home/test-ride";
+import { jsonLd, pageMetadata, siteUrl } from "@/lib/seo";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "TECNOVO — Motos eléctricas, Motos de segunda y repuestos",
   description:
     "Motos eléctricas nuevas, motos de segunda mano, repuestos y accesorios con taller y garantía en Colombia.",
-};
+  path: "/",
+});
 
 export default async function Home() {
   const [gridModels, stickyModels, whatsapp, energy, warrantyYears, slides] =
@@ -33,8 +35,20 @@ export default async function Home() {
       }),
     ]);
 
+  const organizationLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "TECNOVO",
+    url: siteUrl(),
+    logo: `${siteUrl()}/brand/tecnovo-logo-verde.png`,
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(organizationLd) }}
+      />
       <HeroBanner initialSlides={slides} />
       <WhyTecnovo />
       <ModelGrid products={gridModels} />

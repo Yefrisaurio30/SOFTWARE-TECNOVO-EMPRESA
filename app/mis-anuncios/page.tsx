@@ -8,8 +8,9 @@ import { purgeExpiredDrafts } from "@/lib/drafts";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { ListingRow } from "@/components/listing/listing-row";
 import { MAX_LISTINGS_PER_DAY } from "@/lib/listing-validation";
+import { privateMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Mis anuncios | TECNOVO" };
+export const metadata = privateMetadata("Mis anuncios | TECNOVO");
 
 const SELECT = {
   id: true,

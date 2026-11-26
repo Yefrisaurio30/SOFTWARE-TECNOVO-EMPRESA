@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { LegalNote, LegalPage, LegalSection, LegalWarning } from "@/components/legal/legal-page";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Términos y Condiciones | TECNOVO",
   description:
     "Condiciones de uso de la tienda TECNOVO y alcance de la intermediación en publicaciones entre particulares.",
-};
+  path: "/legales/terminos-y-condiciones",
+});
 
 export default function TerminosPage() {
   return (

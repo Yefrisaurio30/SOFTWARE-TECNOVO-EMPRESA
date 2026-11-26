@@ -8,11 +8,13 @@ import { StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { Pagination } from "@/components/catalog/pagination";
 import { EmptyState } from "@/components/catalog/empty-state";
 import { ProductCard } from "@/components/product/product-card";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Buscar | TECNOVO",
   description: "Busca motos eléctricas, segunda mano, repuestos y accesorios.",
-};
+  path: "/buscar",
+});
 
 type SP = Record<string, string | string[] | undefined>;
 

@@ -7,12 +7,14 @@ import { formatCOP } from "@/lib/money";
 import { Container, Section, SectionHeading } from "@/components/ui/section";
 import { YouTubeEmbed } from "@/components/capacitacion/youtube-embed";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Capacitación | TECNOVO",
   description:
     "Cursos y guías para aprender a manejar, mantener y vender motos eléctricas TECNOVO.",
-};
+  path: "/capacitacion",
+});
 
 const dateFmt = new Intl.DateTimeFormat("es-CO", {
   day: "numeric",
