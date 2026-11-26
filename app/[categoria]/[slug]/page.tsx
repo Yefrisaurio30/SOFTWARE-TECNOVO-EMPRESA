@@ -174,7 +174,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             </div>
             <div className="mt-8">
               <h2 className="mb-3 text-lg font-semibold">Ficha técnica</h2>
-              <SpecsTable specs={specs} admin={isAdmin} />
+              <SpecsTable specs={specs} admin={isAdmin} isUsed={isUsed} />
             </div>
           </div>
         </div>
