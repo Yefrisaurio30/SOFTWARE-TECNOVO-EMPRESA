@@ -174,8 +174,8 @@ export function SpecsSticky({ products }: { products: Product[] }) {
                 whileHover={{ x: 6 }}
                 className="rounded-[24px] border border-white/10 bg-surface p-8"
               >
-                <p className="text-sm text-text-muted">{label}</p>
-                <p className="mt-1 text-4xl font-semibold tracking-tight md:text-5xl">{value}</p>
+                <p className="text-base sm:text-lg md:text-xl font-semibold text-text-muted mb-2">{label}</p>
+                <p className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl">{value}</p>
               </motion.div>
             ))}
           </div>
