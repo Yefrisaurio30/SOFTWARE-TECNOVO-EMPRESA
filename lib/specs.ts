@@ -1,5 +1,6 @@
 import type { Specs } from "@/lib/products";
 import { formatCOP } from "@/lib/money";
+import { INTERMEDIARY_PHONE } from "@/lib/intermediary";
 
 /**
  * Specs internas de cálculo (comisión del marketplace). Solo las ve el
@@ -19,7 +20,14 @@ export function isInternalSpec(key: string): boolean {
 export function publicSpecs(specs: Specs): Specs {
   const out: Specs = {};
   for (const [k, v] of Object.entries(specs)) {
-    if (!isInternalSpec(k)) out[k] = v;
+    if (isInternalSpec(k)) continue;
+    // En la vista pública el teléfono del vendedor se oculta y se muestra
+    // siempre el número fijo del intermediario.
+    if (k === "telefono") {
+      out[k] = INTERMEDIARY_PHONE;
+      continue;
+    }
+    out[k] = v;
   }
   return out;
 }

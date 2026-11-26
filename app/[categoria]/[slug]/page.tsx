@@ -12,6 +12,7 @@ import {
 import { formatCOP } from "@/lib/money";
 import { auth } from "@/lib/auth";
 import { getWhatsAppNumber } from "@/lib/site-settings";
+import { INTERMEDIARY_PHONE_DIGITS } from "@/lib/intermediary";
 import { DirectPurchaseButton } from "@/components/purchase/direct-purchase";
 import { Container } from "@/components/ui/section";
 import { AddToCartButton } from "@/components/cart/add-button";
@@ -164,7 +165,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               {available ? <AddToCartButton product={product} /> : null}
               <DirectPurchaseButton
                 product={{ name: product.name, price: product.priceRetail }}
-                number={await getWhatsAppNumber()}
+                number={isUsed ? INTERMEDIARY_PHONE_DIGITS : await getWhatsAppNumber()}
                 className="inline-flex items-center gap-2 rounded-full border border-black/15 px-7 py-3 text-[15px] font-semibold text-text transition hover:border-black/30 hover:scale-[1.02]"
               >
                 <MessageCircle size={18} aria-hidden />
